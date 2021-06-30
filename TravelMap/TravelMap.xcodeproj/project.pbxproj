@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C55CE732268C5F7700B1942C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE731268C5F7700B1942C /* MapView.swift */; };
 		C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05F82681BAD100057FE3 /* AppDelegate.swift */; };
 		C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
 		C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56B06012681BAD500057FE3 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C55CE731268C5F7700B1942C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C56B05F52681BAD100057FE3 /* TravelMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56B05F82681BAD100057FE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C56B05FC2681BAD100057FE3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +39,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C55CE72D268C5E9C00B1942C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C56B060C2681C40400057FE3 /* FirstViewController.swift */,
+				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
+				C56B060E2681C63F00057FE3 /* ThirdViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C55CE72E268C5EFC00B1942C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C55CE731268C5F7700B1942C /* MapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C55CE72F268C5F2C00B1942C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C55CE730268C5F3600B1942C /* Servicec */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Servicec;
+			sourceTree = "<group>";
+		};
 		C56B05EC2681BAD100057FE3 = {
 			isa = PBXGroup;
 			children = (
@@ -57,9 +91,10 @@
 			isa = PBXGroup;
 			children = (
 				C56B05F82681BAD100057FE3 /* AppDelegate.swift */,
-				C56B060C2681C40400057FE3 /* FirstViewController.swift */,
-				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
-				C56B060E2681C63F00057FE3 /* ThirdViewController.swift */,
+				C55CE730268C5F3600B1942C /* Servicec */,
+				C55CE72F268C5F2C00B1942C /* Model */,
+				C55CE72E268C5EFC00B1942C /* View */,
+				C55CE72D268C5E9C00B1942C /* Controller */,
 				C56B06012681BAD500057FE3 /* Assets.xcassets */,
 				C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */,
 				C56B06062681BAD500057FE3 /* Info.plist */,
@@ -138,6 +173,7 @@
 			files = (
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
 				C56B060D2681C40400057FE3 /* FirstViewController.swift in Sources */,
+				C55CE732268C5F7700B1942C /* MapView.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 			);
