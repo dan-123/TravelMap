@@ -27,10 +27,20 @@ class MapView: UIView {
     }()
     
     //тестовая метка
-    lazy var annotation: MKPointAnnotation = {
-        let annotation = MKPointAnnotation()
-        annotation.title = "Russia"
+//    lazy var annotation: MKPointAnnotation = {
+//        let annotation = MKPointAnnotation()
+//        annotation.title = "Russia"
+//        annotation.coordinate = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061) // Россия
+//        return annotation
+//    }()
+    
+    //тестовая кастомная метка
+    lazy var imageAnnotation: CustomAnnotation = {
+       let annotation = CustomAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061) // Россия
+        annotation.title = "Russia 2"
+        annotation.subtitle = "Subtitle"
+        annotation.imageOfCountry = "checkmark.circle.fill"
         return annotation
     }()
     
@@ -77,7 +87,12 @@ class MapView: UIView {
     }
     
     func setupAnnotation() {
-            mapView.showAnnotations([annotation], animated: true)
+//        mapView.showAnnotations([annotation], animated: true)
+//        mapView.addAnnotation(annotation)
+//        mapView.showAnnotations([imageAnnotation], animated: true)
+        
+        mapView.addAnnotation(imageAnnotation)
+        
 //        let annotationItem = MKMapItem(placemark: MKPlacemark(coordinate: c))
 //        mapView.addOverlay(annotationItem as! MKOverlay)
         }
@@ -110,10 +125,10 @@ extension MapView: MKMapViewDelegate {
         
         guard let latitude = view.annotation?.coordinate.latitude,
               let longitude = view.annotation?.coordinate.longitude else { return }
-        
+
         mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        
-        #warning("не рабюотает масштабирование")
+
+        #warning("не работает масштабирование")
         let latitudeDelta = latitude / 2
         let longitudeDelta = longitude / 2
         mapView.region.span.latitudeDelta = latitudeDelta
@@ -125,5 +140,24 @@ extension MapView: MKMapViewDelegate {
 //        print("mapView.region.span.latitudeDelta = \(mapView.region.span.latitudeDelta)")
 //        print("mapView.region.span.longitudeDelta = \(mapView.region.span.longitudeDelta)")
         
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? CustomAnnotation else {
+            return nil
+        }
+        let reuseId = "Country"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            annotationView?.canShowCallout = true
+            //                let data = NSData(contentsOf: URL(string: annotation.imageOfCountry!)!)
+            annotationView?.image = UIImage(systemName: annotation.imageOfCountry!)
+        }
+        else {
+            annotationView?.annotation = annotation
+        }
+
+        return annotationView
     }
 }

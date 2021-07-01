@@ -65,7 +65,6 @@ class MapViewController: UIViewController {
         var country: String?
         
         let alertConrtoller = UIAlertController(title: "Новая страна", message: "Добавление новой страны", preferredStyle: .alert)
-
         alertConrtoller.addTextField()
         let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
             let textField = alertConrtoller?.textFields?[0]
@@ -73,11 +72,11 @@ class MapViewController: UIViewController {
             print(country!)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        
         alertConrtoller.addAction(okAction)
         alertConrtoller.addAction(cancelAction)
-        
         present(alertConrtoller, animated: true)
+        
+        
     }
 }
 
