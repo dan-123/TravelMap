@@ -133,6 +133,11 @@ extension MapView: MKMapViewDelegate {
         let longitudeDelta = longitude / 2
         mapView.region.span.latitudeDelta = latitudeDelta
         mapView.region.span.longitudeDelta = longitudeDelta
+        
+//        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//        let span = MKCoordinateSpan(latitudeDelta: latitude/2, longitudeDelta: longitude/2)
+//        mapView.region = .init(center: center, span: span)
+        
 //        print("latitude = \(latitude)")
 //        print("longitude = \(longitude)")
 //        print("latitudeDelta = \(latitudeDelta)")

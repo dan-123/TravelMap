@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		C55CE732268C5F7700B1942C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE731268C5F7700B1942C /* MapView.swift */; };
 		C55CE734268DA48E00B1942C /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE733268DA48D00B1942C /* CustomAnnotation.swift */; };
-		C55CE738268DB98600B1942C /* AnnotationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE737268DB98600B1942C /* AnnotationModel.swift */; };
 		C55CE73A268DE0EF00B1942C /* CountryAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE739268DE0EF00B1942C /* CountryAnnotationView.swift */; };
+		C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73B268E07FE00B1942C /* NetworkService.swift */; };
+		C55CE73F268E09B100B1942C /* CountryCoordinateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73E268E09B100B1942C /* CountryCoordinateModel.swift */; };
+		C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE740268E0E5600B1942C /* NetworkServiceError.swift */; };
+		C55CE743268E0ED900B1942C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE742268E0ED900B1942C /* Constants.swift */; };
 		C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05F82681BAD100057FE3 /* AppDelegate.swift */; };
 		C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
 		C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56B06012681BAD500057FE3 /* Assets.xcassets */; };
@@ -22,8 +25,11 @@
 /* Begin PBXFileReference section */
 		C55CE731268C5F7700B1942C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C55CE733268DA48D00B1942C /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
-		C55CE737268DB98600B1942C /* AnnotationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationModel.swift; sourceTree = "<group>"; };
 		C55CE739268DE0EF00B1942C /* CountryAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryAnnotationView.swift; sourceTree = "<group>"; };
+		C55CE73B268E07FE00B1942C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		C55CE73E268E09B100B1942C /* CountryCoordinateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCoordinateModel.swift; sourceTree = "<group>"; };
+		C55CE740268E0E5600B1942C /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
+		C55CE742268E0ED900B1942C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C56B05F52681BAD100057FE3 /* TravelMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56B05F82681BAD100057FE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C56B05FC2681BAD100057FE3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -68,16 +74,18 @@
 		C55CE72F268C5F2C00B1942C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C55CE737268DB98600B1942C /* AnnotationModel.swift */,
+				C55CE73E268E09B100B1942C /* CountryCoordinateModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C55CE730268C5F3600B1942C /* Servicec */ = {
+		C55CE744268E153E00B1942C /* Servises */ = {
 			isa = PBXGroup;
 			children = (
+				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
+				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 			);
-			path = Servicec;
+			path = Servises;
 			sourceTree = "<group>";
 		};
 		C56B05EC2681BAD100057FE3 = {
@@ -100,7 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				C56B05F82681BAD100057FE3 /* AppDelegate.swift */,
-				C55CE730268C5F3600B1942C /* Servicec */,
+				C55CE742268E0ED900B1942C /* Constants.swift */,
+				C55CE744268E153E00B1942C /* Servises */,
 				C55CE72F268C5F2C00B1942C /* Model */,
 				C55CE72E268C5EFC00B1942C /* View */,
 				C55CE72D268C5E9C00B1942C /* Controller */,
@@ -182,12 +191,15 @@
 			files = (
 				C55CE73A268DE0EF00B1942C /* CountryAnnotationView.swift in Sources */,
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
+				C55CE73F268E09B100B1942C /* CountryCoordinateModel.swift in Sources */,
 				C56B060D2681C40400057FE3 /* FirstViewController.swift in Sources */,
 				C55CE734268DA48E00B1942C /* CustomAnnotation.swift in Sources */,
+				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
+				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
 				C55CE732268C5F7700B1942C /* MapView.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
-				C55CE738268DB98600B1942C /* AnnotationModel.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
+				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

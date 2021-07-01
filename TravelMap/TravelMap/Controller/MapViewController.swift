@@ -18,7 +18,8 @@ class MapViewController: UIViewController {
         return mapView
     }()
     
-    var annotationModel = AnnotationModel()
+    //переделать
+    var networkService = NetworkService()
     
     // MARK: - Lyfe cycle
     
@@ -71,7 +72,7 @@ class MapViewController: UIViewController {
             print(country!)
             // добавить проверку на правиьлность введеной страны
             guard let country = country else { return }
-            self.addCountryOnMap(country)
+            self.loadCountryCoordinate(for: country)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertConrtoller.addAction(okAction)
@@ -81,25 +82,69 @@ class MapViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func addCountryOnMap(_ country: String) {
-        #warning("добавление новой страны на карту")
-        annotationModel.countryName = country
-        //получить из сети
-        annotationModel.countryLatitude = 42.6384261
-        annotationModel.countryLongitude = 12.674297
-        addCountryAnnotation(title: country, latitude: 42.6384261, longitude: 12.674297)
+    private func loadCountryCoordinate(for country: String) {
+        self.networkService.getCountryCoordinate(countryName: country) { responce in
+            DispatchQueue.main.async {
+                switch responce {
+                case .success(let data):
+                    if data.features.isEmpty {
+                        self.showAlert(for: .country)
+                    } else {
+                        guard let country = data.features.first?.properties.country,
+                              let latitude = data.features.first?.properties.lat,
+                              let londitude = data.features.first?.properties.lon else {
+                            return
+                        }
+                        self.addCountryAnnotation(title: country, latitude: latitude, longitude: londitude)
+                        
+//                        print(data.features.first?.properties.country)
+//                        print(data.features.first?.properties.lat)
+//                        print(data.features.first?.properties.lon)
+//                        print(data.features.first?.bbox)
+                        
+                    }
+                case .failure(let error):
+                    self.showAlert(for: error)
+                }
+            }
+        }
+    }
+    
+    private func showAlert(for error: NetworkServiceError) {
+        let alert = UIAlertController(title: "Упс, что-то пошло не так",
+                                      message: message(for: error),
+                                      preferredStyle: .alert)
+        let buttonOk = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(buttonOk)
+        present(alert, animated: true)
+    }
+    
+    private func message(for error: NetworkServiceError) -> String {
+        switch error {
+        case .country:
+            return "Кажется вы ввели некоректное название страны"
+        case .network:
+            return "Запрос сформирован некоорректно"
+        case .unknown:
+            return "Неизвестная ошибка"
+        }
     }
     
     private func addCountryAnnotation(title: String, latitude: Double, longitude: Double) {
         let CountryAnnotation = CustomAnnotation()
         CountryAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude) // Италия
         CountryAnnotation.title = title
-        //        annotationCoutry.subtitle = "test"
         //достать картинку из сети
-        CountryAnnotation.imageOfCountry = "checkmark"
+        CountryAnnotation.imageOfCountry = "checkmark.square.fill"
         
         mapView.mapView.addAnnotation(CountryAnnotation)
-        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        // 6.6272658, 35.2889616, 18.7844746, 47.0921462
+        //        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        //        let rect = MKMapRect(x: 47, y: 6.6, width: 100, height: 100)
+        
+        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: latitude/2, longitudeDelta: longitude/2)
+        mapView.mapView.region = .init(center: center, span: span)
     }
     
     
