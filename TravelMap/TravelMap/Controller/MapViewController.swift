@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
+    
+    var annotationModel = AnnotationModel()
 
     // MARK: - Lyfe cycle
     
@@ -76,7 +78,19 @@ class MapViewController: UIViewController {
         alertConrtoller.addAction(cancelAction)
         present(alertConrtoller, animated: true)
         
+        #warning("добавление новой страны на карту")
+        annotationModel.countryName = country
+        annotationModel.countryLatitude = 42.6384261
+        annotationModel.countryLongitude = 12.674297
         
+        let annotationCoutry = CustomAnnotation()
+        annotationCoutry.coordinate = CLLocationCoordinate2D(latitude: annotationModel.countryLatitude!, longitude: annotationModel.countryLongitude!) // Италия
+        annotationCoutry.title = country
+        annotationCoutry.subtitle = "test"
+        annotationCoutry.imageOfCountry = "checkmark.circle.fill"
+        
+        mapView.mapView.addAnnotation(annotationCoutry)
+        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: annotationModel.countryLatitude!, longitude: annotationModel.countryLongitude!)
     }
 }
 
