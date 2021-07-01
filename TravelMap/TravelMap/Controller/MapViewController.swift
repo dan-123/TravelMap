@@ -53,6 +53,9 @@ class MapViewController: UIViewController {
         ])
     }
     
+    // MARK: - Methods
+    
+    
     // MARK: - Actions
     
     @objc private func addCountry() {
@@ -76,9 +79,6 @@ class MapViewController: UIViewController {
         
         present(alertConrtoller, animated: true)
     }
-    
-    // MARK: - Methods
-    
 }
 
 

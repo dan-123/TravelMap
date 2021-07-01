@@ -18,6 +18,9 @@ class MapView: UIView {
         
         mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(mapViewTapped))) // delegate
         mapView.delegate = self
+        mapView.showsCompass = false
+        mapView.isRotateEnabled = false
+        mapView.region.center = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
         return mapView
@@ -26,12 +29,21 @@ class MapView: UIView {
     //тестовая метка
     lazy var annotation: MKPointAnnotation = {
         let annotation = MKPointAnnotation()
-        
-        annotation.title = "Тестовая точка"
-//        annotation.coordinate = CLLocationCoordinate2D(latitude: 65.235214, longitude: 88.662736)
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 55.75115080026314, longitude: 37.614772693365) // москва
+        annotation.title = "Russia"
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061) // Россия
         return annotation
     }()
+    
+//    lazy var annotationView: MKMarkerAnnotationView = {
+//        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "test")
+//        annotationView.canShowCallout = true
+//        annotationView.animatesWhenAdded = true
+//        annotationView.glyphImage = UIImage(systemName: "checkmark.circle.fill")
+//        annotationView.glyphTintColor = .systemBlue
+//        annotationView.markerTintColor = .white
+//        annotationView.translatesAutoresizingMaskIntoConstraints = false
+//        return annotationView
+//    }()
     
     var annotations = [MKPointAnnotation]()
     
@@ -79,18 +91,14 @@ class MapView: UIView {
         let coordinate = mapView.convert(poin, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        
         annotations.append(annotation)
         mapView.addAnnotation(annotation)
-        
 //        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         
-        print("Метка создалась: \(annotations)")
+        print("Метка создалась")
     }
     
 }
-
-
 
 
 
@@ -99,6 +107,23 @@ class MapView: UIView {
 extension MapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("нажатие на метку")
+        
+        guard let latitude = view.annotation?.coordinate.latitude,
+              let longitude = view.annotation?.coordinate.longitude else { return }
+        
+        mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        #warning("не рабюотает масштабирование")
+        let latitudeDelta = latitude / 2
+        let longitudeDelta = longitude / 2
+        mapView.region.span.latitudeDelta = latitudeDelta
+        mapView.region.span.longitudeDelta = longitudeDelta
+//        print("latitude = \(latitude)")
+//        print("longitude = \(longitude)")
+//        print("latitudeDelta = \(latitudeDelta)")
+//        print("longitudeDelta = \(longitudeDelta)")
+//        print("mapView.region.span.latitudeDelta = \(mapView.region.span.latitudeDelta)")
+//        print("mapView.region.span.longitudeDelta = \(mapView.region.span.longitudeDelta)")
         
     }
 }
