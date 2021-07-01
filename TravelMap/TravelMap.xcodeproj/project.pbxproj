@@ -10,6 +10,7 @@
 		C55CE732268C5F7700B1942C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE731268C5F7700B1942C /* MapView.swift */; };
 		C55CE734268DA48E00B1942C /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE733268DA48D00B1942C /* CustomAnnotation.swift */; };
 		C55CE738268DB98600B1942C /* AnnotationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE737268DB98600B1942C /* AnnotationModel.swift */; };
+		C55CE73A268DE0EF00B1942C /* CountryAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE739268DE0EF00B1942C /* CountryAnnotationView.swift */; };
 		C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05F82681BAD100057FE3 /* AppDelegate.swift */; };
 		C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
 		C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56B06012681BAD500057FE3 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		C55CE731268C5F7700B1942C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C55CE733268DA48D00B1942C /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		C55CE737268DB98600B1942C /* AnnotationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationModel.swift; sourceTree = "<group>"; };
+		C55CE739268DE0EF00B1942C /* CountryAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryAnnotationView.swift; sourceTree = "<group>"; };
 		C56B05F52681BAD100057FE3 /* TravelMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56B05F82681BAD100057FE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C56B05FC2681BAD100057FE3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				C55CE731268C5F7700B1942C /* MapView.swift */,
 				C55CE733268DA48D00B1942C /* CustomAnnotation.swift */,
+				C55CE739268DE0EF00B1942C /* CountryAnnotationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C55CE73A268DE0EF00B1942C /* CountryAnnotationView.swift in Sources */,
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
 				C56B060D2681C40400057FE3 /* FirstViewController.swift in Sources */,
 				C55CE734268DA48E00B1942C /* CustomAnnotation.swift in Sources */,

@@ -146,11 +146,17 @@ extension MapView: MKMapViewDelegate {
         guard let annotation = annotation as? CustomAnnotation else {
             return nil
         }
+        
         let reuseId = "Country"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             annotationView?.canShowCallout = true
+//            let rightButton: AnyObject! = UIButton(type: UIButton.ButtonType.detailDisclosure)
+//            annotationView?.rightCalloutAccessoryView = rightButton as? UIView
+            let infoButton = UIButton(type: UIButton.ButtonType.detailDisclosure)
+            infoButton.addTarget(self, action: #selector(tapedInfoButton), for: .touchUpInside)
+            annotationView?.rightCalloutAccessoryView = infoButton
             //                let data = NSData(contentsOf: URL(string: annotation.imageOfCountry!)!)
             annotationView?.image = UIImage(systemName: annotation.imageOfCountry!)
         }
@@ -159,5 +165,9 @@ extension MapView: MKMapViewDelegate {
         }
 
         return annotationView
+    }
+    
+    @objc func tapedInfoButton() {
+        print("нажата кнопка информация")
     }
 }

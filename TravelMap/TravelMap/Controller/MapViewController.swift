@@ -11,7 +11,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     // MARK: - Properties
-        
+    
     lazy var mapView: MapView = {
         let mapView = MapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,7 +19,7 @@ class MapViewController: UIViewController {
     }()
     
     var annotationModel = AnnotationModel()
-
+    
     // MARK: - Lyfe cycle
     
     override func viewDidLoad() {
@@ -30,6 +30,7 @@ class MapViewController: UIViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        
     }
     
     // MARK: - UI
@@ -40,8 +41,8 @@ class MapViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = "Карта путешествий"
-        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(addCountry))
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addCountry))
+        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
@@ -55,14 +56,10 @@ class MapViewController: UIViewController {
         ])
     }
     
-    // MARK: - Methods
-    
-    
     // MARK: - Actions
     
-    @objc private func addCountry() {
+    @objc private func addNewCountry() {
         #warning("добавить список всех стран, с возможностью выбора")
-        
         print("добавление новой страны")
         var country: String?
         
@@ -72,26 +69,41 @@ class MapViewController: UIViewController {
             let textField = alertConrtoller?.textFields?[0]
             country = textField?.text
             print(country!)
+            // добавить проверку на правиьлность введеной страны
+            guard let country = country else { return }
+            self.addCountryOnMap(country)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertConrtoller.addAction(okAction)
         alertConrtoller.addAction(cancelAction)
         present(alertConrtoller, animated: true)
-        
+    }
+    
+    // MARK: - Methods
+    
+    private func addCountryOnMap(_ country: String) {
         #warning("добавление новой страны на карту")
         annotationModel.countryName = country
+        //получить из сети
         annotationModel.countryLatitude = 42.6384261
         annotationModel.countryLongitude = 12.674297
-        
-        let annotationCoutry = CustomAnnotation()
-        annotationCoutry.coordinate = CLLocationCoordinate2D(latitude: annotationModel.countryLatitude!, longitude: annotationModel.countryLongitude!) // Италия
-        annotationCoutry.title = country
-        annotationCoutry.subtitle = "test"
-        annotationCoutry.imageOfCountry = "checkmark.circle.fill"
-        
-        mapView.mapView.addAnnotation(annotationCoutry)
-        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: annotationModel.countryLatitude!, longitude: annotationModel.countryLongitude!)
+        addCountryAnnotation(title: country, latitude: 42.6384261, longitude: 12.674297)
     }
+    
+    private func addCountryAnnotation(title: String, latitude: Double, longitude: Double) {
+        let CountryAnnotation = CustomAnnotation()
+        CountryAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude) // Италия
+        CountryAnnotation.title = title
+        //        annotationCoutry.subtitle = "test"
+        //достать картинку из сети
+        CountryAnnotation.imageOfCountry = "checkmark"
+        
+        mapView.mapView.addAnnotation(CountryAnnotation)
+        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    
+    
 }
 
 
