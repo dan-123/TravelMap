@@ -2,60 +2,26 @@
 //  MapView.swift
 //  TravelMap
 //
-//  Created by Даниил Петров on 30.06.2021.
+//  Created by Даниил Петров on 02.07.2021.
 //
 
 import UIKit
 import MapKit
-import AudioToolbox
 
 class MapView: UIView {
     
     // MARK: - Properties
     
-    lazy var mapView: MKMapView = {
-        let mapView = MKMapView()
+    lazy var map: MKMapView = {
+        let map = MKMapView()
+
+        map.showsCompass = false
+        map.isRotateEnabled = false
+//        map.region.center = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061)
+        map.translatesAutoresizingMaskIntoConstraints = false
         
-        mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(mapViewTapped))) // delegate
-        mapView.delegate = self
-        mapView.showsCompass = false
-        mapView.isRotateEnabled = false
-        mapView.region.center = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return mapView
+        return map
     }()
-    
-    //тестовая метка
-//    lazy var annotation: MKPointAnnotation = {
-//        let annotation = MKPointAnnotation()
-//        annotation.title = "Russia"
-//        annotation.coordinate = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061) // Россия
-//        return annotation
-//    }()
-    
-    //тестовая кастомная метка
-    lazy var imageAnnotation: CustomAnnotation = {
-        let annotation = CustomAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061) // Россия
-        annotation.title = "Russia 2"
-        annotation.subtitle = "Subtitle"
-        annotation.imageOfCountry = "checkmark.circle.fill"
-        return annotation
-    }()
-    
-//    lazy var annotationView: MKMarkerAnnotationView = {
-//        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "test")
-//        annotationView.canShowCallout = true
-//        annotationView.animatesWhenAdded = true
-//        annotationView.glyphImage = UIImage(systemName: "checkmark.circle.fill")
-//        annotationView.glyphTintColor = .systemBlue
-//        annotationView.markerTintColor = .white
-//        annotationView.translatesAutoresizingMaskIntoConstraints = false
-//        return annotationView
-//    }()
-    
-    var annotations = [MKPointAnnotation]()
     
     // MARK: - Init
     
@@ -64,115 +30,54 @@ class MapView: UIView {
         
         setupElement()
         setupConstraint()
-        setupAnnotation()
+//        let latitude = 55.453699
+//        let longitude = 72.597645
+//        centerToLocation2(location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+//                          span: MKCoordinateSpan(latitudeDelta: latitude*2, longitudeDelta: longitude*2))
+        //        centerToLocation3(location: CLLocation(latitude: 42, longitude: 0), regionRadius: 3500000)
+        centerLocation()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - UI
     
     private func setupElement() {
-        addSubview(mapView)
+        addSubview(map)
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            mapView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+            map.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            map.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            map.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            map.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
     }
     
-    func setupAnnotation() {
-//        mapView.showAnnotations([annotation], animated: true)
-//        mapView.addAnnotation(annotation)
-//        mapView.showAnnotations([imageAnnotation], animated: true)
-        
-        mapView.addAnnotation(imageAnnotation)
-        
-//        let annotationItem = MKMapItem(placemark: MKPlacemark(coordinate: c))
-//        mapView.addOverlay(annotationItem as! MKOverlay)
-        }
+    // MARK: - Methods
     
-    // MARK: - Actions
+    private func centerLocation() {
+        let center = CLLocationCoordinate2D(latitude: Constants.InitialCoordinate.latitude,
+                                            longitude: Constants.InitialCoordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: Constants.InitialCoordinate.latitudeDelta,
+                                    longitudeDelta: Constants.InitialCoordinate.longitudeDelta)
+        let coordinateRegion = MKCoordinateRegion(center: center, span: span)
+        map.setRegion(coordinateRegion, animated: true)
+      }
     
-    @objc private func mapViewTapped(longGesture: UILongPressGestureRecognizer) {
-        print("нажатие на карту")
-        
-        let poin = longGesture.location(in: mapView) // self?
-        let coordinate = mapView.convert(poin, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        annotations.append(annotation)
-        mapView.addAnnotation(annotation)
-//        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-        
-        print("Метка создалась")
-    }
+    //    private func centerToLocation2(location: CLLocationCoordinate2D, span: MKCoordinateSpan) {
+    //        let coordinateRegion = MKCoordinateRegion(center: location, span: span)
+    //        map.setRegion(coordinateRegion, animated: true)
+    //      }
     
-}
-
-
-
-// MARK: - Extensions
-
-extension MapView: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("нажатие на метку")
+    //    private func centerToLocation3(location: CLLocation, regionRadius: CLLocationDistance) {
+    //        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+    //                                                  latitudinalMeters: regionRadius,
+    //                                                  longitudinalMeters: regionRadius)
+    //        map.setRegion(coordinateRegion, animated: true)
+    //      }
         
-        guard let latitude = view.annotation?.coordinate.latitude,
-              let longitude = view.annotation?.coordinate.longitude else { return }
-
-        mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-
-        #warning("не работает масштабирование")
-        let latitudeDelta = latitude / 2
-        let longitudeDelta = longitude / 2
-        mapView.region.span.latitudeDelta = latitudeDelta
-        mapView.region.span.longitudeDelta = longitudeDelta
-        
-//        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//        let span = MKCoordinateSpan(latitudeDelta: latitude/2, longitudeDelta: longitude/2)
-//        mapView.region = .init(center: center, span: span)
-        
-//        print("latitude = \(latitude)")
-//        print("longitude = \(longitude)")
-//        print("latitudeDelta = \(latitudeDelta)")
-//        print("longitudeDelta = \(longitudeDelta)")
-//        print("mapView.region.span.latitudeDelta = \(mapView.region.span.latitudeDelta)")
-//        print("mapView.region.span.longitudeDelta = \(mapView.region.span.longitudeDelta)")
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? CustomAnnotation else {
-            return nil
-        }
-        
-        let reuseId = "Country"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            annotationView?.canShowCallout = true
-//            let rightButton: AnyObject! = UIButton(type: UIButton.ButtonType.detailDisclosure)
-//            annotationView?.rightCalloutAccessoryView = rightButton as? UIView
-            let infoButton = UIButton(type: UIButton.ButtonType.detailDisclosure)
-            infoButton.addTarget(self, action: #selector(tapedInfoButton), for: .touchUpInside)
-            annotationView?.rightCalloutAccessoryView = infoButton
-            //                let data = NSData(contentsOf: URL(string: annotation.imageOfCountry!)!)
-            annotationView?.image = UIImage(systemName: annotation.imageOfCountry!)
-        }
-        else {
-            annotationView?.annotation = annotation
-        }
-
-        return annotationView
-    }
-    
-    @objc func tapedInfoButton() {
-        print("нажата кнопка информация")
-    }
 }

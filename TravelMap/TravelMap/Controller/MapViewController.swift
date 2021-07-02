@@ -32,6 +32,7 @@ class MapViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         
+        
     }
     
     // MARK: - UI
@@ -42,7 +43,7 @@ class MapViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = "Карта путешествий"
-        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
+        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
@@ -60,6 +61,7 @@ class MapViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func addNewCountry() {
+        viewAllCountry()
         #warning("добавить список всех стран, с возможностью выбора")
         print("добавление новой страны")
         var country: String?
@@ -78,6 +80,15 @@ class MapViewController: UIViewController {
         alertConrtoller.addAction(okAction)
         alertConrtoller.addAction(cancelAction)
         present(alertConrtoller, animated: true)
+    }
+    
+    @objc private func testFunc() {
+        print("test")
+        print("latitude \(mapView.map.region.center.latitude)")
+        print("longitude \(mapView.map.region.center.longitude)")
+        print("latitudeDelta \(mapView.map.region.span.latitudeDelta)")
+        print("longitudeDelta \(mapView.map.region.span.longitudeDelta)")
+        setCountryOnMap()
     }
     
     // MARK: - Methods
@@ -137,21 +148,46 @@ class MapViewController: UIViewController {
         //достать картинку из сети
         CountryAnnotation.imageOfCountry = "checkmark.square.fill"
         
-        mapView.mapView.addAnnotation(CountryAnnotation)
+        #warning("поменять")
+//        mapView.mapView.addAnnotation(CountryAnnotation)
+        
         // 6.6272658, 35.2889616, 18.7844746, 47.0921462
         //        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         //        let rect = MKMapRect(x: 47, y: 6.6, width: 100, height: 100)
         
         let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let span = MKCoordinateSpan(latitudeDelta: latitude/2, longitudeDelta: longitude/2)
-        mapView.mapView.region = .init(center: center, span: span)
+        #warning("поменять")
+//        mapView.mapView.region = .init(center: center, span: span)
     }
     
+    private func setCountryOnMap() {
+        navigationItem.title = "Italy"
+
+        let countryCenter = CLLocation(latitude: 42.6384261, longitude: 12.674297)
+        let region = MKCoordinateRegion(center: countryCenter.coordinate,
+                                        latitudinalMeters: 50000,
+                                        longitudinalMeters: 60000)
+        mapView.map.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 2000000)
+        mapView.map.setCameraZoomRange(zoomRange, animated: true)
+    }
     
+    private func viewAllCountry() {
+        navigationItem.title = "TravelMap"
+        
+        let center = CLLocation(latitude: Constants.InitialCoordinate.latitude,
+                                longitude: Constants.InitialCoordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: Constants.InitialCoordinate.latitudeDelta,
+                                    longitudeDelta: Constants.InitialCoordinate.longitudeDelta)
+        let region = MKCoordinateRegion(center: center.coordinate, span: span)
+        mapView.map.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
+        let zoomRange = MKMapView.CameraZoomRange()
+        mapView.map.setCameraZoomRange(zoomRange, animated: true)
+        mapView.map.setRegion(region, animated: true)
+    }
     
 }
 
 
 // MARK: - Extensions
-
-
