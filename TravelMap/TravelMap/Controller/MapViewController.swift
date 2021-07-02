@@ -111,7 +111,7 @@ class MapViewController: UIViewController {
     }
     
     private func showAlert(for error: NetworkServiceError) {
-        let alert = UIAlertController(title: "Упс, что-то пошло не так",
+        let alert = UIAlertController(title: "Что-то пошло не так",
                                       message: message(for: error),
                                       preferredStyle: .alert)
         let buttonOk = UIAlertAction(title: "OK", style: .default, handler: nil)

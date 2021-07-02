@@ -79,13 +79,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C55CE744268E153E00B1942C /* Servises */ = {
+		C55CE744268E153E00B1942C /* Serviсes */ = {
 			isa = PBXGroup;
 			children = (
 				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 			);
-			path = Servises;
+			path = "Serviсes";
 			sourceTree = "<group>";
 		};
 		C56B05EC2681BAD100057FE3 = {
@@ -109,7 +109,7 @@
 			children = (
 				C56B05F82681BAD100057FE3 /* AppDelegate.swift */,
 				C55CE742268E0ED900B1942C /* Constants.swift */,
-				C55CE744268E153E00B1942C /* Servises */,
+				C55CE744268E153E00B1942C /* Serviсes */,
 				C55CE72F268C5F2C00B1942C /* Model */,
 				C55CE72E268C5EFC00B1942C /* View */,
 				C55CE72D268C5E9C00B1942C /* Controller */,
