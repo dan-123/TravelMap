@@ -59,9 +59,6 @@ class MapViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func addNewCountry() {
-        viewCountryOnMap()
-        return
-        
         #warning("добавить список всех стран, с возможностью выбора")
         print("добавление новой страны")
         var country: String?
@@ -104,15 +101,30 @@ class MapViewController: UIViewController {
                     } else {
                         guard let country = data.features.first?.properties.country,
                               let latitude = data.features.first?.properties.lat,
-                              let londitude = data.features.first?.properties.lon else {
+                              let londitude = data.features.first?.properties.lon,
+                              let countryBorder = data.features.first?.bbox else {
                             return
                         }
-                        self.addCountryAnnotation(title: country, latitude: latitude, longitude: londitude)
                         
-//                        print(data.features.first?.properties.country)
-//                        print(data.features.first?.properties.lat)
-//                        print(data.features.first?.properties.lon)
-//                        print(data.features.first?.bbox)
+                        //ошибочные данные bbox от сервера для Франции
+                        if country == "France" {
+                            let countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
+                            self.viewCountryOnMap(country: country,
+                                                  latitude: latitude,
+                                                  longitude: londitude,
+                                                  countryBorder: countryBorder)
+                        } else {
+//                        self.addCountryAnnotation(title: country, latitude: latitude, longitude: londitude)
+                        self.viewCountryOnMap(country: country,
+                                              latitude: latitude,
+                                              longitude: londitude,
+                                              countryBorder: countryBorder)
+                        }
+                        
+                        print(data.features.first?.properties.country)
+                        print(data.features.first?.properties.lat)
+                        print(data.features.first?.properties.lon)
+                        print(data.features.first?.bbox)
                         
                     }
                 case .failure(let error):
@@ -162,39 +174,10 @@ class MapViewController: UIViewController {
 //        mapView.mapView.region = .init(center: center, span: span)
     }
     
-    private func viewCountryOnMap() {
-//        navigationItem.title = "Italy"
-//        let latitude = 42.6384261
-//        let longitude = 12.674297
-//        let countryBorder = [6.6272658, 35.2889616, 18.7844746, 47.0921462]
-//        //удалить
-//        let zoom = 2000000.0
-//
-//        navigationItem.title = "Russia"
-//        let latitude = 64.6863136
-//        let longitude = 97.7453061
-//        let countryBorder = [-180, 41.1850968, 180, 82.0586232]
-//        //удалить
-//        let zoom = 12500000.0
+    private func viewCountryOnMap(country: String, latitude: Double, longitude: Double, countryBorder: [Double]) {
+        navigationItem.title = country
         
-        navigationItem.title = "Monaco"
-        let latitude = 43.7323492
-        let longitude = 7.4276832
-        let countryBorder = [7.4090279, 43.5165358, 7.5329917, 43.7519311]
-        //удалить
-//        let zoom = 12500000.0
-        
-//        navigationItem.title = "Cyprus"
-//        let latitude = 34.9823018
-//        let longitude = 33.1451285
-//        let countryBorder = [32.0227581, 34.4383706, 34.8553182, 35.913252]
-//        //удалить
-//        let zoom = 1250000.0
-        
-        //удалить
-//        let square = latitudeDelta * longitudeDelta
-//        print("square \(square)")
-//
+        //перевод широты и долготы в метры
 //        let latitudinalMeters =  abs(countryBorder[3] - countryBorder[1]) * 111134.861111
 //        let longitudinalMeters = abs(countryBorder[2] - countryBorder[0]) * abs(cos(countryBorder[3])) * 111321.377778
 //        let squareMeters = latitudinalMeters * longitudinalMeters
@@ -204,8 +187,11 @@ class MapViewController: UIViewController {
         let latitudeDelta = abs(countryBorder[3] - countryBorder[1])*0.8
         let longitudeDelta = abs(countryBorder[2] - countryBorder[0])*0.8
         let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
-        let region = MKCoordinateRegion(center: countryCenter.coordinate, span: span)
         
+//        let square = latitudeDelta * longitudeDelta
+//        print("square \(square)")
+        
+        let region = MKCoordinateRegion(center: countryCenter.coordinate, span: span)
         mapView.map.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
         mapView.map.setRegion(region, animated: true)
     }
