@@ -17,6 +17,7 @@ class MapView: UIView {
 
         map.showsCompass = false
         map.isRotateEnabled = false
+        map.delegate = self
 //        map.region.center = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061)
         map.translatesAutoresizingMaskIntoConstraints = false
         
@@ -81,3 +82,31 @@ class MapView: UIView {
     //      }
         
 }
+
+// MARK: - Extensions
+
+extension MapView: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // 2
+        guard let annotation = annotation as? CustomAnnotation else {
+            return nil
+        }
+        // 3
+        let identifier = "customAnnotation"
+        var view: MKMarkerAnnotationView
+        // 4
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            // 5
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        return view
+    }
+}
+

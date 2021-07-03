@@ -31,6 +31,8 @@ class MapViewController: UIViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        
+        addGlobalAnnotation()
     }
     
     // MARK: - UI
@@ -155,7 +157,7 @@ class MapViewController: UIViewController {
     }
     
     private func addCountryAnnotation(title: String, latitude: Double, longitude: Double) {
-        let CountryAnnotation = CustomAnnotation()
+        let CountryAnnotation = CustomAnnotation2()
         CountryAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude) // Италия
         CountryAnnotation.title = title
         //достать картинку из сети
@@ -174,6 +176,7 @@ class MapViewController: UIViewController {
 //        mapView.mapView.region = .init(center: center, span: span)
     }
     
+    #warning("Новая реализация")
     private func viewCountryOnMap(country: String, latitude: Double, longitude: Double, countryBorder: [Double]) {
         navigationItem.title = country
         
@@ -196,6 +199,7 @@ class MapViewController: UIViewController {
         mapView.map.setRegion(region, animated: true)
     }
     
+    #warning("Новая реализация")
     private func viewAllCountry() {
         navigationItem.title = "TravelMap"
         
@@ -207,6 +211,19 @@ class MapViewController: UIViewController {
         
         mapView.map.cameraBoundary = MKMapView.CameraBoundary()
         mapView.map.setRegion(region, animated: true)
+    }
+    
+    #warning("Новая реализация")
+    private func addGlobalAnnotation() {
+        
+        let latitude = 38.9953683
+        let longitude = 21.9877132
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let title = "Greece"
+        let subtitle = "subtitle"
+        
+        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle)
+        mapView.map.addAnnotation(globalAnnotation)
     }
     
 }

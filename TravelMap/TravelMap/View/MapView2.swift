@@ -35,8 +35,8 @@ class MapView2: UIView {
 //    }()
     
     //тестовая кастомная метка
-    lazy var imageAnnotation: CustomAnnotation = {
-        let annotation = CustomAnnotation()
+    lazy var imageAnnotation: CustomAnnotation2 = {
+        let annotation = CustomAnnotation2()
         annotation.coordinate = CLLocationCoordinate2D(latitude: 64.6863136, longitude: 97.7453061) // Россия
         annotation.title = "Russia 2"
         annotation.subtitle = "Subtitle"
@@ -148,7 +148,7 @@ extension MapView2: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? CustomAnnotation else {
+        guard let annotation = annotation as? CustomAnnotation2 else {
             return nil
         }
         

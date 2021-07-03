@@ -2,22 +2,29 @@
 //  CustomAnnotation.swift
 //  TravelMap
 //
-//  Created by Даниил Петров on 01.07.2021.
+//  Created by Даниил Петров on 03.07.2021.
 //
 
-import UIKit
 import MapKit
 
 class CustomAnnotation: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
-    var title: String?
-    var subtitle: String?
-    var imageOfCountry: String?
+    let coordinate: CLLocationCoordinate2D
+    let title: String?
+    let subtitle: String?
     
-    override init() {
-        self.coordinate = CLLocationCoordinate2D()
-        self.title = nil
-        self.subtitle = nil
-        self.imageOfCountry = nil
+    init(
+        coordinate: CLLocationCoordinate2D,
+        title: String?,
+        subtitle: String?
+    ) {
+        self.title = title
+        self.subtitle = subtitle
+        self.coordinate = coordinate
+        
+        super.init()
     }
+    
+//    var subtitle: String? {
+//        return locationName
+//    }
 }
