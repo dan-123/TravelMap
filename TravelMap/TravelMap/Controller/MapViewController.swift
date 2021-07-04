@@ -32,6 +32,10 @@ class MapViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         
+        
+        mapView.map.register(CustomAnnotationVew.self,
+                             forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        
         addGlobalAnnotation()
     }
     
@@ -222,7 +226,7 @@ class MapViewController: UIViewController {
         let title = "Greece"
         let subtitle = "subtitle"
         
-        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle)
+        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .global)
         mapView.map.addAnnotation(globalAnnotation)
     }
     

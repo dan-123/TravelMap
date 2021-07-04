@@ -7,24 +7,46 @@
 
 import MapKit
 
+enum AnnotationType {
+    case global
+    case local
+}
+
 class CustomAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     let title: String?
     let subtitle: String?
+    let annotationType: AnnotationType?
     
-    init(
-        coordinate: CLLocationCoordinate2D,
-        title: String?,
-        subtitle: String?
-    ) {
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, annotationType: AnnotationType?) {
         self.title = title
         self.subtitle = subtitle
         self.coordinate = coordinate
-        
+        self.annotationType = annotationType
         super.init()
     }
     
-//    var subtitle: String? {
-//        return locationName
-//    }
+    // свойство для первого варианта из CustomAnnotationVew
+    var annotationTintColor: UIColor   {
+        switch annotationType {
+        case .global:
+            return .blue
+        case .local:
+            return .green
+        case .none:
+            return .black
+        }
+    }
+    
+    var image: UIImage {
+        #warning("force")
+        switch annotationType {
+        case .global:
+            return UIImage(systemName: "checkmark.circle.fill")!
+        case .local:
+            return UIImage(systemName: "exclamationmark.circle.fill")!
+        case .none:
+            return UIImage(systemName: "questionmark.circle.fill")!
+        }
+    }
 }
