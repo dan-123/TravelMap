@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import AudioToolbox
 
 class MapViewController: UIViewController {
     
@@ -32,11 +33,10 @@ class MapViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         
-        
         mapView.map.register(CustomAnnotationVew.self,
                              forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
-        addGlobalAnnotation()
+        mapView.map.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(mapViewTapped)))
     }
     
     // MARK: - UI
@@ -66,16 +66,14 @@ class MapViewController: UIViewController {
     
     @objc private func addNewCountry() {
         #warning("добавить список всех стран, с возможностью выбора")
-        print("добавление новой страны")
         var country: String?
         
         let alertConrtoller = UIAlertController(title: "Новая страна", message: "Добавление новой страны", preferredStyle: .alert)
         alertConrtoller.addTextField()
+        
         let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
             let textField = alertConrtoller?.textFields?[0]
             country = textField?.text
-            print(country!)
-            // добавить проверку на правиьлность введеной страны
             guard let country = country else { return }
             self.loadCountryCoordinate(for: country)
         }
@@ -86,13 +84,21 @@ class MapViewController: UIViewController {
     }
     
     @objc private func testFunc() {
-        print("test")
-        print("--- latitude \(mapView.map.region.center.latitude)")
-        print("--- longitude \(mapView.map.region.center.longitude)")
-        print("--- latitudeDelta \(mapView.map.region.span.latitudeDelta)")
-        print("--- longitudeDelta \(mapView.map.region.span.longitudeDelta)")
-        
         viewAllCountry()
+    }
+    
+    @objc private func mapViewTapped(longGesture: UILongPressGestureRecognizer) {
+        print("нажатие на карту")
+        
+        let poin = longGesture.location(in: mapView.map)
+        let coordinate = mapView.map.convert(poin, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+//        annotations.append(annotation)
+        addLocalAnnotation(coordinate: annotation.coordinate)
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        
+        print("Метка создалась")
     }
     
     // MARK: - Methods
@@ -119,19 +125,16 @@ class MapViewController: UIViewController {
                                                   latitude: latitude,
                                                   longitude: londitude,
                                                   countryBorder: countryBorder)
+                            
+                            self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
                         } else {
-//                        self.addCountryAnnotation(title: country, latitude: latitude, longitude: londitude)
-                        self.viewCountryOnMap(country: country,
-                                              latitude: latitude,
-                                              longitude: londitude,
-                                              countryBorder: countryBorder)
+                            self.viewCountryOnMap(country: country,
+                                                  latitude: latitude,
+                                                  longitude: londitude,
+                                                  countryBorder: countryBorder)
+                            
+                            self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
                         }
-                        
-                        print(data.features.first?.properties.country)
-                        print(data.features.first?.properties.lat)
-                        print(data.features.first?.properties.lon)
-                        print(data.features.first?.bbox)
-                        
                     }
                 case .failure(let error):
                     self.showAlert(for: error)
@@ -160,50 +163,23 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func addCountryAnnotation(title: String, latitude: Double, longitude: Double) {
-        let CountryAnnotation = CustomAnnotation2()
-        CountryAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude) // Италия
-        CountryAnnotation.title = title
-        //достать картинку из сети
-        CountryAnnotation.imageOfCountry = "checkmark.square.fill"
-        
-        #warning("поменять")
-//        mapView.mapView.addAnnotation(CountryAnnotation)
-        
-        // 6.6272658, 35.2889616, 18.7844746, 47.0921462
-        //        mapView.mapView.region.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        //        let rect = MKMapRect(x: 47, y: 6.6, width: 100, height: 100)
-        
-        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let span = MKCoordinateSpan(latitudeDelta: latitude/2, longitudeDelta: longitude/2)
-        #warning("поменять")
-//        mapView.mapView.region = .init(center: center, span: span)
-    }
+    // MARK: - Methods for map
     
-    #warning("Новая реализация")
     private func viewCountryOnMap(country: String, latitude: Double, longitude: Double, countryBorder: [Double]) {
         navigationItem.title = country
         
-        //перевод широты и долготы в метры
-//        let latitudinalMeters =  abs(countryBorder[3] - countryBorder[1]) * 111134.861111
-//        let longitudinalMeters = abs(countryBorder[2] - countryBorder[0]) * abs(cos(countryBorder[3])) * 111321.377778
-//        let squareMeters = latitudinalMeters * longitudinalMeters
-        
         let countryCenter = CLLocation(latitude: latitude, longitude: longitude)
         
+        //масштабирование
         let latitudeDelta = abs(countryBorder[3] - countryBorder[1])*0.8
         let longitudeDelta = abs(countryBorder[2] - countryBorder[0])*0.8
         let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
-        
-//        let square = latitudeDelta * longitudeDelta
-//        print("square \(square)")
         
         let region = MKCoordinateRegion(center: countryCenter.coordinate, span: span)
         mapView.map.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
         mapView.map.setRegion(region, animated: true)
     }
-    
-    #warning("Новая реализация")
+
     private func viewAllCountry() {
         navigationItem.title = "TravelMap"
         
@@ -216,18 +192,25 @@ class MapViewController: UIViewController {
         mapView.map.cameraBoundary = MKMapView.CameraBoundary()
         mapView.map.setRegion(region, animated: true)
     }
-    
-    #warning("Новая реализация")
-    private func addGlobalAnnotation() {
-        
-        let latitude = 38.9953683
-        let longitude = 21.9877132
+
+    private func addGlobalAnnotation(country: String, latitude: Double, longitude: Double) {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let title = "Greece"
-        let subtitle = "subtitle"
+        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country, subtitle: nil, annotationType: .global)
         
-        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .global)
         mapView.map.addAnnotation(globalAnnotation)
+    }
+    
+    //данные заполняются пользователем
+    private func addLocalAnnotation(coordinate: CLLocationCoordinate2D) {
+        
+//        let latitude = 30.9953683
+//        let longitude = 18.9877132
+//        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let title = "Local"
+        let subtitle = "local subtitle"
+        
+        let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .local)
+        mapView.map.addAnnotation(localAnnotation)
     }
     
 }
