@@ -11,13 +11,11 @@ class PointViewController: UIViewController {
     
     // MARK: - Properties
     
-    lazy var label: UILabel = {
-        let label = UILabel()
-        
-        label.text = "Информация о местах"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
+    lazy var pointTable: PointTableView = {
+        let table = PointTableView()
+        table.delegate = self
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
     }()
     
     
@@ -28,6 +26,7 @@ class PointViewController: UIViewController {
         
         setupElements()
         setupConstraint()
+        setupNavigationTools()
         
         view.backgroundColor = .systemBlue
     }
@@ -35,15 +34,30 @@ class PointViewController: UIViewController {
     // MARK: - UI
     
     func setupElements() {
-        view.addSubview(label)
+        view.addSubview(pointTable)
+    }
+    
+    private func setupNavigationTools() {
+        self.title = "Информация о местах"
+//        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedBackButton))
+//        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
     }
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+            pointTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            pointTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            pointTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            pointTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
+
+}
+
+extension PointViewController: PointTableViewDelegate {
+    func selectRow(viewController: UIViewController) {
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
 }
