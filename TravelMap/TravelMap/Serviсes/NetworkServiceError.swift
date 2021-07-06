@@ -7,6 +7,7 @@
 
 enum NetworkServiceError: Error {
     case country
+    case coordinate
     case network
     case unknown
 }

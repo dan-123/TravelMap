@@ -11,6 +11,7 @@ enum Constants {
     enum CountryCoordinate {
         static let type = "country"
         static let getContryCoordinate = "https://api.geoapify.com/v1/geocode/search?"
+        static let getAnnotationCoordinate = "https://api.geoapify.com/v1/geocode/reverse?"
     }
     
     enum InitialCoordinate {

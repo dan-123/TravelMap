@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let mapView = MapView()
+        mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
@@ -90,15 +91,20 @@ class MapViewController: UIViewController {
     @objc private func mapViewTapped(longGesture: UILongPressGestureRecognizer) {
         print("нажатие на карту")
         
+        //срабатывает после отпускания
+        guard longGesture.state == .ended else { return }
+        
         let poin = longGesture.location(in: mapView.map)
         let coordinate = mapView.map.convert(poin, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
 //        annotations.append(annotation)
+        
+//        checkAnnotationCoordinate(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         addLocalAnnotation(coordinate: annotation.coordinate)
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         
-        print("Метка создалась")
+//        print("Метка создалась")
     }
     
     // MARK: - Methods
@@ -143,6 +149,36 @@ class MapViewController: UIViewController {
         }
     }
     
+//    private func checkAnnotationCoordinate(latitude: Double, longitude: Double) {
+//        print(latitude)
+//        print(longitude)
+//        self.networkService.checkAnnotationCoordinate(latitude: latitude, longitude: longitude) { responce in
+//            DispatchQueue.main.async {
+//                switch responce {
+//                case .success(let data):
+//                    print(data.features.first?.properties.country)
+//                    let currentCountry = self.navigationItem.title
+//                    print("navigator \(self.navigationItem.title)")
+//                    print(latitude)
+//                    print(longitude)
+//                    if data.features.first?.properties.country != currentCountry {
+//                        self.showAlert(for: .coordinate)
+//                        print("failure coordinate")
+//                    } else {
+//                        print("OK")
+//                        let annotation = CLLocationCoordinate2D(latitude: latitude,
+//                                                                longitude: longitude)
+//                        self.addLocalAnnotation(coordinate: annotation)
+//                        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+//                    }
+//                case .failure(let error):
+//                    print("failure \(error.localizedDescription)")
+//                    self.showAlert(for: error)
+//                }
+//            }
+//        }
+//    }
+    
     private func showAlert(for error: NetworkServiceError) {
         let alert = UIAlertController(title: "Что-то пошло не так",
                                       message: message(for: error),
@@ -156,6 +192,8 @@ class MapViewController: UIViewController {
         switch error {
         case .country:
             return "Кажется вы ввели некоректное название страны"
+        case .coordinate:
+            return "Данная точка не соответсвует выбранной стране"
         case .network:
             return "Запрос сформирован некоорректно"
         case .unknown:
@@ -176,6 +214,8 @@ class MapViewController: UIViewController {
         let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
         
         let region = MKCoordinateRegion(center: countryCenter.coordinate, span: span)
+        
+        //view
         mapView.map.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
         mapView.map.setRegion(region, animated: true)
     }
@@ -189,6 +229,7 @@ class MapViewController: UIViewController {
                                     longitudeDelta: Constants.InitialCoordinate.longitudeDelta)
         let region = MKCoordinateRegion(center: center.coordinate, span: span)
         
+        //view
         mapView.map.cameraBoundary = MKMapView.CameraBoundary()
         mapView.map.setRegion(region, animated: true)
     }
@@ -197,6 +238,7 @@ class MapViewController: UIViewController {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country, subtitle: nil, annotationType: .global)
         
+        //view
         mapView.map.addAnnotation(globalAnnotation)
     }
     
@@ -210,6 +252,8 @@ class MapViewController: UIViewController {
         let subtitle = "local subtitle"
         
         let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .local)
+        
+        //view
         mapView.map.addAnnotation(localAnnotation)
     }
     
@@ -217,3 +261,11 @@ class MapViewController: UIViewController {
 
 
 // MARK: - Extensions
+
+extension MapViewController: MapViewDelegate {
+    func tapOnInformation() {
+        print("второй раз нажал")
+        tabBarController?.selectedIndex = 0
+    }
+    
+}

@@ -8,16 +8,22 @@
 import UIKit
 import MapKit
 
+protocol MapViewDelegate: AnyObject {
+    func tapOnInformation()
+}
+
 class MapView: UIView {
     
     // MARK: - Properties
+
+    weak var delegate: MapViewDelegate?
     
     lazy var map: MKMapView = {
         let map = MKMapView()
 
         map.showsCompass = false
         map.isRotateEnabled = false
-//        map.delegate = self
+        map.delegate = self
         map.translatesAutoresizingMaskIntoConstraints = false
         
         return map
@@ -67,23 +73,22 @@ class MapView: UIView {
 
 // MARK: - Extensions
 
-//extension MapView: MKMapViewDelegate {
-//
-//    нажатие на метку
-//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//
-//        guard let latitude = view.annotation?.coordinate.latitude,
-//              let longitude = view.annotation?.coordinate.longitude else { return }
-//
-//
-//    }
-//
-//    нажатие на кнопку внутри метки
-//    extension MapView: MKMapViewDelegate {
-//        func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//            guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
-//
-//        }
-//    }
-//}
+extension MapView: MKMapViewDelegate {
+    
+    //    нажатие на метку
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        guard let latitude = view.annotation?.coordinate.latitude,
+              let longitude = view.annotation?.coordinate.longitude else { return }
+        
+        
+    }
+    
+    //    нажатие на кнопку внутри метки
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
+        print("нажата информация")
+        delegate?.tapOnInformation()
+    }
+}
 
