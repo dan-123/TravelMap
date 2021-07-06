@@ -64,9 +64,7 @@
 		C55CE72E268C5EFC00B1942C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C5640E2A268F34BE00F8DB8A /* MapView.swift */,
-				C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */,
-				C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */,
+				C5640EB62694717500F8DB8A /* MapView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -86,6 +84,16 @@
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 			);
 			path = "Serviсes";
+			sourceTree = "<group>";
+		};
+		C5640EB62694717500F8DB8A /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				C5640E2A268F34BE00F8DB8A /* MapView.swift */,
+				C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */,
+				C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		C56B05EC2681BAD100057FE3 = {
