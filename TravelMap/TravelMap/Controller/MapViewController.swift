@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
     //переделать
     var networkService = NetworkService()
     
+    
     // MARK: - Lyfe cycle
     
     override func viewDidLoad() {
@@ -131,7 +132,6 @@ class MapViewController: UIViewController {
                                                   latitude: latitude,
                                                   longitude: londitude,
                                                   countryBorder: countryBorder)
-                            
                             self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
                         } else {
                             self.viewCountryOnMap(country: country,
@@ -263,9 +263,15 @@ class MapViewController: UIViewController {
 // MARK: - Extensions
 
 extension MapViewController: MapViewDelegate {
-    func tapOnInformation() {
-        print("второй раз нажал")
-        tabBarController?.selectedIndex = 0
+    func tappedGlobalAnnotation(latitude: Double, longitude: Double) {
+        let country = "france"
+        let countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
+        viewCountryOnMap(country: country, latitude: latitude, longitude: longitude, countryBorder: countryBorder)
     }
     
+    func tappedLocalInformationButton(latitude: Double, longitude: Double) {
+        tabBarController?.selectedIndex = 0
+        print("annotation latitude: \(latitude)")
+        print("annotation longitude: \(longitude)")
+    }
 }
