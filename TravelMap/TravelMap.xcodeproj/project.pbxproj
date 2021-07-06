@@ -18,7 +18,7 @@
 		C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
 		C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56B06012681BAD500057FE3 /* Assets.xcassets */; };
 		C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */; };
-		C56B060D2681C40400057FE3 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* FirstViewController.swift */; };
+		C56B060D2681C40400057FE3 /* PointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* PointViewController.swift */; };
 		C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* ThirdViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +36,7 @@
 		C56B06012681BAD500057FE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C56B06042681BAD500057FE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C56B06062681BAD500057FE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C56B060C2681C40400057FE3 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		C56B060C2681C40400057FE3 /* PointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewController.swift; sourceTree = "<group>"; };
 		C56B060E2681C63F00057FE3 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,7 +54,7 @@
 		C55CE72D268C5E9C00B1942C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C56B060C2681C40400057FE3 /* FirstViewController.swift */,
+				C56B060C2681C40400057FE3 /* PointViewController.swift */,
 				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
 				C56B060E2681C63F00057FE3 /* ThirdViewController.swift */,
 			);
@@ -201,7 +201,7 @@
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
 				C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CountryCoordinateModel.swift in Sources */,
-				C56B060D2681C40400057FE3 /* FirstViewController.swift in Sources */,
+				C56B060D2681C40400057FE3 /* PointViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,

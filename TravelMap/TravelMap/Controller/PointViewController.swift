@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  PointViewController.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 22.06.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class PointViewController: UIViewController {
     
     // MARK: - Properties
     

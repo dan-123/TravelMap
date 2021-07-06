@@ -18,18 +18,18 @@ var window: UIWindow?
         let item2 = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 1)
         let item3 = UITabBarItem.init(tabBarSystemItem: .downloads, tag: 1)
         
-        let firstViewController = FirstViewController()
-        firstViewController.tabBarItem = item1
+        let pointViewController = UINavigationController.init(rootViewController: PointViewController())
+        pointViewController.tabBarItem = item1
         
-        let rootVIewController = MapViewController()
-        let navigationController = UINavigationController.init(rootViewController: rootVIewController)
-        navigationController.tabBarItem = item2
+        let mapViewConroller = UINavigationController.init(rootViewController: MapViewController())
+        mapViewConroller.tabBarItem = item2
         
         let thirdViewController = ThirdViewController()
         thirdViewController.tabBarItem = item3
         
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [firstViewController, navigationController, thirdViewController]
+        tabBar.viewControllers = [pointViewController, mapViewConroller, thirdViewController]
+        tabBar.selectedIndex = 1
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBar
