@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PlaceViewController: UIInputViewController {
+class PlaceViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -26,6 +26,7 @@ class PlaceViewController: UIInputViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        view.backgroundColor = .systemBackground
         
         placeLabel.text = placeLabelText
     }

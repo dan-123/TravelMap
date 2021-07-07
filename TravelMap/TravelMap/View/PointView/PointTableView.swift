@@ -22,6 +22,7 @@ class PointTableView: UIView {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .systemBackground
         tableView.register(PointCell.self, forCellReuseIdentifier: PointCell.indentifirer)
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false

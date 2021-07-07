@@ -23,6 +23,9 @@ class MapViewController: UIViewController {
     //переделать
     var networkService = NetworkService()
     
+    //словарь
+    var globalAnnotation = [String: [CountryCoordinateModel]]()
+    
     
     // MARK: - Lyfe cycle
     
@@ -132,6 +135,7 @@ class MapViewController: UIViewController {
                                                   latitude: latitude,
                                                   longitude: londitude,
                                                   countryBorder: countryBorder)
+                            self.globalAnnotation[country] = [data]
                             self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
                         } else {
                             self.viewCountryOnMap(country: country,
@@ -139,6 +143,7 @@ class MapViewController: UIViewController {
                                                   longitude: londitude,
                                                   countryBorder: countryBorder)
                             
+                            self.globalAnnotation[country] = [data]
                             self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
                         }
                     }

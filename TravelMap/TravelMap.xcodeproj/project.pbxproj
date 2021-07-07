@@ -60,8 +60,8 @@
 		C55CE72D268C5E9C00B1942C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C56B060C2681C40400057FE3 /* PointViewController.swift */,
 				C5640EBC26947EBB00F8DB8A /* PlaceViewController.swift */,
+				C56B060C2681C40400057FE3 /* PointViewController.swift */,
 				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
 				C56B060E2681C63F00057FE3 /* ThirdViewController.swift */,
 			);
@@ -71,6 +71,7 @@
 		C55CE72E268C5EFC00B1942C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C5640EBE2694879D00F8DB8A /* PlaceView */,
 				C5640EB72694760900F8DB8A /* PointView */,
 				C5640EB62694717500F8DB8A /* MapView */,
 			);
@@ -111,6 +112,13 @@
 				C5640EB82694762800F8DB8A /* PointTableView.swift */,
 			);
 			path = PointView;
+			sourceTree = "<group>";
+		};
+		C5640EBE2694879D00F8DB8A /* PlaceView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlaceView;
 			sourceTree = "<group>";
 		};
 		C56B05EC2681BAD100057FE3 = {
