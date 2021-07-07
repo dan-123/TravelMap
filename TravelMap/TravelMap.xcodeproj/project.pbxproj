@@ -23,7 +23,18 @@
 		C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */; };
 		C56B060D2681C40400057FE3 /* PointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* PointViewController.swift */; };
 		C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* ThirdViewController.swift */; };
+		C58CD624269618DC00C15802 /* TravelMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD623269618DC00C15802 /* TravelMapUITests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C58CD626269618DC00C15802 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C56B05ED2681BAD100057FE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56B05F42681BAD100057FE3;
+			remoteInfo = TravelMap;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C55CE73B268E07FE00B1942C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -44,10 +55,20 @@
 		C56B06062681BAD500057FE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C56B060C2681C40400057FE3 /* PointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewController.swift; sourceTree = "<group>"; };
 		C56B060E2681C63F00057FE3 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		C58CD621269618DC00C15802 /* TravelMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C58CD623269618DC00C15802 /* TravelMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapUITests.swift; sourceTree = "<group>"; };
+		C58CD625269618DC00C15802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C56B05F22681BAD100057FE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C58CD61E269618DC00C15802 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				C56B05F72681BAD100057FE3 /* TravelMap */,
+				C58CD622269618DC00C15802 /* TravelMapUITests */,
 				C56B05F62681BAD100057FE3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -133,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				C56B05F52681BAD100057FE3 /* TravelMap.app */,
+				C58CD621269618DC00C15802 /* TravelMapUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +174,15 @@
 				C56B06062681BAD500057FE3 /* Info.plist */,
 			);
 			path = TravelMap;
+			sourceTree = "<group>";
+		};
+		C58CD622269618DC00C15802 /* TravelMapUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD623269618DC00C15802 /* TravelMapUITests.swift */,
+				C58CD625269618DC00C15802 /* Info.plist */,
+			);
+			path = TravelMapUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +205,24 @@
 			productReference = C56B05F52681BAD100057FE3 /* TravelMap.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C58CD620269618DC00C15802 /* TravelMapUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C58CD62A269618DC00C15802 /* Build configuration list for PBXNativeTarget "TravelMapUITests" */;
+			buildPhases = (
+				C58CD61D269618DC00C15802 /* Sources */,
+				C58CD61E269618DC00C15802 /* Frameworks */,
+				C58CD61F269618DC00C15802 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C58CD627269618DC00C15802 /* PBXTargetDependency */,
+			);
+			name = TravelMapUITests;
+			productName = TravelMapUITests;
+			productReference = C58CD621269618DC00C15802 /* TravelMapUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +234,10 @@
 				TargetAttributes = {
 					C56B05F42681BAD100057FE3 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					C58CD620269618DC00C15802 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = C56B05F42681BAD100057FE3;
 					};
 				};
 			};
@@ -201,6 +255,7 @@
 			projectRoot = "";
 			targets = (
 				C56B05F42681BAD100057FE3 /* TravelMap */,
+				C58CD620269618DC00C15802 /* TravelMapUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -212,6 +267,13 @@
 			files = (
 				C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */,
 				C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C58CD61F269618DC00C15802 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +301,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C58CD61D269618DC00C15802 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C58CD624269618DC00C15802 /* TravelMapUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C58CD627269618DC00C15802 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56B05F42681BAD100057FE3 /* TravelMap */;
+			targetProxy = C58CD626269618DC00C15802 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */ = {
@@ -409,6 +487,44 @@
 			};
 			name = Release;
 		};
+		C58CD628269618DC00C15802 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H673K7QQPB;
+				INFOPLIST_FILE = TravelMapUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Danil-Petrov.TravelMapUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TravelMap;
+			};
+			name = Debug;
+		};
+		C58CD629269618DC00C15802 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H673K7QQPB;
+				INFOPLIST_FILE = TravelMapUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Danil-Petrov.TravelMapUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TravelMap;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -426,6 +542,15 @@
 			buildConfigurations = (
 				C56B060A2681BAD500057FE3 /* Debug */,
 				C56B060B2681BAD500057FE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C58CD62A269618DC00C15802 /* Build configuration list for PBXNativeTarget "TravelMapUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C58CD628269618DC00C15802 /* Debug */,
+				C58CD629269618DC00C15802 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

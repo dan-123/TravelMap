@@ -29,7 +29,7 @@ var window: UIWindow?
         
         let tabBar = UITabBarController()
         tabBar.viewControllers = [pointViewController, mapViewConroller, thirdViewController]
-        tabBar.selectedIndex = 1
+        tabBar.selectedIndex = 2
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBar
