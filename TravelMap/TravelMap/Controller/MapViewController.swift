@@ -22,9 +22,10 @@ class MapViewController: UIViewController {
     
     //переделать
     var networkService = NetworkService()
+    var globalAnnotation = GlobalAnnotation()
     
     //словарь
-    var globalAnnotation = [String: [CountryCoordinateModel]]()
+//    var globalAnnotation = [String: [CountryCoordinateModel]]()
     
     
     // MARK: - Lyfe cycle
@@ -70,16 +71,12 @@ class MapViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func addNewCountry() {
-        #warning("добавить список всех стран, с возможностью выбора")
-        var country: String?
-        
         let alertConrtoller = UIAlertController(title: "Новая страна", message: "Добавление новой страны", preferredStyle: .alert)
         alertConrtoller.addTextField()
         
         let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
-            let textField = alertConrtoller?.textFields?[0]
-            country = textField?.text
-            guard let country = country else { return }
+            let textField = alertConrtoller?.textFields?.first
+            guard let country = textField?.text else { return }
             self.loadCountryCoordinate(for: country)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
@@ -123,7 +120,7 @@ class MapViewController: UIViewController {
                     } else {
                         guard let country = data.features.first?.properties.country,
                               let latitude = data.features.first?.properties.lat,
-                              let londitude = data.features.first?.properties.lon,
+                              let longitude = data.features.first?.properties.lon,
                               let countryBorder = data.features.first?.bbox else {
                             return
                         }
@@ -131,26 +128,44 @@ class MapViewController: UIViewController {
                         //ошибочные данные bbox от сервера для Франции
                         if country == "France" {
                             let countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
-                            self.viewCountryOnMap(country: country,
-                                                  latitude: latitude,
-                                                  longitude: londitude,
-                                                  countryBorder: countryBorder)
-                            self.globalAnnotation[country] = [data]
-                            self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
-                        } else {
-                            self.viewCountryOnMap(country: country,
-                                                  latitude: latitude,
-                                                  longitude: londitude,
-                                                  countryBorder: countryBorder)
                             
-                            self.globalAnnotation[country] = [data]
-                            self.addGlobalAnnotation(country: country, latitude: latitude, longitude: londitude)
+                            #warning("временное решение")
+                            self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
+                            
+                            //отборажение страны на карте
+                            self.viewCountryOnMap(country, latitude, longitude, countryBorder)
+                            
+                        } else {
+                            #warning("временное решение")
+                            self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
+                            
+                            //отборажение страны на карте
+                            self.viewCountryOnMap(country, latitude, longitude, countryBorder)
                         }
+//                        print("country: \(self.globalAnnotation.globalAnnotation)")
                     }
                 case .failure(let error):
                     self.showAlert(for: error)
                 }
             }
+        }
+    }
+    
+    private func checkAndAddAnnotationOnMap(_ country: String, _ latitude: Double, _ longitude: Double, _ countryBorder: [Double]) {
+        //проверка на наличие страны на карте
+        if self.globalAnnotation.globalAnnotation[country] != nil {
+            self.showAlert(for: .repeatCountry)
+        } else {
+            
+            //добавление в словарь
+            self.globalAnnotation.globalAnnotation[country] = [latitude,
+                                                               longitude,
+                                                               countryBorder[0],
+                                                               countryBorder[1],
+                                                               countryBorder[2],
+                                                               countryBorder[3]]
+            //добавление аннотации на карту
+            self.addGlobalAnnotation(country, latitude, longitude)
         }
     }
     
@@ -197,6 +212,8 @@ class MapViewController: UIViewController {
         switch error {
         case .country:
             return "Кажется вы ввели некоректное название страны"
+        case .repeatCountry:
+            return "Вы уже добаляли эту страну ранее"
         case .coordinate:
             return "Данная точка не соответсвует выбранной стране"
         case .network:
@@ -208,7 +225,7 @@ class MapViewController: UIViewController {
     
     // MARK: - Methods for map
     
-    private func viewCountryOnMap(country: String, latitude: Double, longitude: Double, countryBorder: [Double]) {
+    private func viewCountryOnMap(_ country: String, _ latitude: Double, _ longitude: Double, _ countryBorder: [Double]) {
         navigationItem.title = country
         
         let countryCenter = CLLocation(latitude: latitude, longitude: longitude)
@@ -239,7 +256,7 @@ class MapViewController: UIViewController {
         mapView.map.setRegion(region, animated: true)
     }
 
-    private func addGlobalAnnotation(country: String, latitude: Double, longitude: Double) {
+    private func addGlobalAnnotation(_ country: String, _ latitude: Double, _ longitude: Double) {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country, subtitle: nil, annotationType: .global)
         
@@ -268,10 +285,18 @@ class MapViewController: UIViewController {
 // MARK: - Extensions
 
 extension MapViewController: MapViewDelegate {
-    func tappedGlobalAnnotation(latitude: Double, longitude: Double) {
-        let country = "france"
-        let countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
-        viewCountryOnMap(country: country, latitude: latitude, longitude: longitude, countryBorder: countryBorder)
+    func tappedGlobalAnnotation(country: String) {
+        #warning("временное решение")
+        guard let countryInfo = globalAnnotation.globalAnnotation[country] else { return }
+        
+        let latitude = countryInfo[0]
+        let longitude = countryInfo[1]
+        let countryBorder = [countryInfo[2],
+                             countryInfo[3],
+                             countryInfo[4],
+                             countryInfo[5]]
+        
+        viewCountryOnMap(country, latitude, longitude, countryBorder)
     }
     
     func tappedLocalInformationButton(latitude: Double, longitude: Double) {

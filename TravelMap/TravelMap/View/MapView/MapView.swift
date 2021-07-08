@@ -11,7 +11,7 @@ import MapKit
 protocol MapViewDelegate: AnyObject {
     func tappedLocalInformationButton(latitude: Double, longitude: Double)
     //addGlobal
-    func tappedGlobalAnnotation(latitude: Double, longitude: Double)
+    func tappedGlobalAnnotation(country: String)
     //addLocal
 }
 
@@ -81,8 +81,9 @@ extension MapView: MKMapViewDelegate {
     //    нажатие на метку
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
-        delegate?.tappedGlobalAnnotation(latitude: customAnnotation.coordinate.latitude,
-                                         longitude: customAnnotation.coordinate.longitude)
+        
+        guard let country = customAnnotation.title else { return }
+        delegate?.tappedGlobalAnnotation(country: country)
     }
     
     //    нажатие на кнопку внутри метки

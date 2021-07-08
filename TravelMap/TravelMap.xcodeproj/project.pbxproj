@@ -23,6 +23,7 @@
 		C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */; };
 		C56B060D2681C40400057FE3 /* PointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* PointViewController.swift */; };
 		C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* ThirdViewController.swift */; };
+		C58CD62C2696D83700C15802 /* GlobalAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62B2696D83700C15802 /* GlobalAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C56B06062681BAD500057FE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C56B060C2681C40400057FE3 /* PointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewController.swift; sourceTree = "<group>"; };
 		C56B060E2681C63F00057FE3 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		C58CD62B2696D83700C15802 /* GlobalAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				C55CE73E268E09B100B1942C /* CountryCoordinateModel.swift */,
+				C58CD62B2696D83700C15802 /* GlobalAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
+				C58CD62C2696D83700C15802 /* GlobalAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
