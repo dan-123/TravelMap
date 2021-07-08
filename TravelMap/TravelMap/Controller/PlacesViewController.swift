@@ -1,5 +1,5 @@
 //
-//  PointViewController.swift
+//  PlacesViewController.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 22.06.2021.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-class PointViewController: UIViewController {
+class PlacesViewController: UIViewController {
     
     // MARK: - Properties
     
-    lazy var pointTable: PointTableView = {
-        let table = PointTableView()
+    lazy var placesTable: PlacesTableView = {
+        let table = PlacesTableView()
         table.delegate = self
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
@@ -34,7 +34,7 @@ class PointViewController: UIViewController {
     // MARK: - UI
     
     func setupElements() {
-        view.addSubview(pointTable)
+        view.addSubview(placesTable)
     }
     
     private func setupNavigationTools() {
@@ -45,16 +45,16 @@ class PointViewController: UIViewController {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            pointTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            pointTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            pointTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            pointTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            placesTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            placesTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            placesTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            placesTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
 
 }
 
-extension PointViewController: PointTableViewDelegate {
+extension PlacesViewController: PlacesTableViewDelegate {
     func selectRow(viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
     }

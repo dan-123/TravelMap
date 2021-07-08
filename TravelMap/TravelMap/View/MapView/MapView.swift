@@ -10,9 +10,9 @@ import MapKit
 
 protocol MapViewDelegate: AnyObject {
     func tappedLocalInformationButton(latitude: Double, longitude: Double)
-    //addGlobal
+    func tappedGlobalInformationButton(country: String)
+
     func tappedGlobalAnnotation(country: String)
-    //addLocal
 }
 
 class MapView: UIView {
@@ -82,17 +82,24 @@ extension MapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
         
-        guard let country = customAnnotation.title else { return }
-        delegate?.tappedGlobalAnnotation(country: country)
+        if customAnnotation.annotationType == .global {
+            guard let country = customAnnotation.title else { return }
+            delegate?.tappedGlobalAnnotation(country: country)} else {
+                return
+            }
     }
     
     //    нажатие на кнопку внутри метки
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
         
-        if customAnnotation.annotationType == .local {
+        switch customAnnotation.annotationType {
+        case .local:
             delegate?.tappedLocalInformationButton(latitude: customAnnotation.coordinate.latitude,
                                                    longitude: customAnnotation.coordinate.longitude)
+        case .global:
+            guard let country = customAnnotation.title else { return }
+            delegate?.tappedGlobalInformationButton(country: country)
         }
     }
 }

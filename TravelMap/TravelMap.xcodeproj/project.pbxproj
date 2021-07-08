@@ -14,16 +14,17 @@
 		C5640E2B268F34BE00F8DB8A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2A268F34BE00F8DB8A /* MapView.swift */; };
 		C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */; };
 		C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */; };
-		C5640EB92694762800F8DB8A /* PointTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EB82694762800F8DB8A /* PointTableView.swift */; };
-		C5640EBB26947AB900F8DB8A /* PointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBA26947AB900F8DB8A /* PointCell.swift */; };
-		C5640EBD26947EBB00F8DB8A /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBC26947EBB00F8DB8A /* PlaceViewController.swift */; };
+		C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EB82694762800F8DB8A /* PlacesTableView.swift */; };
+		C5640EBB26947AB900F8DB8A /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBA26947AB900F8DB8A /* PlaceCell.swift */; };
+		C5640EBD26947EBB00F8DB8A /* PlacemarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBC26947EBB00F8DB8A /* PlacemarkViewController.swift */; };
 		C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05F82681BAD100057FE3 /* AppDelegate.swift */; };
 		C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
 		C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56B06012681BAD500057FE3 /* Assets.xcassets */; };
 		C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */; };
-		C56B060D2681C40400057FE3 /* PointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* PointViewController.swift */; };
+		C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* PlacesViewController.swift */; };
 		C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* ThirdViewController.swift */; };
-		C58CD62C2696D83700C15802 /* GlobalAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62B2696D83700C15802 /* GlobalAnnotation.swift */; };
+		C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62B2696D83700C15802 /* AnnotationData.swift */; };
+		C58CD62E2696ED1E00C15802 /* PlacemarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,18 +35,19 @@
 		C5640E2A268F34BE00F8DB8A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationVew.swift; sourceTree = "<group>"; };
-		C5640EB82694762800F8DB8A /* PointTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTableView.swift; sourceTree = "<group>"; };
-		C5640EBA26947AB900F8DB8A /* PointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCell.swift; sourceTree = "<group>"; };
-		C5640EBC26947EBB00F8DB8A /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		C5640EB82694762800F8DB8A /* PlacesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableView.swift; sourceTree = "<group>"; };
+		C5640EBA26947AB900F8DB8A /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
+		C5640EBC26947EBB00F8DB8A /* PlacemarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacemarkViewController.swift; sourceTree = "<group>"; };
 		C56B05F52681BAD100057FE3 /* TravelMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56B05F82681BAD100057FE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C56B05FC2681BAD100057FE3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C56B06012681BAD500057FE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C56B06042681BAD500057FE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C56B06062681BAD500057FE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C56B060C2681C40400057FE3 /* PointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewController.swift; sourceTree = "<group>"; };
+		C56B060C2681C40400057FE3 /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		C56B060E2681C63F00057FE3 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		C58CD62B2696D83700C15802 /* GlobalAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalAnnotation.swift; sourceTree = "<group>"; };
+		C58CD62B2696D83700C15802 /* AnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationData.swift; sourceTree = "<group>"; };
+		C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacemarkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +64,8 @@
 		C55CE72D268C5E9C00B1942C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C5640EBC26947EBB00F8DB8A /* PlaceViewController.swift */,
-				C56B060C2681C40400057FE3 /* PointViewController.swift */,
+				C5640EBC26947EBB00F8DB8A /* PlacemarkViewController.swift */,
+				C56B060C2681C40400057FE3 /* PlacesViewController.swift */,
 				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
 				C56B060E2681C63F00057FE3 /* ThirdViewController.swift */,
 			);
@@ -73,8 +75,8 @@
 		C55CE72E268C5EFC00B1942C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C5640EBE2694879D00F8DB8A /* PlaceView */,
-				C5640EB72694760900F8DB8A /* PointView */,
+				C5640EBE2694879D00F8DB8A /* PlacemarkView */,
+				C5640EB72694760900F8DB8A /* PlacesView */,
 				C5640EB62694717500F8DB8A /* MapView */,
 			);
 			path = View;
@@ -84,7 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				C55CE73E268E09B100B1942C /* CountryCoordinateModel.swift */,
-				C58CD62B2696D83700C15802 /* GlobalAnnotation.swift */,
+				C58CD62B2696D83700C15802 /* AnnotationData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,20 +110,21 @@
 			path = MapView;
 			sourceTree = "<group>";
 		};
-		C5640EB72694760900F8DB8A /* PointView */ = {
+		C5640EB72694760900F8DB8A /* PlacesView */ = {
 			isa = PBXGroup;
 			children = (
-				C5640EBA26947AB900F8DB8A /* PointCell.swift */,
-				C5640EB82694762800F8DB8A /* PointTableView.swift */,
+				C5640EBA26947AB900F8DB8A /* PlaceCell.swift */,
+				C5640EB82694762800F8DB8A /* PlacesTableView.swift */,
 			);
-			path = PointView;
+			path = PlacesView;
 			sourceTree = "<group>";
 		};
-		C5640EBE2694879D00F8DB8A /* PlaceView */ = {
+		C5640EBE2694879D00F8DB8A /* PlacemarkView */ = {
 			isa = PBXGroup;
 			children = (
+				C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */,
 			);
-			path = PlaceView;
+			path = PlacemarkView;
 			sourceTree = "<group>";
 		};
 		C56B05EC2681BAD100057FE3 = {
@@ -225,21 +228,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5640EBB26947AB900F8DB8A /* PointCell.swift in Sources */,
+				C5640EBB26947AB900F8DB8A /* PlaceCell.swift in Sources */,
 				C5640E2B268F34BE00F8DB8A /* MapView.swift in Sources */,
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
 				C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CountryCoordinateModel.swift in Sources */,
-				C56B060D2681C40400057FE3 /* PointViewController.swift in Sources */,
+				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
-				C5640EB92694762800F8DB8A /* PointTableView.swift in Sources */,
-				C5640EBD26947EBB00F8DB8A /* PlaceViewController.swift in Sources */,
+				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
+				C58CD62E2696ED1E00C15802 /* PlacemarkView.swift in Sources */,
+				C5640EBD26947EBB00F8DB8A /* PlacemarkViewController.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
-				C58CD62C2696D83700C15802 /* GlobalAnnotation.swift in Sources */,
+				C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  PointCell.swift
+//  PlaceCell.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 06.07.2021.
@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-final class PointCell: UITableViewCell {
+final class PlaceCell: UITableViewCell {
 
-    static let indentifirer = "PointCell"
+    static let indentifirer = "PlaceCell"
 
     // добавить аргументы
     func configure() {

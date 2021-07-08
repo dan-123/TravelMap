@@ -1,5 +1,5 @@
 //
-//  PlaceViewController.swift
+//  PlacemarkViewController.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 06.07.2021.
@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-class PlaceViewController: UIViewController {
+class PlacemarkViewController: UIViewController {
     
     // MARK: - Properties
     
-    var placeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    lazy var placemarkInfo: PlacemarkView = {
+        placemarkInfo = PlacemarkView()
+        placemarkInfo.translatesAutoresizingMaskIntoConstraints = false
+        return placemarkInfo
     }()
     
     // MARK: - Init
@@ -28,7 +28,8 @@ class PlaceViewController: UIViewController {
         setupNavigationTools()
         view.backgroundColor = .systemBackground
         
-        placeLabel.text = placeLabelText
+        placemarkInfo.placemarkSubtitle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editSubtitle)))
+//        placeLabel.text = placeLabelText
     }
 
     required init?(coder: NSCoder) {
@@ -38,21 +39,21 @@ class PlaceViewController: UIViewController {
     // MARK: - UI
     
     private func setupElements() {
-        view.addSubview(placeLabel)
+        view.addSubview(placemarkInfo)
     }
     
     private func setupNavigationTools() {
-        self.title = "Детальная информация"
+        self.title = "Информация о метке"
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "photo"), style: .plain, target: self, action: #selector(addPhoto))
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            placeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            placeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            placeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            placeLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            placemarkInfo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            placemarkInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            placemarkInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            placemarkInfo.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
         ])
     }
     
@@ -60,6 +61,10 @@ class PlaceViewController: UIViewController {
     
     @objc private func addPhoto() {
         print("добавление фото")
+    }
+    
+    @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
+        print("редактирование описания")
     }
     
 }

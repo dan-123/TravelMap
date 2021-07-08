@@ -1,5 +1,5 @@
 //
-//  PointTableView.swift
+//  PlacesTableView.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 06.07.2021.
@@ -8,22 +8,22 @@
 //import Foundation
 import UIKit
 
-protocol PointTableViewDelegate: AnyObject {
+protocol PlacesTableViewDelegate: AnyObject {
     func selectRow(viewController: UIViewController)
 }
 
-class PointTableView: UIView {
+class PlacesTableView: UIView {
     
     // MARK: - Properties
     
-    weak var delegate: PointTableViewDelegate?
+    weak var delegate: PlacesTableViewDelegate?
     
-    lazy var pointTable: UITableView = {
+    lazy var placesTable: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .systemBackground
-        tableView.register(PointCell.self, forCellReuseIdentifier: PointCell.indentifirer)
+        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.indentifirer)
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -47,15 +47,15 @@ class PointTableView: UIView {
     // MARK: - UI
     
     private func setupElement() {
-        addSubview(pointTable)
+        addSubview(placesTable)
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            pointTable.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            pointTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            pointTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            pointTable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+            placesTable.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            placesTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            placesTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            placesTable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
     }
     
@@ -65,24 +65,24 @@ class PointTableView: UIView {
 
 // MARK: - UITableViewDataSource
 
-extension PointTableView: UITableViewDataSource {
+extension PlacesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PointCell.indentifirer, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.indentifirer, for: indexPath)
         // передать значения
-        (cell as? PointCell)?.configure()
+        (cell as? PlaceCell)?.configure()
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
-extension PointTableView: UITableViewDelegate {
+extension PlacesTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let pointViewController = PlaceViewController(placeLabelText: "тест \(indexPath.row)")
+        let pointViewController = PlacemarkViewController(placeLabelText: "тест \(indexPath.row)")
 //        navigationController?.pushViewController(viewController, animated: true)
         delegate?.selectRow(viewController: pointViewController)
     }

@@ -18,7 +18,7 @@ var window: UIWindow?
         let item2 = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 1)
         let item3 = UITabBarItem.init(tabBarSystemItem: .downloads, tag: 1)
         
-        let pointViewController = UINavigationController.init(rootViewController: PointViewController())
+        let pointViewController = UINavigationController.init(rootViewController: PlacesViewController())
         pointViewController.tabBarItem = item1
         
         let mapViewConroller = UINavigationController.init(rootViewController: MapViewController())

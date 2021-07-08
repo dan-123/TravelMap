@@ -22,7 +22,7 @@ class MapViewController: UIViewController {
     
     //переделать
     var networkService = NetworkService()
-    var globalAnnotation = GlobalAnnotation()
+    var annotationData = AnnotationData()
     
     //словарь
 //    var globalAnnotation = [String: [CountryCoordinateModel]]()
@@ -95,17 +95,21 @@ class MapViewController: UIViewController {
         //срабатывает после отпускания
         guard longGesture.state == .ended else { return }
         
-        let poin = longGesture.location(in: mapView.map)
-        let coordinate = mapView.map.convert(poin, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-//        annotations.append(annotation)
-        
-//        checkAnnotationCoordinate(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
-        addLocalAnnotation(coordinate: annotation.coordinate)
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-        
-//        print("Метка создалась")
+        #warning("временное решение")
+        if navigationItem.title == "Карта путешествий" {
+            showAlert(for: .localAnnotation)
+        } else {
+            let poin = longGesture.location(in: mapView.map)
+            let coordinate = mapView.map.convert(poin, toCoordinateFrom: mapView)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            
+//            annotations.append(annotation)
+//            checkAnnotationCoordinate(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+            
+            addLocalAnnotation(annotation.coordinate, "Новая метка", nil)
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        }
     }
     
     // MARK: - Methods
@@ -153,12 +157,12 @@ class MapViewController: UIViewController {
     
     private func checkAndAddAnnotationOnMap(_ country: String, _ latitude: Double, _ longitude: Double, _ countryBorder: [Double]) {
         //проверка на наличие страны на карте
-        if self.globalAnnotation.globalAnnotation[country] != nil {
+        if self.annotationData.globalAnnotation[country] != nil {
             self.showAlert(for: .repeatCountry)
         } else {
             
             //добавление в словарь
-            self.globalAnnotation.globalAnnotation[country] = [latitude,
+            self.annotationData.globalAnnotation[country] = [latitude,
                                                                longitude,
                                                                countryBorder[0],
                                                                countryBorder[1],
@@ -214,6 +218,8 @@ class MapViewController: UIViewController {
             return "Кажется вы ввели некоректное название страны"
         case .repeatCountry:
             return "Вы уже добаляли эту страну ранее"
+        case .localAnnotation:
+            return "Для добавлении новой метки необходимо выбрать страну"
         case .coordinate:
             return "Данная точка не соответсвует выбранной стране"
         case .network:
@@ -243,7 +249,7 @@ class MapViewController: UIViewController {
     }
 
     private func viewAllCountry() {
-        navigationItem.title = "TravelMap"
+        navigationItem.title = "Карта путешествий"
         
         let center = CLLocation(latitude: Constants.InitialCoordinate.latitude,
                                 longitude: Constants.InitialCoordinate.longitude)
@@ -265,13 +271,13 @@ class MapViewController: UIViewController {
     }
     
     //данные заполняются пользователем
-    private func addLocalAnnotation(coordinate: CLLocationCoordinate2D) {
+    private func addLocalAnnotation(_ coordinate: CLLocationCoordinate2D, _ title: String?, _ subtitle: String?) {
         
 //        let latitude = 30.9953683
 //        let longitude = 18.9877132
 //        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let title = "Local"
-        let subtitle = "local subtitle"
+//        let title = "Новая метка"
+//        let subtitle = "local subtitle"
         
         let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .local)
         
@@ -285,9 +291,10 @@ class MapViewController: UIViewController {
 // MARK: - Extensions
 
 extension MapViewController: MapViewDelegate {
+    
     func tappedGlobalAnnotation(country: String) {
         #warning("временное решение")
-        guard let countryInfo = globalAnnotation.globalAnnotation[country] else { return }
+        guard let countryInfo = annotationData.globalAnnotation[country] else { return }
         
         let latitude = countryInfo[0]
         let longitude = countryInfo[1]
@@ -300,8 +307,13 @@ extension MapViewController: MapViewDelegate {
     }
     
     func tappedLocalInformationButton(latitude: Double, longitude: Double) {
+        let placemarkViewController = PlacemarkViewController(placeLabelText: "")
+        navigationController?.pushViewController(placemarkViewController, animated: true)
+    }
+    
+    func tappedGlobalInformationButton(country: String) {
         tabBarController?.selectedIndex = 0
-        print("annotation latitude: \(latitude)")
-        print("annotation longitude: \(longitude)")
+//        let placesViewController = PlacesViewController()
+//        tabBarController?.selectedViewController = placesViewController
     }
 }
