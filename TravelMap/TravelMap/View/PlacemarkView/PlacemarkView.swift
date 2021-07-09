@@ -24,6 +24,7 @@ class PlacemarkView: UIView {
         return textField
     }()
     
+    //textView
     lazy var placemarkSubtitle: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Описание метки"

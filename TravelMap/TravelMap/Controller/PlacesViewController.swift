@@ -38,7 +38,7 @@ class PlacesViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        self.title = "Информация о местах"
+        self.title = "Места"
 //        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedBackButton))
 //        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
     }

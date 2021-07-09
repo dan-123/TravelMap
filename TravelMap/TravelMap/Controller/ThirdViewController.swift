@@ -27,6 +27,7 @@ class ThirdViewController: UIViewController {
         super.viewDidLoad()
         
         setupElements()
+        setupNavigationTools()
         setupConstraint()
         
         view.backgroundColor = .systemBlue
@@ -36,6 +37,14 @@ class ThirdViewController: UIViewController {
     
     func setupElements() {
         view.addSubview(label)
+    }
+    
+    private func setupNavigationTools() {
+        self.title = "Настройки"
+//        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
+//        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
+//        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
+//        self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
     
     func setupConstraint() {

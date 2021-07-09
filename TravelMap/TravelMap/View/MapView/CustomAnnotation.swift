@@ -30,9 +30,9 @@ class CustomAnnotation: NSObject, MKAnnotation {
     var annotationTintColor: UIColor   {
         switch annotationType {
         case .global:
-            return .blue
+            return .systemRed
         case .local:
-            return .green
+            return .systemGreen
         }
     }
     
@@ -40,9 +40,11 @@ class CustomAnnotation: NSObject, MKAnnotation {
         #warning("force")
         switch annotationType {
         case .global:
-            return UIImage(systemName: "checkmark.circle.fill")!
+//            return UIImage(systemName: "checkmark.circle.fill")!
+            return UIImage(named: "globalAnnotation")!
         case .local:
-            return UIImage(systemName: "exclamationmark.circle.fill")!
+//            return UIImage(systemName: "exclamationmark.circle.fill")!
+            return UIImage(named: "localAnnotation")!
         }
     }
 }

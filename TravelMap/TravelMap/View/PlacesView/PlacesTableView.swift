@@ -37,7 +37,6 @@ class PlacesTableView: UIView {
         
         setupElement()
         setupConstraint()
-        
     }
     
     required init?(coder: NSCoder) {

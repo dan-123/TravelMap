@@ -52,7 +52,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        self.title = "Карта путешествий"
+//        self.title = "Карта"
         let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
@@ -90,13 +90,12 @@ class MapViewController: UIViewController {
     }
     
     @objc private func mapViewTapped(longGesture: UILongPressGestureRecognizer) {
-        print("нажатие на карту")
-        
+
         //срабатывает после отпускания
         guard longGesture.state == .ended else { return }
         
         #warning("временное решение")
-        if navigationItem.title == "Карта путешествий" {
+        if navigationItem.title == nil {
             showAlert(for: .localAnnotation)
         } else {
             let poin = longGesture.location(in: mapView.map)
@@ -109,6 +108,7 @@ class MapViewController: UIViewController {
             
             addLocalAnnotation(annotation.coordinate, "Новая метка", nil)
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            print(navigationItem.title)
         }
     }
     
@@ -249,7 +249,7 @@ class MapViewController: UIViewController {
     }
 
     private func viewAllCountry() {
-        navigationItem.title = "Карта путешествий"
+//        navigationItem.title = "Карта"
         
         let center = CLLocation(latitude: Constants.InitialCoordinate.latitude,
                                 longitude: Constants.InitialCoordinate.longitude)

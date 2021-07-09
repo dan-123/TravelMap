@@ -25,6 +25,7 @@
 		C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* ThirdViewController.swift */; };
 		C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62B2696D83700C15802 /* AnnotationData.swift */; };
 		C58CD62E2696ED1E00C15802 /* PlacemarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */; };
+		C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62F2697299900C15802 /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		C56B060E2681C63F00057FE3 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		C58CD62B2696D83700C15802 /* AnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationData.swift; sourceTree = "<group>"; };
 		C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacemarkView.swift; sourceTree = "<group>"; };
+		C58CD62F2697299900C15802 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		C55CE72D268C5E9C00B1942C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C58CD62F2697299900C15802 /* CustomTabBarController.swift */,
 				C5640EBC26947EBB00F8DB8A /* PlacemarkViewController.swift */,
 				C56B060C2681C40400057FE3 /* PlacesViewController.swift */,
 				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
@@ -240,6 +243,7 @@
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* PlacemarkView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* PlacemarkViewController.swift in Sources */,
+				C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
