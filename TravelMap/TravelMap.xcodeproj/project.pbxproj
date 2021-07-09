@@ -26,6 +26,7 @@
 		C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62B2696D83700C15802 /* AnnotationData.swift */; };
 		C58CD62E2696ED1E00C15802 /* PlacemarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */; };
 		C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62F2697299900C15802 /* CustomTabBarController.swift */; };
+		C58CD637269857AC00C15802 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD636269857AB00C15802 /* CustomTabBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		C58CD62B2696D83700C15802 /* AnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationData.swift; sourceTree = "<group>"; };
 		C58CD62D2696ED1E00C15802 /* PlacemarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacemarkView.swift; sourceTree = "<group>"; };
 		C58CD62F2697299900C15802 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		C58CD636269857AB00C15802 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		C55CE72E268C5EFC00B1942C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C58CD6352698576200C15802 /* TabBarView */,
 				C5640EBE2694879D00F8DB8A /* PlacemarkView */,
 				C5640EB72694760900F8DB8A /* PlacesView */,
 				C5640EB62694717500F8DB8A /* MapView */,
@@ -162,6 +165,14 @@
 			path = TravelMap;
 			sourceTree = "<group>";
 		};
+		C58CD6352698576200C15802 /* TabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD636269857AB00C15802 /* CustomTabBarView.swift */,
+			);
+			path = TabBarView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -240,6 +251,7 @@
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
+				C58CD637269857AC00C15802 /* CustomTabBarView.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* PlacemarkView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* PlacemarkViewController.swift in Sources */,
