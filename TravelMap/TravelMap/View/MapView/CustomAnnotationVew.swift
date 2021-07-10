@@ -17,7 +17,13 @@ class CustomAnnotationVew: MKMarkerAnnotationView {
             canShowCallout = true
 //            isHidden = true
             calloutOffset = CGPoint(x: -5, y: 5)
-            rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            
+            switch customAnnotation.annotationType {
+            case .global:
+                rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            case .local:
+                rightCalloutAccessoryView = UIButton(type: .close)
+            }
 
             markerTintColor = customAnnotation.annotationTintColor
             glyphImage = customAnnotation.image

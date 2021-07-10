@@ -46,9 +46,14 @@ class CustomTabBarController: UITabBarController {
     private func setupControllers() {
         
         let pointViewController = UINavigationController.init(rootViewController: PlacesViewController())
-//        pointViewController.tabBarItem.image = 
+//        pointViewController.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
+        pointViewController.tabBarItem = UITabBarItem(title: "Места", image: UIImage(systemName: "mappin.and.ellipse"), tag: 1)
+        
         let mapViewConroller = UINavigationController.init(rootViewController: MapViewController())
+        
         let thirdViewController = UINavigationController.init(rootViewController: ThirdViewController())
+//        thirdViewController.tabBarItem.image = UIImage(systemName: "gearshape")
+        thirdViewController.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(systemName: "gearshape"), tag: 1)
 
         viewControllers = [pointViewController, mapViewConroller, thirdViewController]
         selectedIndex = 1

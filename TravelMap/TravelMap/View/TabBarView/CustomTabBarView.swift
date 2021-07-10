@@ -13,7 +13,7 @@ class CustomTabBarView: UIView {
     
     private let placesButtonDiameter: CGFloat = 20
     private let mapButtonDiameter: CGFloat = 75
-
+    
     private lazy var mapButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = mapButtonDiameter / 2
@@ -30,15 +30,15 @@ class CustomTabBarView: UIView {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
-    private lazy var placesImageView: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "places")
-        image.contentMode = .scaleToFill
-        image.tintColor = .white
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
+    //
+    //    private lazy var placesImageView: UIImageView = {
+    //        let image = UIImageView()
+    //        image.image = UIImage(named: "places")
+    //        image.contentMode = .scaleToFill
+    //        image.tintColor = .white
+    //        image.translatesAutoresizingMaskIntoConstraints = false
+    //        return image
+    //    }()
     
     // MARK: - Init
     
@@ -59,7 +59,7 @@ class CustomTabBarView: UIView {
         addSubview(mapButton)
         mapButton.addSubview(mapImageView)
         
-        addSubview(placesImageView)
+        //        addSubview(placesImageView)
     }
     
     private func setupConstraint() {
@@ -67,7 +67,7 @@ class CustomTabBarView: UIView {
             mapButton.heightAnchor.constraint(equalToConstant: mapButtonDiameter),
             mapButton.widthAnchor.constraint(equalToConstant: mapButtonDiameter),
             mapButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            mapButton.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -20),
+            //            mapButton.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -20),
             mapButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             
             mapImageView.heightAnchor.constraint(equalToConstant: 45),
@@ -76,15 +76,15 @@ class CustomTabBarView: UIView {
             mapImageView.centerYAnchor.constraint(equalTo: mapButton.centerYAnchor)
         ])
         
-        NSLayoutConstraint.activate([
-            placesImageView.heightAnchor.constraint(equalToConstant: placesButtonDiameter),
-            placesImageView.widthAnchor.constraint(equalToConstant: placesButtonDiameter),
-            //            mapButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            placesImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            placesImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50)
-            //            mapButton.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -20),
-        ])
-
+        //        NSLayoutConstraint.activate([
+        //            placesImageView.heightAnchor.constraint(equalToConstant: placesButtonDiameter),
+        //            placesImageView.widthAnchor.constraint(equalToConstant: placesButtonDiameter),
+        //            //            mapButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+        //            placesImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        //            placesImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50)
+        //            //            mapButton.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -20),
+        //        ])
+        
     }
     
     // MARK: - Methods

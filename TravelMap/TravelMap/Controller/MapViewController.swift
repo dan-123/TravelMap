@@ -20,6 +20,14 @@ class MapViewController: UIViewController {
         return mapView
     }()
     
+    lazy var settingView: SettingView = {
+        let view = SettingView()
+//        view.layer.cornerRadius = 30
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     //переделать
     var networkService = NetworkService()
     var annotationData = AnnotationData()
@@ -43,18 +51,22 @@ class MapViewController: UIViewController {
                              forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         mapView.map.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(mapViewTapped)))
+        
+        settingView.countryButton.addTarget(self, action: #selector(addNewCountry), for: .touchUpInside)
+        settingView.cityButton.addTarget(self, action: #selector(addNewCity), for: .touchUpInside)
     }
     
     // MARK: - UI
     
     private func setupElements() {
         view.addSubview(mapView)
+        view.addSubview(settingView)
     }
     
     private func setupNavigationTools() {
 //        self.title = "Карта"
         let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewPlace))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
@@ -64,12 +76,23 @@ class MapViewController: UIViewController {
             mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            
+            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
+            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
+            settingView.heightAnchor.constraint(equalToConstant: 42)
         ])
     }
     
     // MARK: - Actions
     
+    @objc private func addNewPlace() {
+        settingView.isHidden.toggle()
+    }
+    
+    #warning("объединить в одну фукнцию")
+    // ------------------------
     @objc private func addNewCountry() {
         let alertConrtoller = UIAlertController(title: "Новая страна", message: "Добавление новой страны", preferredStyle: .alert)
         alertConrtoller.addTextField()
@@ -84,6 +107,23 @@ class MapViewController: UIViewController {
         alertConrtoller.addAction(cancelAction)
         present(alertConrtoller, animated: true)
     }
+    
+    @objc private func addNewCity() {
+        let alertConrtoller = UIAlertController(title: "Новый город", message: "Добавление нового города", preferredStyle: .alert)
+        alertConrtoller.addTextField()
+        
+        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
+            let textField = alertConrtoller?.textFields?.first
+            guard let city = textField?.text else { return }
+            // добавить новый город
+//            self.loadCountryCoordinate(for: country)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertConrtoller.addAction(okAction)
+        alertConrtoller.addAction(cancelAction)
+        present(alertConrtoller, animated: true)
+    }
+    // ------------------------
     
     @objc private func testFunc() {
         viewAllCountry()
@@ -202,6 +242,8 @@ class MapViewController: UIViewController {
 //            }
 //        }
 //    }
+    
+    
     
     private func showAlert(for error: NetworkServiceError) {
         let alert = UIAlertController(title: "Что-то пошло не так",

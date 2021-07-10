@@ -30,7 +30,7 @@ class CustomAnnotation: NSObject, MKAnnotation {
     var annotationTintColor: UIColor   {
         switch annotationType {
         case .global:
-            return .systemRed
+            return .systemBlue
         case .local:
             return .systemGreen
         }
