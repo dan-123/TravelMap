@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  MapSettingView.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 10.07.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingView: UIView {
+class MapSettingView: UIView {
     
     // MARK: - Properties
 
@@ -31,6 +31,7 @@ class SettingView: UIView {
         button.backgroundColor = .systemBlue
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

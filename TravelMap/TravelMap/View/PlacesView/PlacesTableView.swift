@@ -26,9 +26,11 @@ class PlacesTableView: UIView {
         tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.indentifirer)
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         return tableView
     }()
+    
+    //временное
+    let data = AnnotationData()
     
     // MARK: - Init
     
@@ -66,7 +68,7 @@ class PlacesTableView: UIView {
 
 extension PlacesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return data.localAnnotation.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,11 +80,11 @@ extension PlacesTableView: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension PlacesTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let pointViewController = PlacemarkViewController(placeLabelText: "тест \(indexPath.row)")
-//        navigationController?.pushViewController(viewController, animated: true)
+        let pointViewController = CountryViewController(placeLabelText: "тест \(indexPath.row)")
         delegate?.selectRow(viewController: pointViewController)
     }
 }

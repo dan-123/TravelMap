@@ -1,5 +1,5 @@
 //
-//  PlacemarkViewController.swift
+//  CountryViewController.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 06.07.2021.
@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-class PlacemarkViewController: UIViewController {
+class CountryViewController: UIViewController {
     
     // MARK: - Properties
     
-    lazy var placemarkInfo: PlacemarkView = {
-        placemarkInfo = PlacemarkView()
-        placemarkInfo.translatesAutoresizingMaskIntoConstraints = false
-        return placemarkInfo
+    lazy var countryInfo: CountryView = {
+        countryInfo = CountryView()
+        countryInfo.translatesAutoresizingMaskIntoConstraints = false
+        return countryInfo
     }()
     
     // MARK: - Init
@@ -26,9 +26,10 @@ class PlacemarkViewController: UIViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        
         view.backgroundColor = .systemBackground
         
-        placemarkInfo.placemarkSubtitle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editSubtitle)))
+//        placemarkInfo.placemarkSubtitle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editSubtitle)))
 //        placeLabel.text = placeLabelText
     }
 
@@ -39,28 +40,28 @@ class PlacemarkViewController: UIViewController {
     // MARK: - UI
     
     private func setupElements() {
-        view.addSubview(placemarkInfo)
+        view.addSubview(countryInfo)
     }
     
     private func setupNavigationTools() {
         self.title = "Информация о метке"
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "photo"), style: .plain, target: self, action: #selector(addPhoto))
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action: #selector(deleteCountry))
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            placemarkInfo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            placemarkInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            placemarkInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            placemarkInfo.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+            countryInfo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            countryInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            countryInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            countryInfo.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
         ])
     }
     
     // MARK: - Action
     
-    @objc private func addPhoto() {
-        print("добавление фото")
+    @objc private func deleteCountry() {
+        print("удаление страны")
     }
     
     @objc private func editSubtitle(gesture: UITapGestureRecognizer) {

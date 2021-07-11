@@ -16,6 +16,7 @@ class PlacesViewController: UIViewController {
         table.delegate = self
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
+        
     }()
     
     

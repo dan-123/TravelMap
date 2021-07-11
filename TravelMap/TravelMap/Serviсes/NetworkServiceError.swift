@@ -7,6 +7,7 @@
 
 enum NetworkServiceError: Error {
     case country
+    case city
     case repeatCountry
     case localAnnotation
     case coordinate

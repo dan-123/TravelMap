@@ -9,10 +9,10 @@ import Foundation
 
 // MARK: - Protocol
 
-typealias GetCountryCoordinateResponce = Result<CountryCoordinateModel, NetworkServiceError>
+typealias GetCountryCoordinateResponce = Result<CoordinateModel, NetworkServiceError>
 
 protocol NetworkServiceProtocol {
-    func getCountryCoordinate(countryName: String, completion: @escaping (GetCountryCoordinateResponce) -> Void)
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void)
 //    func checkAnnotationCoordinate(latitude: Double, longitude: Double, completion: @escaping (GetCountryCoordinateResponce) -> Void)
 }
 
@@ -32,13 +32,28 @@ final class NetworkService {
 
 extension NetworkService: NetworkServiceProtocol {
     
-    func getCountryCoordinate(countryName: String, completion: @escaping (GetCountryCoordinateResponce) -> Void) {
-        var components = URLComponents(string: Constants.CountryCoordinate.getContryCoordinate)
-        components?.queryItems = [
-            URLQueryItem(name: "text", value: countryName),
-            URLQueryItem(name: "type", value: Constants.CountryCoordinate.type),
-            URLQueryItem(name: "apiKey", value: Constants.apiKey)
-        ]
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void) {
+        var components = URLComponents(string: Constants.Coordinate.getContryCoordinate)
+        
+        switch placeType {
+        case Constants.Coordinate.countryCoordinte:
+            components?.queryItems = [
+                URLQueryItem(name: "text", value: placeName),
+                URLQueryItem(name: "type", value: placeType),
+                URLQueryItem(name: "apiKey", value: Constants.apiKey)
+            ]
+        case Constants.Coordinate.cityCoordinate:
+            guard let countryCode = countryCode else { return }
+            components?.queryItems = [
+                URLQueryItem(name: "text", value: placeName),
+                URLQueryItem(name: "type", value: placeType),
+                URLQueryItem(name: "apiKey", value: Constants.apiKey),
+                URLQueryItem(name: "filter", value: "countrycode:\(countryCode)"),
+                URLQueryItem(name: "limit", value: String(Constants.Coordinate.limit)),
+            ]
+        default:
+            break
+        }
         
         guard let url = components?.url else {
             completion(.failure(.unknown))
@@ -51,7 +66,7 @@ extension NetworkService: NetworkServiceProtocol {
         session.dataTask(with: request) { rawData, responce, taskError in
             do {
                 let data = try self.httpResponse(data: rawData, response: responce)
-                let responce = try self.decoder.decode(CountryCoordinateModel.self, from: data)
+                let responce = try self.decoder.decode(CoordinateModel.self, from: data)
                 completion(.success(responce))
             } catch let error as NetworkServiceError {
                 completion(.failure(error))

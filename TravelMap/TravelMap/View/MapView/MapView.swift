@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol MapViewDelegate: AnyObject {
-    func tappedLocalInformationButton(latitude: Double, longitude: Double)
+//    func tappedLocalInformationButton(annotation: MKAnnotation)
     func tappedGlobalInformationButton(country: String)
 
     func tappedGlobalAnnotation(country: String)
@@ -95,12 +95,30 @@ extension MapView: MKMapViewDelegate {
         
         switch customAnnotation.annotationType {
         case .local:
-            delegate?.tappedLocalInformationButton(latitude: customAnnotation.coordinate.latitude,
-                                                   longitude: customAnnotation.coordinate.longitude)
+//            delegate?.tappedLocalInformationButton(latitude: customAnnotation.coordinate.latitude,
+//                                                   longitude: customAnnotation.coordinate.longitude)
+//            deleteLocalAnnotation()
+            map.removeAnnotation(customAnnotation)
         case .global:
             guard let country = customAnnotation.title else { return }
             delegate?.tappedGlobalInformationButton(country: country)
         }
     }
+    
+    //расположение
+//    private func deleteLocalAnnotation(annotation: MKAnnotation) {
+//        let alertConrtoller = UIAlertController(title: "Удаление", message: "Вы уверены что хотите удалить город", preferredStyle: .alert)
+//        alertConrtoller.addTextField()
+//
+//        let okAction = UIAlertAction(title: "Да", style: .default) { [weak alertConrtoller] (_) in
+//            self.map.removeAnnotation(annotation)
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Нет", style: .cancel, handler: nil)
+//        alertConrtoller.addAction(okAction)
+//        alertConrtoller.addAction(cancelAction)
+//
+//        present(alertConrtoller, animated: true)
+//    }
 }
 

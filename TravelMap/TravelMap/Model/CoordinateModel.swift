@@ -1,5 +1,5 @@
 //
-//  CountryCoordinateModel.swift
+//  CoordinateModel.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 01.07.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CountryCoordinateModel: Codable {
+struct CoordinateModel: Codable {
     let features: [Feature]
 }
 
@@ -17,7 +17,9 @@ struct Feature: Codable {
 }
 
 struct Properties: Codable {
+    let city: String?
     let country: String
+    let countryCode: String
     let lon: Double
     let lat: Double
     let placeId: String

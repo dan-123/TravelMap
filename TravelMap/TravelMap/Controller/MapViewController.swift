@@ -20,8 +20,8 @@ class MapViewController: UIViewController {
         return mapView
     }()
     
-    lazy var settingView: SettingView = {
-        let view = SettingView()
+    lazy var settingView: MapSettingView = {
+        let view = MapSettingView()
 //        view.layer.cornerRadius = 30
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +31,7 @@ class MapViewController: UIViewController {
     //переделать
     var networkService = NetworkService()
     var annotationData = AnnotationData()
+    var countryCode: String?
     
     //словарь
 //    var globalAnnotation = [String: [CountryCoordinateModel]]()
@@ -78,9 +79,9 @@ class MapViewController: UIViewController {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             
-            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
-            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
-            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
+            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             settingView.heightAnchor.constraint(equalToConstant: 42)
         ])
     }
@@ -89,6 +90,16 @@ class MapViewController: UIViewController {
     
     @objc private func addNewPlace() {
         settingView.isHidden.toggle()
+        animationOpacity()
+    }
+    
+    @objc func animationOpacity() {
+        settingView.layer.removeAllAnimations()
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = 0.5
+        settingView.layer.add(animation, forKey: nil)
     }
     
     #warning("объединить в одну фукнцию")
@@ -100,7 +111,7 @@ class MapViewController: UIViewController {
         let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
             let textField = alertConrtoller?.textFields?.first
             guard let country = textField?.text else { return }
-            self.loadCountryCoordinate(for: country)
+            self.loadCountryCoordinate(country: country)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertConrtoller.addAction(okAction)
@@ -117,6 +128,7 @@ class MapViewController: UIViewController {
             guard let city = textField?.text else { return }
             // добавить новый город
 //            self.loadCountryCoordinate(for: country)
+            self.loadCityCoordinate(city: city)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertConrtoller.addAction(okAction)
@@ -154,8 +166,9 @@ class MapViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func loadCountryCoordinate(for country: String) {
-        self.networkService.getCountryCoordinate(countryName: country) { responce in
+    // запрос для страны
+    private func loadCountryCoordinate(country: String) {
+        self.networkService.getCoordinate(placeType: Constants.Coordinate.countryCoordinte, placeName: country, countryCode: nil) { responce in
             DispatchQueue.main.async {
                 switch responce {
                 case .success(let data):
@@ -178,6 +191,8 @@ class MapViewController: UIViewController {
                             
                             //отборажение страны на карте
                             self.viewCountryOnMap(country, latitude, longitude, countryBorder)
+                            print(data.features.first?.properties.countryCode)
+                            self.countryCode = data.features.first?.properties.countryCode
                             
                         } else {
                             #warning("временное решение")
@@ -185,6 +200,8 @@ class MapViewController: UIViewController {
                             
                             //отборажение страны на карте
                             self.viewCountryOnMap(country, latitude, longitude, countryBorder)
+                            print(data.features.first?.properties.countryCode)
+                            self.countryCode = data.features.first?.properties.countryCode
                         }
 //                        print("country: \(self.globalAnnotation.globalAnnotation)")
                     }
@@ -210,6 +227,32 @@ class MapViewController: UIViewController {
                                                                countryBorder[3]]
             //добавление аннотации на карту
             self.addGlobalAnnotation(country, latitude, longitude)
+        }
+    }
+    
+    //запрос для города
+    
+    private func loadCityCoordinate(city: String) {
+        self.networkService.getCoordinate(placeType: Constants.Coordinate.cityCoordinate, placeName: city, countryCode: countryCode) { responce in
+            DispatchQueue.main.async {
+                switch responce {
+                case .success(let data):
+                    if data.features.isEmpty {
+                        self.showAlert(for: .city)
+                    } else {
+                        guard let city = data.features.first?.properties.city,
+                              let latitude = data.features.first?.properties.lat,
+                              let longitude = data.features.first?.properties.lon else {
+                            return
+                        }
+                        #warning("добавить проверку на наличие города")
+                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                        self.addLocalAnnotation(coordinate, city, nil)
+                    }
+                case .failure(let error):
+                    self.showAlert(for: error)
+                }
+            }
         }
     }
     
@@ -258,6 +301,8 @@ class MapViewController: UIViewController {
         switch error {
         case .country:
             return "Кажется вы ввели некоректное название страны"
+        case .city:
+            return "Кажется вы ввели некоректное название города"
         case .repeatCountry:
             return "Вы уже добаляли эту страну ранее"
         case .localAnnotation:
@@ -291,7 +336,7 @@ class MapViewController: UIViewController {
     }
 
     private func viewAllCountry() {
-//        navigationItem.title = "Карта"
+        navigationItem.title = ""
         
         let center = CLLocation(latitude: Constants.InitialCoordinate.latitude,
                                 longitude: Constants.InitialCoordinate.longitude)
@@ -348,13 +393,17 @@ extension MapViewController: MapViewDelegate {
         viewCountryOnMap(country, latitude, longitude, countryBorder)
     }
     
-    func tappedLocalInformationButton(latitude: Double, longitude: Double) {
-        let placemarkViewController = PlacemarkViewController(placeLabelText: "")
-        navigationController?.pushViewController(placemarkViewController, animated: true)
-    }
+//    func tappedLocalInformationButton(latitude: Double, longitude: Double) {
+//        let placemarkViewController = PlacemarkViewController(placeLabelText: "")
+//        navigationController?.pushViewController(placemarkViewController, animated: true)
+//    }
     
     func tappedGlobalInformationButton(country: String) {
-        tabBarController?.selectedIndex = 0
+//        tabBarController?.selectedIndex = 0
+        guard let text = navigationItem.title else { return }
+        let placemarkViewController = CountryViewController(placeLabelText: text)
+        navigationController?.pushViewController(placemarkViewController, animated: true)
+        
 //        let placesViewController = PlacesViewController()
 //        tabBarController?.selectedViewController = placesViewController
     }
