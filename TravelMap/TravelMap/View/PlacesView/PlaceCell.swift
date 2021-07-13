@@ -13,9 +13,9 @@ final class PlaceCell: UITableViewCell {
     static let indentifirer = "PlaceCell"
 
     // добавить аргументы
-    func configure() {
+    func configure(country: String) {
         textLabel?.numberOfLines = 0
-        textLabel?.text = "тест"
+        textLabel?.text = country
     }
     
 }

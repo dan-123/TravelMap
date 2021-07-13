@@ -31,7 +31,7 @@ class MapSettingView: UIView {
         button.backgroundColor = .systemBlue
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
-        button.isEnabled = false
+//        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

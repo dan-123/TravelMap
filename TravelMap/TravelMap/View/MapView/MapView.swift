@@ -39,8 +39,11 @@ class MapView: UIView {
         
         setupElement()
         setupConstraint()
-
         centerLocation()
+        
+        //регистрация нового класса с идентификатором повторного использования представления карты по умолчанию
+        map.register(CustomAnnotationVew.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +75,20 @@ class MapView: UIView {
         let coordinateRegion = MKCoordinateRegion(center: center, span: span)
         map.setRegion(coordinateRegion, animated: true)
       }
+    
+    func addAnnotationOnMap(_ annotation: MKAnnotation) {
+        map.addAnnotation(annotation)
+    }
+    
+    func viewCountryOnMap(region: MKCoordinateRegion) {
+        map.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
+        map.setRegion(region, animated: true)
+    }
+    
+    func viewAllCountry(region: MKCoordinateRegion) {
+        map.cameraBoundary = MKMapView.CameraBoundary()
+        map.setRegion(region, animated: true)
+    }
 }
 
 // MARK: - Extensions

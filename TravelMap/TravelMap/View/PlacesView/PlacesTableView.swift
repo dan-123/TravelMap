@@ -36,7 +36,7 @@ class PlacesTableView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        placesTable.reloadData()
         setupElement()
         setupConstraint()
     }
@@ -68,13 +68,13 @@ class PlacesTableView: UIView {
 
 extension PlacesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.localAnnotation.count
+        return data.globalAnnotation.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.indentifirer, for: indexPath)
         // передать значения
-        (cell as? PlaceCell)?.configure()
+        (cell as? PlaceCell)?.configure(country: Array(data.globalAnnotation.keys)[indexPath.row])
         return cell
     }
 }

@@ -20,14 +20,6 @@ class MapViewController: UIViewController {
         return mapView
     }()
     
-    lazy var settingView: MapSettingView = {
-        let view = MapSettingView()
-//        view.layer.cornerRadius = 30
-        view.isHidden = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     //переделать
     var networkService = NetworkService()
     var annotationData = AnnotationData()
@@ -36,6 +28,16 @@ class MapViewController: UIViewController {
     //словарь
 //    var globalAnnotation = [String: [CountryCoordinateModel]]()
     
+    //для меток
+    var localAnnotations = [CustomAnnotationVew]()
+    
+    //режим отображения
+    private enum MapMode {
+        case globalMode
+        case localMode
+    }
+    
+    private var mapMode: MapMode = .globalMode
     
     // MARK: - Lyfe cycle
     
@@ -48,26 +50,18 @@ class MapViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         
-        mapView.map.register(CustomAnnotationVew.self,
-                             forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        
-        mapView.map.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(mapViewTapped)))
-        
-        settingView.countryButton.addTarget(self, action: #selector(addNewCountry), for: .touchUpInside)
-        settingView.cityButton.addTarget(self, action: #selector(addNewCity), for: .touchUpInside)
     }
     
     // MARK: - UI
     
     private func setupElements() {
         view.addSubview(mapView)
-        view.addSubview(settingView)
     }
     
     private func setupNavigationTools() {
 //        self.title = "Карта"
-        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewPlace))
+        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedLeftBarButton))
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(tappedRightBarButton))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
@@ -77,94 +71,53 @@ class MapViewController: UIViewController {
             mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            
-            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            settingView.heightAnchor.constraint(equalToConstant: 42)
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
     
     // MARK: - Actions
     
-    @objc private func addNewPlace() {
-        settingView.isHidden.toggle()
-        animationOpacity()
-    }
-    
-    @objc func animationOpacity() {
-        settingView.layer.removeAllAnimations()
-        let animation = CABasicAnimation(keyPath: "opacity")
-        animation.fromValue = 0
-        animation.toValue = 1
-        animation.duration = 0.5
-        settingView.layer.add(animation, forKey: nil)
-    }
-    
-    #warning("объединить в одну фукнцию")
-    // ------------------------
-    @objc private func addNewCountry() {
-        let alertConrtoller = UIAlertController(title: "Новая страна", message: "Добавление новой страны", preferredStyle: .alert)
-        alertConrtoller.addTextField()
-        
-        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
-            let textField = alertConrtoller?.textFields?.first
-            guard let country = textField?.text else { return }
-            self.loadCountryCoordinate(country: country)
-        }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        alertConrtoller.addAction(okAction)
-        alertConrtoller.addAction(cancelAction)
-        present(alertConrtoller, animated: true)
-    }
-    
-    @objc private func addNewCity() {
-        let alertConrtoller = UIAlertController(title: "Новый город", message: "Добавление нового города", preferredStyle: .alert)
-        alertConrtoller.addTextField()
-        
-        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
-            let textField = alertConrtoller?.textFields?.first
-            guard let city = textField?.text else { return }
-            // добавить новый город
-//            self.loadCountryCoordinate(for: country)
-            self.loadCityCoordinate(city: city)
-        }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        alertConrtoller.addAction(okAction)
-        alertConrtoller.addAction(cancelAction)
-        present(alertConrtoller, animated: true)
-    }
-    // ------------------------
-    
-    @objc private func testFunc() {
+    @objc private func tappedLeftBarButton() {
         viewAllCountry()
+        mapMode = .globalMode
+//        for annotation in localAnnotations {
+//            guard let annotation = annotation as?  else { return }
+////            annotation.
+//        }
     }
     
-    @objc private func mapViewTapped(longGesture: UILongPressGestureRecognizer) {
-
-        //срабатывает после отпускания
-        guard longGesture.state == .ended else { return }
-        
-        #warning("временное решение")
-        if navigationItem.title == nil {
-            showAlert(for: .localAnnotation)
-        } else {
-            let poin = longGesture.location(in: mapView.map)
-            let coordinate = mapView.map.convert(poin, toCoordinateFrom: mapView)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            
-//            annotations.append(annotation)
-//            checkAnnotationCoordinate(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
-            
-            addLocalAnnotation(annotation.coordinate, "Новая метка", nil)
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            print(navigationItem.title)
+    @objc private func tappedRightBarButton() {
+        switch mapMode {
+        case .globalMode:
+        addNewPlace(title: "Новая страна", message: "Добавление новой страны", mapMode: mapMode)
+        case .localMode:
+            addNewPlace(title: "Новый город", message: "Добавление нового города", mapMode: mapMode)
         }
     }
     
     // MARK: - Methods
+    
+    private func addNewPlace(title: String, message: String, mapMode: MapMode) {
+        let alertConrtoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertConrtoller.addTextField()
+        
+        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] (_) in
+            let textField = alertConrtoller?.textFields?.first
+            guard let place = textField?.text else { return }
+            
+            switch mapMode {
+            case .globalMode:
+                self.loadCountryCoordinate(country: place)
+            case .localMode:
+                self.loadCityCoordinate(city: place)
+            }
+            
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertConrtoller.addAction(okAction)
+        alertConrtoller.addAction(cancelAction)
+        present(alertConrtoller, animated: true)
+    }
     
     // запрос для страны
     private func loadCountryCoordinate(country: String) {
@@ -175,7 +128,8 @@ class MapViewController: UIViewController {
                     if data.features.isEmpty {
                         self.showAlert(for: .country)
                     } else {
-                        guard let country = data.features.first?.properties.country,
+                        guard let countryCode = data.features.first?.properties.countryCode,
+                              let country = data.features.first?.properties.country,
                               let latitude = data.features.first?.properties.lat,
                               let longitude = data.features.first?.properties.lon,
                               let countryBorder = data.features.first?.bbox else {
@@ -191,7 +145,7 @@ class MapViewController: UIViewController {
                             
                             //отборажение страны на карте
                             self.viewCountryOnMap(country, latitude, longitude, countryBorder)
-                            print(data.features.first?.properties.countryCode)
+
                             self.countryCode = data.features.first?.properties.countryCode
                             
                         } else {
@@ -200,10 +154,9 @@ class MapViewController: UIViewController {
                             
                             //отборажение страны на карте
                             self.viewCountryOnMap(country, latitude, longitude, countryBorder)
-                            print(data.features.first?.properties.countryCode)
+
                             self.countryCode = data.features.first?.properties.countryCode
                         }
-//                        print("country: \(self.globalAnnotation.globalAnnotation)")
                     }
                 case .failure(let error):
                     self.showAlert(for: error)
@@ -219,12 +172,7 @@ class MapViewController: UIViewController {
         } else {
             
             //добавление в словарь
-            self.annotationData.globalAnnotation[country] = [latitude,
-                                                               longitude,
-                                                               countryBorder[0],
-                                                               countryBorder[1],
-                                                               countryBorder[2],
-                                                               countryBorder[3]]
+            self.annotationData.globalAnnotation[country] = [latitude, longitude, countryBorder[0], countryBorder[1], countryBorder[2], countryBorder[3]]
             //добавление аннотации на карту
             self.addGlobalAnnotation(country, latitude, longitude)
         }
@@ -255,38 +203,6 @@ class MapViewController: UIViewController {
             }
         }
     }
-    
-//    private func checkAnnotationCoordinate(latitude: Double, longitude: Double) {
-//        print(latitude)
-//        print(longitude)
-//        self.networkService.checkAnnotationCoordinate(latitude: latitude, longitude: longitude) { responce in
-//            DispatchQueue.main.async {
-//                switch responce {
-//                case .success(let data):
-//                    print(data.features.first?.properties.country)
-//                    let currentCountry = self.navigationItem.title
-//                    print("navigator \(self.navigationItem.title)")
-//                    print(latitude)
-//                    print(longitude)
-//                    if data.features.first?.properties.country != currentCountry {
-//                        self.showAlert(for: .coordinate)
-//                        print("failure coordinate")
-//                    } else {
-//                        print("OK")
-//                        let annotation = CLLocationCoordinate2D(latitude: latitude,
-//                                                                longitude: longitude)
-//                        self.addLocalAnnotation(coordinate: annotation)
-//                        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-//                    }
-//                case .failure(let error):
-//                    print("failure \(error.localizedDescription)")
-//                    self.showAlert(for: error)
-//                }
-//            }
-//        }
-//    }
-    
-    
     
     private func showAlert(for error: NetworkServiceError) {
         let alert = UIAlertController(title: "Что-то пошло не так",
@@ -330,9 +246,10 @@ class MapViewController: UIViewController {
         
         let region = MKCoordinateRegion(center: countryCenter.coordinate, span: span)
         
-        //view
-        mapView.map.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
-        mapView.map.setRegion(region, animated: true)
+        mapView.viewCountryOnMap(region: region)
+        
+        //mode
+        mapMode = .localMode
     }
 
     private func viewAllCountry() {
@@ -344,17 +261,14 @@ class MapViewController: UIViewController {
                                     longitudeDelta: Constants.InitialCoordinate.longitudeDelta)
         let region = MKCoordinateRegion(center: center.coordinate, span: span)
         
-        //view
-        mapView.map.cameraBoundary = MKMapView.CameraBoundary()
-        mapView.map.setRegion(region, animated: true)
+        mapView.viewAllCountry(region: region)
     }
 
     private func addGlobalAnnotation(_ country: String, _ latitude: Double, _ longitude: Double) {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country, subtitle: nil, annotationType: .global)
         
-        //view
-        mapView.map.addAnnotation(globalAnnotation)
+        mapView.addAnnotationOnMap(globalAnnotation)
     }
     
     //данные заполняются пользователем
@@ -367,9 +281,12 @@ class MapViewController: UIViewController {
 //        let subtitle = "local subtitle"
         
         let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .local)
+
+        mapView.addAnnotationOnMap(localAnnotation)
         
-        //view
-        mapView.map.addAnnotation(localAnnotation)
+        //массив
+//        mapView.map.
+//        localAnnotations.append(localAnnotation)
     }
     
 }
