@@ -19,40 +19,36 @@ class CountryViewController: UIViewController {
         return countryInfo
     }()
     
-    var firstPhoto: String
-    var secondPhoto: String
-    var thirdPhoto: String
-    
-    //массив картинок
-    var imageCoutry = [UIImage]()
+    private let country: String
+    private var imageStringURL = [String]()
+    private var imageCoutry = [UIImage]()
     
     //переделать
-    var imageNetworkService = ImageNetworkService()
+    var networkService = NetworkService()
     
     // MARK: - Init
 
-    init(firstPhoto: String, secondPhoto: String, thirdPhoto: String) {
-        
-        self.firstPhoto = firstPhoto
-        self.secondPhoto = secondPhoto
-        self.thirdPhoto = thirdPhoto
-        
+    init(country: String) {
+        self.country = country
         super.init(nibName: nil, bundle: nil)
-        
-        setupElements()
-        setupConstraint()
-        setupNavigationTools()
-        //didload
-        loadImage()
-        
-        view.backgroundColor = .systemBackground
-        
-//        placemarkInfo.placemarkSubtitle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editSubtitle)))
-//        placeLabel.text = placeLabelText
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Lyfe cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .systemBackground
+        
+        setupElements()
+        setupConstraint()
+        setupNavigationTools()
+       
+        loadCountryImageURL(counrty: country)
     }
     
     // MARK: - UI
@@ -62,7 +58,7 @@ class CountryViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        self.title = "Информация о метке"
+        self.title = country
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action: #selector(deleteCountry))
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
@@ -80,10 +76,6 @@ class CountryViewController: UIViewController {
     
     @objc private func deleteCountry() {
         print("удаление страны")
-        print(firstPhoto)
-        print(secondPhoto)
-        print(thirdPhoto)
-        print(imageCoutry.count)
     }
     
     @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
@@ -92,9 +84,25 @@ class CountryViewController: UIViewController {
     
     // MARK: - Methods
     
+    private func loadCountryImageURL(counrty: String) {
+        self.networkService.getCountryImageURL(country: counrty) { responce in
+            DispatchQueue.main.async {
+                switch responce {
+                case .success(let data):
+                    for image in data.photos {
+                        self.imageStringURL.append(image.src.large2x)
+                    }
+                    self.loadImage()
+                case .failure(let error):
+                    print("Image error: \(error)")
+                }
+            }
+        }
+    }
+    
     private func loadImage() {
         print("загрузка картинки")
-        imageNetworkService.loadImage(firstURL: firstPhoto, secondURL: secondPhoto, thirdURL: thirdPhoto) { responce in
+        self.networkService.loadImage(imageStringURL: imageStringURL) { responce in
             DispatchQueue.main.async {
                 switch responce {
                 case .success(let data):

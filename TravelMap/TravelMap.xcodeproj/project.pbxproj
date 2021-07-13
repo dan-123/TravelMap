@@ -31,7 +31,6 @@
 		C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
 		C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */; };
 		C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
-		C58CD71E269D9F5100C15802 /* ImageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71D269D9F5100C15802 /* ImageNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +60,6 @@
 		C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewCell.swift; sourceTree = "<group>"; };
 		C58CD71B269D9C5100C15802 /* CountryImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryImageModel.swift; sourceTree = "<group>"; };
-		C58CD71D269D9F5100C15802 /* ImageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +111,6 @@
 			children = (
 				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
-				C58CD71D269D9F5100C15802 /* ImageNetworkService.swift */,
 			);
 			path = "Serviсes";
 			sourceTree = "<group>";
@@ -269,7 +266,6 @@
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
 				C58CD637269857AC00C15802 /* CustomTabBarView.swift in Sources */,
-				C58CD71E269D9F5100C15802 /* ImageNetworkService.swift in Sources */,
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
 				C58CD63926999C6400C15802 /* MapSettingView.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,

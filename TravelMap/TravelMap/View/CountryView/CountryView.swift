@@ -32,7 +32,7 @@ class CountryView: UIView {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CountryCollectionViewCell.self, forCellWithReuseIdentifier: "countryCollectionViewCell")
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -127,7 +127,7 @@ class CountryView: UIView {
 
 extension CountryView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return Constants.Image.perPage
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

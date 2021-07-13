@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Protocol
 
@@ -13,22 +14,40 @@ typealias GetCountryCoordinateResponce = Result<CoordinateModel, NetworkServiceE
 
 protocol NetworkServiceProtocol {
     func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void)
-//    func checkAnnotationCoordinate(latitude: Double, longitude: Double, completion: @escaping (GetCountryCoordinateResponce) -> Void)
+}
+
+protocol ImageNetworkServiceProtocol {
+    func getCountryImageURL(country: String, completion: @escaping (Result<CountryImageModel, NetworkServiceError>) -> Void)
+    func loadImage(imageStringURL: [String], completion: @escaping (Result<[UIImage], Error>) -> Void)
 }
 
 // MARK: - Network service
 
 final class NetworkService {
+    
+    // MARK: - Properties
     private let session: URLSession = .shared
+    private let imageCache = NSCache<NSString, UIImage>()
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
+    
+    // MARK: - Methods
+    
+    private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200..<300).contains(httpResponse.statusCode),
+              let data = data else {
+            throw NetworkServiceError.network
+        }
+        return data
+    }
 }
 
-// MARK: - Extension
+// MARK: - Extension (NetworkServiceProtocol)
 
 extension NetworkService: NetworkServiceProtocol {
     
@@ -75,15 +94,19 @@ extension NetworkService: NetworkServiceProtocol {
             }
         }.resume()
     }
+}
+
+// MARK: - Extension (ImageNetworkServiceProtocol)
+
+extension NetworkService: ImageNetworkServiceProtocol {
     
-    //ссылки на фото
     func getCountryImageURL(country: String, completion: @escaping (Result<CountryImageModel, NetworkServiceError>) -> Void) {
         var components = URLComponents(string: Constants.Image.getCountryImageURL)
         
         components?.queryItems = [
             URLQueryItem(name: "query", value: country),
             URLQueryItem(name: "total_results", value: Constants.Image.totalResult),
-            URLQueryItem(name: "per_page", value: Constants.Image.perPage)
+            URLQueryItem(name: "per_page", value: String(Constants.Image.perPage))
         ]
         
         guard let url = components?.url else {
@@ -108,12 +131,38 @@ extension NetworkService: NetworkServiceProtocol {
         }.resume()
     }
     
-    private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200..<300).contains(httpResponse.statusCode),
-              let data = data else {
-            throw NetworkServiceError.network
+    func loadImage(imageStringURL: [String], completion: @escaping (Result<[UIImage], Error>) -> Void) {
+        let myGroup = DispatchGroup()
+        var results = [UIImage]()
+        
+        for stringURL in imageStringURL {
+            myGroup.enter()
+            
+            guard let url = URL(string: stringURL) else { return }
+            
+            if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+                results.append(cachedImage)
+                print("cache")
+                myGroup.leave()
+            } else {
+                session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+                    guard let httpResponse = response as? HTTPURLResponse,
+                          (200..<300).contains(httpResponse.statusCode),
+                          let data = data else {
+                        guard let error = error else { return }
+                        return completion(.failure(error))
+                    }
+                    guard let image = UIImage(data: data) else { return }
+                    self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    print("network")
+                    results.append(image)
+                    myGroup.leave()
+                }.resume()
+            }
         }
-        return data
+        
+        myGroup.notify(queue: DispatchQueue.main) {
+            completion(.success(results))
+        }
     }
 }

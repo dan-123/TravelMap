@@ -14,7 +14,7 @@ class CountryCollectionViewCell: UICollectionViewCell {
     private lazy var countryImage: UIImageView = {
         let countryImage = UIImageView()
         countryImage.layer.cornerRadius = 10
-        countryImage.contentMode = .scaleToFill
+        countryImage.contentMode = .scaleAspectFill
         countryImage.clipsToBounds = true
         countryImage.backgroundColor = .red
         countryImage.translatesAutoresizingMaskIntoConstraints = false
