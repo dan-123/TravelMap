@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 
+protocol CountryViewDelegate: AnyObject {
+    func getImageCountry(index: Int) -> UIImage
+}
+
 class CountryView: UIView {
     
     // MARK: - Properties
 
-//    weak var delegate: MapViewDelegate?
+    weak var delegate: CountryViewDelegate?
     
     lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -113,6 +117,10 @@ class CountryView: UIView {
     }
     
     // MARK: - Methods
+    
+    func reloadCountryImage() {
+        photoCollectionView.reloadData()
+    }
 }
 
 // MARK: - Extensions (UICollectionView)
@@ -126,7 +134,12 @@ extension CountryView: UICollectionViewDataSource, UICollectionViewDelegate {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionViewCell", for: indexPath) as? CountryCollectionViewCell
         else { preconditionFailure("Failed to load filter collection view cell") }
         
-        cell.setImage(UIImage(named: "testPhoto"))
+        if let image = delegate?.getImageCountry(index: indexPath.row) {
+            cell.setImage(image)
+        } else {
+            cell.setImage(UIImage(named: "testPhoto"))
+        }
+        
         return cell
     }
     

@@ -84,7 +84,7 @@ extension PlacesTableView: UITableViewDataSource {
 extension PlacesTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let pointViewController = CountryViewController(placeLabelText: "тест \(indexPath.row)")
+        let pointViewController = CountryViewController(firstPhoto: "", secondPhoto: "", thirdPhoto: "")
         delegate?.selectRow(viewController: pointViewController)
     }
 }

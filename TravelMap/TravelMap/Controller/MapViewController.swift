@@ -39,6 +39,11 @@ class MapViewController: UIViewController {
     
     private var mapMode: MapMode = .globalMode
     
+    //временно
+    var firstURL: String = ""
+    var secondURL: String = ""
+    var thirdURL: String = ""
+    
     // MARK: - Lyfe cycle
     
     override func viewDidLoad() {
@@ -152,6 +157,9 @@ class MapViewController: UIViewController {
                             #warning("временное решение")
                             self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
                             
+                            //загрузка URL
+                            self.loadCountryImageURL(counrty: country)
+                            
                             //отборажение страны на карте
                             self.viewCountryOnMap(country, latitude, longitude, countryBorder)
 
@@ -175,6 +183,28 @@ class MapViewController: UIViewController {
             self.annotationData.globalAnnotation[country] = [latitude, longitude, countryBorder[0], countryBorder[1], countryBorder[2], countryBorder[3]]
             //добавление аннотации на карту
             self.addGlobalAnnotation(country, latitude, longitude)
+        }
+    }
+    
+    //запрос для картинок
+    
+    private func loadCountryImageURL(counrty: String) {
+        self.networkService.getCountryImageURL(country: counrty) { responce in
+            DispatchQueue.main.async {
+                switch responce {
+                case .success(let data):
+                    for image in data.photos {
+                        print(image.src.medium)
+                    }
+                    
+                    self.firstURL = data.photos[0].src.medium
+                    self.secondURL = data.photos[1].src.medium
+                    self.thirdURL = data.photos[2].src.medium
+                    
+                case .failure(let error):
+                    print("Image error: \(error)")
+                }
+            }
         }
     }
     
@@ -318,7 +348,7 @@ extension MapViewController: MapViewDelegate {
     func tappedGlobalInformationButton(country: String) {
 //        tabBarController?.selectedIndex = 0
         guard let text = navigationItem.title else { return }
-        let placemarkViewController = CountryViewController(placeLabelText: text)
+        let placemarkViewController = CountryViewController(firstPhoto: firstURL, secondPhoto: secondURL, thirdPhoto: thirdURL)
         navigationController?.pushViewController(placemarkViewController, animated: true)
         
 //        let placesViewController = PlacesViewController()

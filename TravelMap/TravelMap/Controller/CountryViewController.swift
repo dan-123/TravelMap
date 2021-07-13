@@ -14,18 +14,36 @@ class CountryViewController: UIViewController {
     
     lazy var countryInfo: CountryView = {
         countryInfo = CountryView()
+        countryInfo.delegate = self
         countryInfo.translatesAutoresizingMaskIntoConstraints = false
         return countryInfo
     }()
     
+    var firstPhoto: String
+    var secondPhoto: String
+    var thirdPhoto: String
+    
+    //массив картинок
+    var imageCoutry = [UIImage]()
+    
+    //переделать
+    var imageNetworkService = ImageNetworkService()
+    
     // MARK: - Init
 
-    init(placeLabelText: String) {
+    init(firstPhoto: String, secondPhoto: String, thirdPhoto: String) {
+        
+        self.firstPhoto = firstPhoto
+        self.secondPhoto = secondPhoto
+        self.thirdPhoto = thirdPhoto
+        
         super.init(nibName: nil, bundle: nil)
         
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        //didload
+        loadImage()
         
         view.backgroundColor = .systemBackground
         
@@ -62,10 +80,46 @@ class CountryViewController: UIViewController {
     
     @objc private func deleteCountry() {
         print("удаление страны")
+        print(firstPhoto)
+        print(secondPhoto)
+        print(thirdPhoto)
+        print(imageCoutry.count)
     }
     
     @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
         print("редактирование описания")
     }
+    
+    // MARK: - Methods
+    
+    private func loadImage() {
+        print("загрузка картинки")
+        imageNetworkService.loadImage(firstURL: firstPhoto, secondURL: secondPhoto, thirdURL: thirdPhoto) { responce in
+            DispatchQueue.main.async {
+                switch responce {
+                case .success(let data):
+                    self.imageCoutry = data
+                    print(self.imageCoutry.count)
+                    self.countryInfo.reloadCountryImage()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Extensions
+
+extension CountryViewController: CountryViewDelegate {
+    func getImageCountry(index: Int) -> UIImage {
+        if index < imageCoutry.count {
+            return imageCoutry[index]
+        } else {
+            //force
+            return UIImage(systemName: "photo")!
+        }
+    }
+    
     
 }

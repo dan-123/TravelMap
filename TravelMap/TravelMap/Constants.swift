@@ -16,6 +16,14 @@ enum Constants {
         static let limit = 1
     }
     
+    enum Image {
+        static let keyword = "query"
+        static let totalResult = "1"
+        static let perPage = "3"
+        static let getCountryImageURL = "https://api.pexels.com/v1/search?"
+        static let authorization = "563492ad6f917000010000013adcba2f0f0348fe97c6b76cc7b68602"
+    }
+    
     enum InitialCoordinate {
         static let latitude = 55.453699
         static let longitude = 72.597645
