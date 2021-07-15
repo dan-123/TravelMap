@@ -27,7 +27,8 @@ final class NetworkService {
     
     // MARK: - Properties
     private let session: URLSession = .shared
-    private let imageCache = NSCache<NSString, UIImage>()
+    //    убрать
+    //    private let imageCache = NSCache<NSString, UIImage>()
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -44,6 +45,10 @@ final class NetworkService {
             throw NetworkServiceError.network
         }
         return data
+    }
+    
+    deinit {
+        print("deinit Newtwork service")
     }
 }
 
@@ -140,25 +145,24 @@ extension NetworkService: ImageNetworkServiceProtocol {
             
             guard let url = URL(string: stringURL) else { return }
             
-            if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
-                results.append(cachedImage)
-                print("cache")
+//            if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+//                results.append(cachedImage)
+//                print("cache")
+//                myGroup.leave()
+//            } else {
+            session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200..<300).contains(httpResponse.statusCode),
+                      let data = data else {
+                    guard let error = error else { return }
+                    return completion(.failure(error))
+                }
+                guard let image = UIImage(data: data) else { return }
+//                self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+//                print("network")
+                results.append(image)
                 myGroup.leave()
-            } else {
-                session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-                    guard let httpResponse = response as? HTTPURLResponse,
-                          (200..<300).contains(httpResponse.statusCode),
-                          let data = data else {
-                        guard let error = error else { return }
-                        return completion(.failure(error))
-                    }
-                    guard let image = UIImage(data: data) else { return }
-                    self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
-                    print("network")
-                    results.append(image)
-                    myGroup.leave()
-                }.resume()
-            }
+            }.resume()
         }
         
         myGroup.notify(queue: DispatchQueue.main) {
