@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
     //переделать
     var networkService = NetworkService()
     var annotationData = AnnotationData()
+    var coreDataService = CoreDataService()
     var countryCode: String?
     
     //словарь
@@ -39,10 +40,6 @@ class MapViewController: UIViewController {
     
     private var mapMode: MapMode = .globalMode
     
-    //временно
-    var firstURL: String = ""
-    var secondURL: String = ""
-    var thirdURL: String = ""
     
     // MARK: - Lyfe cycle
     
@@ -85,6 +82,8 @@ class MapViewController: UIViewController {
     @objc private func tappedLeftBarButton() {
         viewAllCountry()
         mapMode = .globalMode
+        
+        coreDataService.showCountryData()
 //        for annotation in localAnnotations {
 //            guard let annotation = annotation as?  else { return }
 ////            annotation.
@@ -155,6 +154,9 @@ class MapViewController: UIViewController {
                             
                         } else {
                             #warning("временное решение")
+                            //добавление в core data
+                            self.coreDataService.addCountry(countryCode, country, latitude, longitude, borderValue: countryBorder)
+                            
                             self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
                             
                             //отборажение страны на карте

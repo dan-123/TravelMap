@@ -31,6 +31,12 @@
 		C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
 		C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */; };
 		C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
+		C58CD72D26A1861200C15802 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72C26A1861200C15802 /* CoreDataStack.swift */; };
+		C58CD72F26A1878000C15802 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72E26A1878000C15802 /* CoreDataService.swift */; };
+		C58CD73226A1B95E00C15802 /* TravelMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73026A1B95E00C15802 /* TravelMap.xcdatamodeld */; };
+		C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */; };
+		C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */; };
+		C58CD73C26A1C99F00C15802 /* CountryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73B26A1C99F00C15802 /* CountryDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +66,12 @@
 		C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewCell.swift; sourceTree = "<group>"; };
 		C58CD71B269D9C5100C15802 /* CountryImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryImageModel.swift; sourceTree = "<group>"; };
+		C58CD72C26A1861200C15802 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		C58CD72E26A1878000C15802 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		C58CD73126A1B95E00C15802 /* TravelMap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TravelMap.xcdatamodel; sourceTree = "<group>"; };
+		C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C58CD73B26A1C99F00C15802 /* CountryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +114,7 @@
 				C55CE73E268E09B100B1942C /* CoordinateModel.swift */,
 				C58CD71B269D9C5100C15802 /* CountryImageModel.swift */,
 				C58CD62B2696D83700C15802 /* AnnotationData.swift */,
+				C58CD73B26A1C99F00C15802 /* CountryDTO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,6 +124,7 @@
 			children = (
 				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
+				C58CD72E26A1878000C15802 /* CoreDataService.swift */,
 			);
 			path = "Serviсes";
 			sourceTree = "<group>";
@@ -170,6 +184,7 @@
 				C55CE72F268C5F2C00B1942C /* Model */,
 				C55CE72E268C5EFC00B1942C /* View */,
 				C55CE72D268C5E9C00B1942C /* Controller */,
+				C58CD71F26A0968600C15802 /* CoreData */,
 				C56B06012681BAD500057FE3 /* Assets.xcassets */,
 				C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */,
 				C56B06062681BAD500057FE3 /* Info.plist */,
@@ -183,6 +198,25 @@
 				C58CD636269857AB00C15802 /* CustomTabBarView.swift */,
 			);
 			path = TabBarView;
+			sourceTree = "<group>";
+		};
+		C58CD71F26A0968600C15802 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD72326A1857200C15802 /* Entity */,
+				C58CD72C26A1861200C15802 /* CoreDataStack.swift */,
+				C58CD73026A1B95E00C15802 /* TravelMap.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		C58CD72326A1857200C15802 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */,
+				C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,10 +290,14 @@
 			files = (
 				C5640EBB26947AB900F8DB8A /* PlaceCell.swift in Sources */,
 				C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */,
+				C58CD73C26A1C99F00C15802 /* CountryDTO.swift in Sources */,
 				C5640E2B268F34BE00F8DB8A /* MapView.swift in Sources */,
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
+				C58CD72D26A1861200C15802 /* CoreDataStack.swift in Sources */,
 				C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */,
+				C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
+				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
 				C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */,
 				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
@@ -269,12 +307,14 @@
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
 				C58CD63926999C6400C15802 /* MapSettingView.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
+				C58CD72F26A1878000C15802 /* CoreDataService.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
 				C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
+				C58CD73226A1B95E00C15802 /* TravelMap.xcdatamodeld in Sources */,
 				C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,6 +511,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C58CD73026A1B95E00C15802 /* TravelMap.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C58CD73126A1B95E00C15802 /* TravelMap.xcdatamodel */,
+			);
+			currentVersion = C58CD73126A1B95E00C15802 /* TravelMap.xcdatamodel */;
+			path = TravelMap.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C56B05ED2681BAD100057FE3 /* Project object */;
 }
