@@ -37,6 +37,9 @@
 		C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */; };
 		C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */; };
 		C58CD73C26A1C99F00C15802 /* CountryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73B26A1C99F00C15802 /* CountryDTO.swift */; };
+		C58CD74226A3016300C15802 /* CityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74126A3016300C15802 /* CityDTO.swift */; };
+		C58CD74526A308FE00C15802 /* City+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */; };
+		C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +75,9 @@
 		C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C58CD73B26A1C99F00C15802 /* CountryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDTO.swift; sourceTree = "<group>"; };
+		C58CD74126A3016300C15802 /* CityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDTO.swift; sourceTree = "<group>"; };
+		C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,7 @@
 				C58CD71B269D9C5100C15802 /* CountryImageModel.swift */,
 				C58CD62B2696D83700C15802 /* AnnotationData.swift */,
 				C58CD73B26A1C99F00C15802 /* CountryDTO.swift */,
+				C58CD74126A3016300C15802 /* CityDTO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +222,8 @@
 			children = (
 				C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */,
 				C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */,
+				C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */,
+				C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -298,12 +307,14 @@
 				C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
 				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
+				C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */,
 				C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */,
 				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
 				C58CD637269857AC00C15802 /* CustomTabBarView.swift in Sources */,
+				C58CD74226A3016300C15802 /* CityDTO.swift in Sources */,
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
 				C58CD63926999C6400C15802 /* MapSettingView.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
@@ -311,6 +322,7 @@
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
 				C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */,
+				C58CD74526A308FE00C15802 /* City+CoreDataClass.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,

@@ -152,7 +152,7 @@ class MapViewController: UIViewController {
                         }
                         //добавление в DTO
                         let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
-                        
+                        //добавление аннотации на карту
                         self.AddGlobalAnnotationOnMap(for: countryDTO)
                         //отборажение страны на карте
                         self.viewCountryOnMap(for: countryDTO)
@@ -164,6 +164,7 @@ class MapViewController: UIViewController {
         }
     }
     
+    //добавление страны на карту
     private func AddGlobalAnnotationOnMap(for country: CountryDTO) {
         //проверка наличия страны в core data
         let result = self.coreDataService.addCountry(country: [country])
@@ -184,22 +185,36 @@ class MapViewController: UIViewController {
                     if data.features.isEmpty {
                         self.showAlert(for: .city)
                     } else {
-                        guard let city = data.features.first?.properties.city,
+                        //получение данных
+                        guard let cityId = data.features.first?.properties.placeId,
+                              let countryCode = data.features.first?.properties.countryCode,
+                              let city = data.features.first?.properties.city,
                               let latitude = data.features.first?.properties.lat,
                               let longitude = data.features.first?.properties.lon else {
                             return
                         }
-                        
-                        print("city \(city)")
-                        
-                        #warning("добавить проверку на наличие города")
-                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                        self.addLocalAnnotation(coordinate, city, nil)
+                        //добавление в DTO
+                        let CityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: city, latitude: latitude, longitude: longitude)
+                        //добавление аннотации на карту
+                        self.AddLocalAnnotationOnMap(for: CityDTO)
                     }
                 case .failure(let error):
                     self.showAlert(for: error)
                 }
             }
+        }
+    }
+    
+    //добавление города на карту
+    private func AddLocalAnnotationOnMap(for city: CityDTO) {
+        //проверка наличия города в core data
+        let result = self.coreDataService.addCity(city: [city])
+        
+        if result == true {
+            self.showAlert(for: .repeatCity)
+        } else {
+            let coordinate = CLLocationCoordinate2D(latitude: city.latitude, longitude: city.longitude)
+            self.addLocalAnnotation(coordinate, city.city, nil)
         }
     }
     
@@ -219,6 +234,8 @@ class MapViewController: UIViewController {
         case .city:
             return "Кажется вы ввели некоректное название города"
         case .repeatCountry:
+            return "Вы уже добаляли эту страну ранее"
+        case .repeatCity:
             return "Вы уже добаляли эту страну ранее"
         case .localAnnotation:
             return "Для добавлении новой метки необходимо выбрать страну"
@@ -274,13 +291,6 @@ class MapViewController: UIViewController {
     
     //данные заполняются пользователем
     private func addLocalAnnotation(_ coordinate: CLLocationCoordinate2D, _ title: String?, _ subtitle: String?) {
-        
-        //        let latitude = 30.9953683
-        //        let longitude = 18.9877132
-        //        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        //        let title = "Новая метка"
-        //        let subtitle = "local subtitle"
-        
         let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, countryCode: nil, annotationType: .local)
         
         mapView.addAnnotationOnMap(localAnnotation)
