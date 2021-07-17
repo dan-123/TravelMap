@@ -45,13 +45,13 @@ extension CoreDataService: CoreDataServiceProtocol {
     
     //добавление страны
     func addCountry(country: [CountryDTO]) -> Bool {
-        var result = true
+        var result = false
         let context = coreDataStack.backgroundContext
         context.performAndWait {
             country.forEach {
                 if ((try? self.fetchRequest(for: $0).execute().first) != nil) {
                     print("такая страна есть")
-                    result = false
+                    result = true
                 } else {
                     let country = Country(context: context)
                     country.countryCode = $0.countryCode
@@ -68,18 +68,21 @@ extension CoreDataService: CoreDataServiceProtocol {
     }
     
     // добавленные страны
-    func getCountryData() -> [CountryDTO]? {
+    func getCountryData(predicate: String?) -> [CountryDTO]? {
         print("show core data 1")
         let context = coreDataStack.viewContext
         var result = [CountryDTO]()
         
         let request = NSFetchRequest<Country>(entityName: "Country")
-//        request.predicate = .init(format: "countryCode == %@", "it")
+        if let predicate = predicate {
+            request.predicate = .init(format: "countryCode == %@", predicate)
+        }
         
         context.performAndWait {
             guard let country = try? request.execute() else { return }
             result = country.map { CountryDTO(with: $0) }
         }
+        print("добавленные страны: \(result)")
         return result
     }
     

@@ -27,7 +27,7 @@ class MapViewController: UIViewController {
     var countryCode: String?
     
     //словарь
-//    var globalAnnotation = [String: [CountryCoordinateModel]]()
+    //    var globalAnnotation = [String: [CountryCoordinateModel]]()
     
     //для стран
     var globalAnnotations = [CountryDTO]()
@@ -65,7 +65,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-//        self.title = "Карта"
+        //        self.title = "Карта"
         let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedLeftBarButton))
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(tappedRightBarButton))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
@@ -86,21 +86,12 @@ class MapViewController: UIViewController {
     @objc private func tappedLeftBarButton() {
         viewAllCountry()
         mapMode = .globalMode
-        
-//        globalAnnotations = coreDataService.showCountryData()
-        
-        
-//        coreDataService.deleteAll()
-//        for annotation in localAnnotations {
-//            guard let annotation = annotation as?  else { return }
-////            annotation.
-//        }
     }
     
     @objc private func tappedRightBarButton() {
         switch mapMode {
         case .globalMode:
-        addNewPlace(title: "Новая страна", message: "Добавление новой страны", mapMode: mapMode)
+            addNewPlace(title: "Новая страна", message: "Добавление новой страны", mapMode: mapMode)
         case .localMode:
             addNewPlace(title: "Новый город", message: "Добавление нового города", mapMode: mapMode)
         }
@@ -108,13 +99,16 @@ class MapViewController: UIViewController {
     
     // MARK: - Methods
     
+    // добавление стран на карту при запуске
     private func setupGlobalAnnotation() {
-        guard let globalAnnotations = coreDataService.getCountryData() else { return }
-        print("добавленные страны: \(globalAnnotations)")
+        guard let globalAnnotations = coreDataService.getCountryData(predicate: nil) else { return }
         
-        
+        globalAnnotations.forEach {
+            addGlobalAnnotation($0.countryCode, $0.country, $0.latitude, $0.longitude)
+        }
     }
     
+    // добавления новой страны/нового города
     private func addNewPlace(title: String, message: String, mapMode: MapMode) {
         let alertConrtoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertConrtoller.addTextField()
@@ -157,32 +151,9 @@ class MapViewController: UIViewController {
                         //добавление в DTO
                         let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
                         
-                        
-                        //ошибочные данные bbox от сервера для Франции
-                        if country == "France" {
-                            let countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
-                            
-                            #warning("временное решение")
-                            self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
-                            
-                            //отборажение страны на карте
-                            self.viewCountryOnMap(country, latitude, longitude, countryBorder)
-
-                            self.countryCode = data.features.first?.properties.countryCode
-                            
-                        } else {
-                            #warning("временное решение")
-                            //добавление в core data
-                            var result = self.coreDataService.addCountry(country: [countryDTO])
-                            print("result = \(result)")
-                            
-                            self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
-                            
-                            //отборажение страны на карте
-                            self.viewCountryOnMap(country, latitude, longitude, countryBorder)
-
-                            self.countryCode = data.features.first?.properties.countryCode
-                        }
+                        self.AddGlobalAnnotationOnMap(country: countryDTO)
+                        //отборажение страны на карте
+                        self.viewCountryOnMap(country, latitude, longitude, countryBorder)
                     }
                 case .failure(let error):
                     self.showAlert(for: error)
@@ -191,21 +162,18 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func checkAndAddAnnotationOnMap(_ country: String, _ latitude: Double, _ longitude: Double, _ countryBorder: [Double]) {
-        //проверка на наличие страны на карте
-        if self.annotationData.globalAnnotation[country] != nil {
+    private func AddGlobalAnnotationOnMap(country: CountryDTO) {
+        //проверка наличия страны в core data
+        let result = self.coreDataService.addCountry(country: [country])
+        
+        if result == true {
             self.showAlert(for: .repeatCountry)
         } else {
-            
-            //добавление в словарь
-            self.annotationData.globalAnnotation[country] = [latitude, longitude, countryBorder[0], countryBorder[1], countryBorder[2], countryBorder[3]]
-            //добавление аннотации на карту
-            self.addGlobalAnnotation(country, latitude, longitude)
+            self.addGlobalAnnotation(country.countryCode ,country.country, country.latitude, country.longitude)
         }
     }
     
     //запрос для города
-    
     private func loadCityCoordinate(city: String) {
         self.networkService.getCoordinate(placeType: Constants.Coordinate.cityCoordinate, placeName: city, countryCode: countryCode) { responce in
             DispatchQueue.main.async {
@@ -277,7 +245,7 @@ class MapViewController: UIViewController {
         //mode
         mapMode = .localMode
     }
-
+    
     private func viewAllCountry() {
         navigationItem.title = ""
         
@@ -289,10 +257,10 @@ class MapViewController: UIViewController {
         
         mapView.viewAllCountry(region: region)
     }
-
-    private func addGlobalAnnotation(_ country: String, _ latitude: Double, _ longitude: Double) {
+    
+    private func addGlobalAnnotation(_ countryCode: String, _ country: String, _ latitude: Double, _ longitude: Double) {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country, subtitle: nil, annotationType: .global)
+        let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country, subtitle: nil, countryCode: countryCode, annotationType: .global)
         
         mapView.addAnnotationOnMap(globalAnnotation)
     }
@@ -300,19 +268,19 @@ class MapViewController: UIViewController {
     //данные заполняются пользователем
     private func addLocalAnnotation(_ coordinate: CLLocationCoordinate2D, _ title: String?, _ subtitle: String?) {
         
-//        let latitude = 30.9953683
-//        let longitude = 18.9877132
-//        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//        let title = "Новая метка"
-//        let subtitle = "local subtitle"
+        //        let latitude = 30.9953683
+        //        let longitude = 18.9877132
+        //        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        //        let title = "Новая метка"
+        //        let subtitle = "local subtitle"
         
-        let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, annotationType: .local)
-
+        let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, countryCode: nil, annotationType: .local)
+        
         mapView.addAnnotationOnMap(localAnnotation)
         
         //массив
-//        mapView.map.
-//        localAnnotations.append(localAnnotation)
+        //        mapView.map.
+        //        localAnnotations.append(localAnnotation)
     }
     
 }
@@ -322,32 +290,26 @@ class MapViewController: UIViewController {
 
 extension MapViewController: MapViewDelegate {
     
-    func tappedGlobalAnnotation(country: String) {
-        #warning("временное решение")
-        guard let countryInfo = annotationData.globalAnnotation[country] else { return }
-        
-        let latitude = countryInfo[0]
-        let longitude = countryInfo[1]
-        let countryBorder = [countryInfo[2],
-                             countryInfo[3],
-                             countryInfo[4],
-                             countryInfo[5]]
-        
-        viewCountryOnMap(country, latitude, longitude, countryBorder)
+    func tappedGlobalAnnotation(_ countryCode: String) {
+        print("predicate \(countryCode)")
+        guard let country = coreDataService.getCountryData(predicate: countryCode) else { return }
+        country.forEach {
+            viewCountryOnMap($0.country, $0.latitude, $0.longitude, $0.border)
+        }
     }
     
-//    func tappedLocalInformationButton(latitude: Double, longitude: Double) {
-//        let placemarkViewController = PlacemarkViewController(placeLabelText: "")
-//        navigationController?.pushViewController(placemarkViewController, animated: true)
-//    }
+    //    func tappedLocalInformationButton(latitude: Double, longitude: Double) {
+    //        let placemarkViewController = PlacemarkViewController(placeLabelText: "")
+    //        navigationController?.pushViewController(placemarkViewController, animated: true)
+    //    }
     
     func tappedGlobalInformationButton(country: String) {
-//        tabBarController?.selectedIndex = 0
+        //        tabBarController?.selectedIndex = 0
         guard let text = navigationItem.title else { return }
         let placemarkViewController = CountryViewController(country: text)
         navigationController?.pushViewController(placemarkViewController, animated: true)
         
-//        let placesViewController = PlacesViewController()
-//        tabBarController?.selectedViewController = placesViewController
+        //        let placesViewController = PlacesViewController()
+        //        tabBarController?.selectedViewController = placesViewController
     }
 }

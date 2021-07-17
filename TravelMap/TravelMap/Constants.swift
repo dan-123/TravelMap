@@ -30,4 +30,7 @@ enum Constants {
         static let latitudeDelta = 86.854243
         static let longitudeDelta = 112.499994
     }
+    
+    //France
+    //countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
 }

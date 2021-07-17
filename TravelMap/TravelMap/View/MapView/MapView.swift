@@ -12,7 +12,7 @@ protocol MapViewDelegate: AnyObject {
 //    func tappedLocalInformationButton(annotation: MKAnnotation)
     func tappedGlobalInformationButton(country: String)
 
-    func tappedGlobalAnnotation(country: String)
+    func tappedGlobalAnnotation(_ countryCode: String)
 }
 
 class MapView: UIView {
@@ -100,8 +100,8 @@ extension MapView: MKMapViewDelegate {
         guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
         
         if customAnnotation.annotationType == .global {
-            guard let country = customAnnotation.title else { return }
-            delegate?.tappedGlobalAnnotation(country: country)} else {
+            guard let countryCode = customAnnotation.countryCode else { return }
+            delegate?.tappedGlobalAnnotation(countryCode)} else {
                 return
             }
     }
