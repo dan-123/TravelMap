@@ -24,13 +24,15 @@ class MapViewController: UIViewController {
     var networkService = NetworkService()
     var annotationData = AnnotationData()
     var coreDataService = CoreDataService()
-    var countryCode: String?
+    
+    // код текущей страны
+    private var countryCode: String?
     
     //словарь
     //    var globalAnnotation = [String: [CountryCoordinateModel]]()
     
     //для стран
-    var globalAnnotations = [CountryDTO]()
+//    var globalAnnotations = [CountryDTO]()
     
     //для меток
     var localAnnotations = [CustomAnnotationVew]()
@@ -151,9 +153,9 @@ class MapViewController: UIViewController {
                         //добавление в DTO
                         let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
                         
-                        self.AddGlobalAnnotationOnMap(country: countryDTO)
+                        self.AddGlobalAnnotationOnMap(for: countryDTO)
                         //отборажение страны на карте
-                        self.viewCountryOnMap(country, latitude, longitude, countryBorder)
+                        self.viewCountryOnMap(for: countryDTO)
                     }
                 case .failure(let error):
                     self.showAlert(for: error)
@@ -162,7 +164,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func AddGlobalAnnotationOnMap(country: CountryDTO) {
+    private func AddGlobalAnnotationOnMap(for country: CountryDTO) {
         //проверка наличия страны в core data
         let result = self.coreDataService.addCountry(country: [country])
         
@@ -187,6 +189,9 @@ class MapViewController: UIViewController {
                               let longitude = data.features.first?.properties.lon else {
                             return
                         }
+                        
+                        print("city \(city)")
+                        
                         #warning("добавить проверку на наличие города")
                         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                         self.addLocalAnnotation(coordinate, city, nil)
@@ -228,22 +233,24 @@ class MapViewController: UIViewController {
     
     // MARK: - Methods for map
     
-    private func viewCountryOnMap(_ country: String, _ latitude: Double, _ longitude: Double, _ countryBorder: [Double]) {
-        navigationItem.title = country
+    private func viewCountryOnMap(for country: CountryDTO) {
+        navigationItem.title = country.country
         
-        let countryCenter = CLLocation(latitude: latitude, longitude: longitude)
+        let countryCenter = CLLocation(latitude: country.latitude, longitude: country.longitude)
         
         //масштабирование
-        let latitudeDelta = abs(countryBorder[3] - countryBorder[1])*0.8
-        let longitudeDelta = abs(countryBorder[2] - countryBorder[0])*0.8
+        let latitudeDelta = abs(country.border[3] - country.border[1])*0.8
+        let longitudeDelta = abs(country.border[2] - country.border[0])*0.8
         let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
         
         let region = MKCoordinateRegion(center: countryCenter.coordinate, span: span)
         
         mapView.viewCountryOnMap(region: region)
         
-        //mode
+        // mode
         mapMode = .localMode
+        // код текущей страны
+        countryCode = country.countryCode
     }
     
     private func viewAllCountry() {
@@ -292,10 +299,8 @@ extension MapViewController: MapViewDelegate {
     
     func tappedGlobalAnnotation(_ countryCode: String) {
         print("predicate \(countryCode)")
-        guard let country = coreDataService.getCountryData(predicate: countryCode) else { return }
-        country.forEach {
-            viewCountryOnMap($0.country, $0.latitude, $0.longitude, $0.border)
-        }
+        guard let country = coreDataService.getCountryData(predicate: countryCode)?.first else { return }
+        viewCountryOnMap(for: country)
     }
     
     //    func tappedLocalInformationButton(latitude: Double, longitude: Double) {
