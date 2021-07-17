@@ -29,6 +29,9 @@ class MapViewController: UIViewController {
     //словарь
 //    var globalAnnotation = [String: [CountryCoordinateModel]]()
     
+    //для стран
+    var globalAnnotations = [CountryDTO]()
+    
     //для меток
     var localAnnotations = [CustomAnnotationVew]()
     
@@ -52,6 +55,7 @@ class MapViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         
+        setupGlobalAnnotation()
     }
     
     // MARK: - UI
@@ -83,7 +87,10 @@ class MapViewController: UIViewController {
         viewAllCountry()
         mapMode = .globalMode
         
-        coreDataService.showCountryData()
+//        globalAnnotations = coreDataService.showCountryData()
+        
+        
+//        coreDataService.deleteAll()
 //        for annotation in localAnnotations {
 //            guard let annotation = annotation as?  else { return }
 ////            annotation.
@@ -100,6 +107,13 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    private func setupGlobalAnnotation() {
+        guard let globalAnnotations = coreDataService.getCountryData() else { return }
+        print("добавленные страны: \(globalAnnotations)")
+        
+        
+    }
     
     private func addNewPlace(title: String, message: String, mapMode: MapMode) {
         let alertConrtoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -132,6 +146,7 @@ class MapViewController: UIViewController {
                     if data.features.isEmpty {
                         self.showAlert(for: .country)
                     } else {
+                        //получение данных
                         guard let countryCode = data.features.first?.properties.countryCode,
                               let country = data.features.first?.properties.country,
                               let latitude = data.features.first?.properties.lat,
@@ -139,6 +154,9 @@ class MapViewController: UIViewController {
                               let countryBorder = data.features.first?.bbox else {
                             return
                         }
+                        //добавление в DTO
+                        let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
+                        
                         
                         //ошибочные данные bbox от сервера для Франции
                         if country == "France" {
@@ -155,7 +173,8 @@ class MapViewController: UIViewController {
                         } else {
                             #warning("временное решение")
                             //добавление в core data
-                            self.coreDataService.addCountry(countryCode, country, latitude, longitude, borderValue: countryBorder)
+                            var result = self.coreDataService.addCountry(country: [countryDTO])
+                            print("result = \(result)")
                             
                             self.checkAndAddAnnotationOnMap(country, latitude, longitude, countryBorder)
                             

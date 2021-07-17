@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol CoreDataServiceProtocol {
-    func addCountry(_ countryCodeName: String, _ countryName: String, _ latitudeValue: Double, _ longitudeValue: Double, borderValue: [Double])
+    func addCountry(country: [CountryDTO]) -> Bool
     //    func deleteCountry(_ countryCode: String)
     
     //    func addCity()
@@ -27,41 +27,102 @@ class CoreDataService {
 // MARK: - Extension
 
 extension CoreDataService: CoreDataServiceProtocol {
-    func addCountry(_ countryCodeName: String, _ countryName: String, _ latitudeValue: Double, _ longitudeValue: Double, borderValue: [Double]) {
+    
+//    //добавление (добавить проверку страны)
+//    func addCountry(countryDTO: CountryDTO) {
+//        let context = coreDataStack.backgroundContext
+//        context.performAndWait {
+//            let country = Country(context: context)
+//            country.countryCode = countryDTO.countryCode
+//            country.country = countryDTO.country
+//            country.latitude = countryDTO.latitude
+//            country.longitude = countryDTO.longitude
+//            country.border = countryDTO.border
+//            print("add to core data")
+//        }
+//        try? context.save()
+//    }
+    
+    //добавление страны
+    func addCountry(country: [CountryDTO]) -> Bool {
+        var result = true
         let context = coreDataStack.backgroundContext
         context.performAndWait {
-            let country = Country(context: context)
-            country.countryCode = countryCodeName
-            country.country = countryName
-            country.latitude = latitudeValue
-            country.longitude = longitudeValue
-            country.border = borderValue
-            print("add to core data")
+            country.forEach {
+                if ((try? self.fetchRequest(for: $0).execute().first) != nil) {
+                    print("такая страна есть")
+                    result = false
+                } else {
+                    let country = Country(context: context)
+                    country.countryCode = $0.countryCode
+                    country.country = $0.country
+                    country.latitude = $0.latitude
+                    country.longitude = $0.longitude
+                    country.border = $0.border
+                    print("add to core data")
+                }
+            }
+        try? context.save()
         }
-        try? coreDataStack.backgroundContext.save()
+        return result
     }
     
-    func showCountryData() {
+    // добавленные страны
+    func getCountryData() -> [CountryDTO]? {
         print("show core data 1")
         let context = coreDataStack.viewContext
         var result = [CountryDTO]()
         
         let request = NSFetchRequest<Country>(entityName: "Country")
-        request.predicate = .init(format: "countryCode == %@", "it")
+//        request.predicate = .init(format: "countryCode == %@", "it")
         
         context.performAndWait {
             guard let country = try? request.execute() else { return }
             result = country.map { CountryDTO(with: $0) }
         }
-        print(result)
+        return result
+    }
+    
+    // удаление выбранной страны
+    func delete(country: [CountryDTO]?) {
+        guard let country = country else {
+            deleteAll()
+            return
+        }
+        let context = coreDataStack.backgroundContext
+        context.performAndWait {
+            country.forEach {
+                if let country = try? self.fetchRequest(for: $0).execute().first {
+                    context.delete(country)
+                }
+            }
+            try? context.save()
+        }
+    }
+    
+    // удаление всех элементов
+    private func deleteAll() {
+        let context = coreDataStack.backgroundContext
+        let fetchRequest = NSFetchRequest<Country>(entityName: "Country")
+        context.performAndWait {
+            let countries = try? fetchRequest.execute()
+            countries?.forEach {
+                context.delete($0)
+            }
+            try? context.save()
+        }
     }
     
     
-    //    func deleteCountry(_ countryCode: String) {
-    //
-    //    }
-    
-    
+}
+
+private extension CoreDataService {
+    private func fetchRequest(for dto: CountryDTO) -> NSFetchRequest<Country> {
+        let request = NSFetchRequest<Country>(entityName: "Country")
+        request.predicate = .init(format: "countryCode == %@", dto.countryCode)
+        return request
+    }
+
 }
 
 fileprivate extension CountryDTO {
