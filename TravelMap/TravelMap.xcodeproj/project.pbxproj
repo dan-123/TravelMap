@@ -151,9 +151,9 @@
 		C5640EBE2694879D00F8DB8A /* CountryView */ = {
 			isa = PBXGroup;
 			children = (
-				C58CD62D2696ED1E00C15802 /* CountryView.swift */,
 				C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */,
 				C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */,
+				C58CD62D2696ED1E00C15802 /* CountryView.swift */,
 			);
 			path = CountryView;
 			sourceTree = "<group>";

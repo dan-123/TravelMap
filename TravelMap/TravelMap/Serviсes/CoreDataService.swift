@@ -27,6 +27,16 @@ class CoreDataService {
         return frc
     }()
     
+    lazy var frcCity: NSFetchedResultsController<City> = {
+       let request = NSFetchRequest<City>(entityName: "City")
+        request.sortDescriptors = [.init(key: "city", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: coreDataStack.viewContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return frc
+    }()
+    
 }
 
 // MARK: - Country

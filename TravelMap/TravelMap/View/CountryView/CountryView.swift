@@ -5,18 +5,27 @@
 //  Created by Даниил Петров on 08.07.2021.
 //
 
-import Foundation
+//import Foundation
 import UIKit
 
-protocol CountryViewDelegate: AnyObject {
+
+
+protocol CountryCollectionViewDelegate: AnyObject {
     func getImageCountry(index: Int) -> UIImage
+}
+
+protocol CountryTableViewDelegate: AnyObject {
+    //data source
+    func getNumberOfSection(_ section: Int) -> Int
+    func getData(at indexPath: IndexPath) -> City
 }
 
 class CountryView: UIView {
     
     // MARK: - Properties
 
-    weak var delegate: CountryViewDelegate?
+    weak var delegateCollection: CountryCollectionViewDelegate?
+    weak var delegateTable: CountryTableViewDelegate?
     
     lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -29,23 +38,13 @@ class CountryView: UIView {
     
     lazy var photoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.delegate = self
+//        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CountryCollectionViewCell.self, forCellWithReuseIdentifier: "countryCollectionViewCell")
         collectionView.backgroundColor = .systemBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
-    }()
-    
-    lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.numberOfPages = 3
-        pageControl.currentPage = 1
-        pageControl.tintColor = UIColor.yellow
-        pageControl.pageIndicatorTintColor = UIColor.red
-        pageControl.currentPageIndicatorTintColor = UIColor.green
-        return pageControl
     }()
     
     lazy var citiesLabel: UILabel = {
@@ -59,9 +58,9 @@ class CountryView: UIView {
     lazy var citiesTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
-        tableView.delegate = self
+//        tableView.delegate = self
         tableView.backgroundColor = .systemBackground
-        tableView.register(CitiesTableViewCell.self, forCellReuseIdentifier: "citiesTableViewCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -75,8 +74,6 @@ class CountryView: UIView {
         
         setupElement()
         setupConstraint()
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -87,7 +84,6 @@ class CountryView: UIView {
     
     private func setupElement() {
         addSubview(photoCollectionView)
-//        addSubview(pageControl)
         addSubview(citiesLabel)
         addSubview(citiesTableView)
     }
@@ -98,11 +94,6 @@ class CountryView: UIView {
             photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             photoCollectionView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -50),
-            
-//            pageControl.heightAnchor.constraint(equalToConstant: 20),
-//            pageControl.widthAnchor.constraint(equalToConstant: 50),
-//            pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            pageControl.centerYAnchor.constraint(equalTo: centerYAnchor)
             
             citiesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             citiesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
@@ -121,11 +112,15 @@ class CountryView: UIView {
     func reloadCountryImage() {
         photoCollectionView.reloadData()
     }
+    
+    func reloadCityTable() {
+        citiesTableView.reloadData()
+    }
 }
 
-// MARK: - Extensions (UICollectionView)
+// MARK: - Extensions (UICollectionViewDataSource)
 
-extension CountryView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension CountryView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Constants.Image.perPage
     }
@@ -134,7 +129,7 @@ extension CountryView: UICollectionViewDataSource, UICollectionViewDelegate {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionViewCell", for: indexPath) as? CountryCollectionViewCell
         else { preconditionFailure("Failed to load filter collection view cell") }
         
-        if let image = delegate?.getImageCountry(index: indexPath.row) {
+        if let image = delegateCollection?.getImageCountry(index: indexPath.row) {
             cell.setImage(image)
         } else {
             cell.setImage(UIImage(named: "testPhoto"))
@@ -152,21 +147,20 @@ extension CountryView: UICollectionViewDataSource, UICollectionViewDelegate {
 //    }
 }
 
-// MARK: - Extensions (UITableView)
+// MARK: - Extensions (UITableViewDataSource)
 
-extension CountryView: UITableViewDataSource, UITableViewDelegate {
+extension CountryView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        guard let section = delegateTable?.getNumberOfSection(section) else { return 0 }
+        return section
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "citiesTableViewCell", for: indexPath)
-        // передать значения
-        (cell as? CitiesTableViewCell)?.configure()
+        guard let city = delegateTable?.getData(at: indexPath),
+              let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
+        cell.textLabel?.text = city.city
         return cell
     }
-    
-    
 }
 
 

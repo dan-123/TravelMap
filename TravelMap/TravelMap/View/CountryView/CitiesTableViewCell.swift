@@ -7,14 +7,15 @@
 
 import UIKit
 
-final class CitiesTableViewCell: UITableViewCell {
+// MARK: - Пока не используется
 
-//    static let indentifirer = "CitiesTableViewCell"
-
-    // добавить аргументы
-    func configure() {
-        textLabel?.numberOfLines = 0
-        textLabel?.text = "город"
-    }
-    
-}
+//final class CitiesTableViewCell: UITableViewCell {
+//
+////    static let indentifirer = "CitiesTableViewCell"
+//
+//    // добавить аргументы
+//    func configure() {
+//        textLabel?.numberOfLines = 0
+//        textLabel?.text = "город"
+//    }
+//}

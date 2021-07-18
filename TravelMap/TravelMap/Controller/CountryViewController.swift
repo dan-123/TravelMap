@@ -14,7 +14,8 @@ class CountryViewController: UIViewController {
     
     lazy var countryInfo: CountryView = {
         countryInfo = CountryView()
-        countryInfo.delegate = self
+        countryInfo.delegateCollection = self
+        countryInfo.delegateTable = self
         countryInfo.translatesAutoresizingMaskIntoConstraints = false
         return countryInfo
     }()
@@ -29,6 +30,7 @@ class CountryViewController: UIViewController {
     
     //переделать
     var networkService = NetworkService()
+    let coreDataService = CoreDataService()
     
     // MARK: - Init
 
@@ -54,6 +56,13 @@ class CountryViewController: UIViewController {
         setupNavigationTools()
        
         loadCountryImageURL(counrty: country)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        try? coreDataService.frcCity.performFetch()
+        countryInfo.reloadCityTable()
     }
     
     // MARK: - UI
@@ -122,9 +131,9 @@ class CountryViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extensions (CountryCollectionViewDelegate)
 
-extension CountryViewController: CountryViewDelegate {
+extension CountryViewController: CountryCollectionViewDelegate {
     func getImageCountry(index: Int) -> UIImage {
         if index < imageCountry.count {
             return imageCountry[index]
@@ -133,6 +142,18 @@ extension CountryViewController: CountryViewDelegate {
             return UIImage(systemName: "photo")!
         }
     }
+}
+
+// MARK: - Extensions (CountryTableViewDelegate)
+
+extension CountryViewController: CountryTableViewDelegate {
+    func getNumberOfSection(_ section: Int) -> Int {
+        guard let sections = coreDataService.frcCity.sections else { return 0 }
+        return sections[section].numberOfObjects
+    }
     
-    
+    func getData(at indexPath: IndexPath) -> City {
+        return (coreDataService.frcCity.object(at: indexPath))
+    }
+      
 }
