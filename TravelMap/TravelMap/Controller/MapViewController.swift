@@ -338,7 +338,7 @@ extension MapViewController: MapViewDelegate {
     
     //нажатие на кнопку информации у страны
     func tappedGlobalInformationButton(country: String) {
-        let placemarkViewController = CountryViewController(country: country)
+        let placemarkViewController = CountryViewController(countryCode: "", country: country)
         navigationController?.pushViewController(placemarkViewController, animated: true)
     }
     

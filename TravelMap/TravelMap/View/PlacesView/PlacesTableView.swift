@@ -5,10 +5,13 @@
 //  Created by Даниил Петров on 06.07.2021.
 //
 
-//import Foundation
 import UIKit
 
 protocol PlacesTableViewDelegate: AnyObject {
+    //data source
+    func getNumberOfSection(_ section: Int) -> Int
+    func getData(at indexPath: IndexPath) -> Country
+    //delegate
     func selectRow(viewController: UIViewController)
 }
 
@@ -23,7 +26,7 @@ class PlacesTableView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .systemBackground
-        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.indentifirer)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -59,19 +62,23 @@ class PlacesTableView: UIView {
     
     // MARK: - Methods
     
+    func reloadData() {
+        placesTable.reloadData()
+    }
 }
 
 // MARK: - UITableViewDataSource
 
 extension PlacesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        guard let section = delegate?.getNumberOfSection(section) else { return 0 }
+        return section
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.indentifirer, for: indexPath)
-        // передать значения
-        (cell as? PlaceCell)?.configure(country: "Страна")
+        guard let country = delegate?.getData(at: indexPath),
+              let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
+        cell.textLabel?.text = country.country
         return cell
     }
 }
@@ -81,7 +88,9 @@ extension PlacesTableView: UITableViewDataSource {
 extension PlacesTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let pointViewController = CountryViewController(country: "")
+        
+        guard let country = delegate?.getData(at: indexPath) else { return }
+        let pointViewController = CountryViewController(countryCode: country.countryCode, country: country.country)
         delegate?.selectRow(viewController: pointViewController)
     }
 }

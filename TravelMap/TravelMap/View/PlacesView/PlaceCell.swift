@@ -8,14 +8,16 @@
 import Foundation
 import UIKit
 
-final class PlaceCell: UITableViewCell {
+// MARK: - Пока не используется
 
-    static let indentifirer = "PlaceCell"
-
-    // добавить аргументы
-    func configure(country: String) {
-        textLabel?.numberOfLines = 0
-        textLabel?.text = country
-    }
-    
-}
+//final class PlaceCell: UITableViewCell {
+//
+//    static let indentifirer = "PlaceCell"
+//
+//    // добавить аргументы
+//    func configure(country: String) {
+//        textLabel?.numberOfLines = 0
+//        textLabel?.text = country
+//    }
+//
+//}

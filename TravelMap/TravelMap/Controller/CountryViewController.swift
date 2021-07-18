@@ -19,16 +19,21 @@ class CountryViewController: UIViewController {
         return countryInfo
     }()
     
+    private let countryCode: String
     private let country: String
+    
+    //массив для url с картинками
     private var imageStringURL = [String]()
-    private var imageCoutry = [UIImage]()
+    //массив с картинками
+    private var imageCountry = [UIImage]()
     
     //переделать
     var networkService = NetworkService()
     
     // MARK: - Init
 
-    init(country: String) {
+    init(countryCode: String, country: String) {
+        self.countryCode = countryCode
         self.country = country
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,8 +111,8 @@ class CountryViewController: UIViewController {
             DispatchQueue.main.async {
                 switch responce {
                 case .success(let data):
-                    self.imageCoutry = data
-                    print(self.imageCoutry.count)
+                    self.imageCountry = data
+                    print(self.imageCountry.count)
                     self.countryInfo.reloadCountryImage()
                 case .failure(let error):
                     print(error)
@@ -121,8 +126,8 @@ class CountryViewController: UIViewController {
 
 extension CountryViewController: CountryViewDelegate {
     func getImageCountry(index: Int) -> UIImage {
-        if index < imageCoutry.count {
-            return imageCoutry[index]
+        if index < imageCountry.count {
+            return imageCountry[index]
         } else {
             //force
             return UIImage(systemName: "photo")!

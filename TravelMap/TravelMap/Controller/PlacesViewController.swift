@@ -11,15 +11,15 @@ class PlacesViewController: UIViewController {
     
     // MARK: - Properties
     
+    //переделать
+    let coreDataService = CoreDataService()
+    
     lazy var placesTable: PlacesTableView = {
         let table = PlacesTableView()
         table.delegate = self
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    
-    
-    
     
     // MARK: - Lyfe cycle
     
@@ -31,6 +31,13 @@ class PlacesViewController: UIViewController {
         setupNavigationTools()
         
         view.backgroundColor = .systemBlue
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        try? coreDataService.frcCountry.performFetch()
+        placesTable.reloadData()
     }
     
     // MARK: - UI
@@ -57,6 +64,18 @@ class PlacesViewController: UIViewController {
 }
 
 extension PlacesViewController: PlacesTableViewDelegate {
+    //количество секций для таблицы
+    func getNumberOfSection(_ section: Int) -> Int {
+        guard let sections = coreDataService.frcCountry.sections else { return 0 }
+        return sections[section].numberOfObjects
+    }
+
+    //данныя для ячейки
+    func getData(at indexPath: IndexPath) -> Country {
+        return coreDataService.frcCountry.object(at: indexPath)
+    }
+    
+    //нажатие на выбранную ячейку
     func selectRow(viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
     }

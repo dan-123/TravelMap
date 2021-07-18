@@ -17,7 +17,15 @@ protocol CoreDataServiceProtocol {
 class CoreDataService {
     private let coreDataStack = CoreDataStack.shared
     
-    //    private lazy var frc
+    lazy var frcCountry: NSFetchedResultsController<Country> = {
+       let request = NSFetchRequest<Country>(entityName: "Country")
+        request.sortDescriptors = [.init(key: "country", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: coreDataStack.viewContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return frc
+    }()
     
 }
 
@@ -47,7 +55,7 @@ extension CoreDataService: CoreDataServiceProtocol {
         return result
     }
     
-    // получение данных
+    // получение стран
     func getCountryData(predicate: String?) -> [CountryDTO]? {
         let context = coreDataStack.viewContext
         var result = [CountryDTO]()
