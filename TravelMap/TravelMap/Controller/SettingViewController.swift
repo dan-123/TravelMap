@@ -25,6 +25,7 @@ class SettingViewController: UIViewController {
         setupElements()
         setupNavigationTools()
         setupConstraint()
+        settingView.update(dataProvider: self)
         
         view.backgroundColor = .systemBlue
     }
@@ -50,5 +51,33 @@ class SettingViewController: UIViewController {
             settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             settingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
+    }
+}
+
+
+// MARK: - Extensions (UITableViewDataSource)
+
+extension SettingViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: settingView.cellIdentifier) else { return UITableViewCell() }
+        cell.textLabel?.text = "информация"
+//        cell.
+        return cell
+    }
+}
+
+// MARK: - Extensions (UITableViewDelegate)
+
+extension SettingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+//        guard let country = delegate?.getData(at: indexPath) else { return }
+//        let pointViewController = CountryViewController(countryCode: country.countryCode, country: country.country)
+//        delegate?.selectRow(viewController: pointViewController)
     }
 }

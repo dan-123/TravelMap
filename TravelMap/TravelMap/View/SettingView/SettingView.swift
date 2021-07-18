@@ -12,12 +12,14 @@ class SettingView: UIView {
     
     // MARK: - Properties
     
-    private lazy var settingTable: UITableView = {
+    let cellIdentifier = "DefaultCell"
+    
+    private lazy var settingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = self
-        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.delegate = self
         tableView.backgroundColor = .systemBackground
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -39,45 +41,22 @@ class SettingView: UIView {
     // MARK: - UI
     
     private func setupElement() {
-        addSubview(settingTable)
+        addSubview(settingTableView)
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            settingTable.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            settingTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            settingTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            settingTable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+            settingTableView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            settingTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            settingTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            settingTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
     }
     
     // MARK: - Methods
     
-}
-
-// MARK: - Extensions (UITableViewDataSource)
-
-extension SettingView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
-        cell.textLabel?.text = "информация"
-//        cell.
-        return cell
-    }
-}
-
-// MARK: - Extensions (UITableViewDelegate)
-
-extension SettingView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-//        guard let country = delegate?.getData(at: indexPath) else { return }
-//        let pointViewController = CountryViewController(countryCode: country.countryCode, country: country.country)
-//        delegate?.selectRow(viewController: pointViewController)
+    func update(dataProvider: UITableViewDelegate & UITableViewDataSource) {
+        settingTableView.dataSource = dataProvider
+        settingTableView.delegate = dataProvider
     }
 }

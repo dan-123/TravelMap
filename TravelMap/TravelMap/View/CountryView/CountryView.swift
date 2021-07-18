@@ -39,7 +39,8 @@ class CountryView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CountryCollectionViewCell.self, forCellWithReuseIdentifier: "countryCollectionViewCell")
+        collectionView.register(CountryCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CountryCollectionViewCell.reusableIdentifier)
         collectionView.backgroundColor = .systemBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +126,8 @@ extension CountryView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionViewCell", for: indexPath) as? CountryCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCollectionViewCell.reusableIdentifier,
+                                                            for: indexPath) as? CountryCollectionViewCell
         else { preconditionFailure("Failed to load filter collection view cell") }
         
         if let image = delegateCollection?.getImageCountry(index: indexPath.row) {

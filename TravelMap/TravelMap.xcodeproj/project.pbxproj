@@ -39,6 +39,7 @@
 		C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */; };
 		C58CD74926A45F6600C15802 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74826A45F6600C15802 /* SettingView.swift */; };
 		C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74A26A461E300C15802 /* SettingModel.swift */; };
+		C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C58CD74826A45F6600C15802 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		C58CD74A26A461E300C15802 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 				C55CE72E268C5EFC00B1942C /* View */,
 				C55CE72D268C5E9C00B1942C /* Controller */,
 				C58CD71F26A0968600C15802 /* CoreData */,
+				C58CD74C26A48EE600C15802 /* Extensions */,
 				C56B06012681BAD500057FE3 /* Assets.xcassets */,
 				C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */,
 				C56B06062681BAD500057FE3 /* Info.plist */,
@@ -223,6 +226,14 @@
 				C58CD74826A45F6600C15802 /* SettingView.swift */,
 			);
 			path = SettingView;
+			sourceTree = "<group>";
+		};
+		C58CD74C26A48EE600C15802 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +325,7 @@
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
 				C58CD72F26A1878000C15802 /* CoreDataService.swift in Sources */,
+				C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */,
 				C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
