@@ -42,7 +42,6 @@ class MapView: UIView {
         
         //регистрация нового класса с идентификатором повторного использования представления карты по умолчанию
         map.register(CustomAnnotationVew.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-
     }
     
     required init?(coder: NSCoder) {
@@ -116,7 +115,7 @@ class MapView: UIView {
 
 extension MapView: MKMapViewDelegate {
     
-    //    нажатие на метку
+    //нажатие на метку
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
         
@@ -127,7 +126,7 @@ extension MapView: MKMapViewDelegate {
             }
     }
     
-    //    нажатие на кнопку внутри метки
+    //нажатие на кнопку внутри метки
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
         

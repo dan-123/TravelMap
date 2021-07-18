@@ -8,9 +8,8 @@
 //import Foundation
 import UIKit
 
-
-
 protocol CountryCollectionViewDelegate: AnyObject {
+    //data sourse
     func getImageCountry(index: Int) -> UIImage
 }
 
@@ -38,7 +37,7 @@ class CountryView: UIView {
     
     lazy var photoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-//        collectionView.delegate = self
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CountryCollectionViewCell.self, forCellWithReuseIdentifier: "countryCollectionViewCell")
         collectionView.backgroundColor = .systemBackground
@@ -138,13 +137,17 @@ extension CountryView: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: collectionView.bounds.height, height: collectionView.bounds.height)
+//    }
+}
+
+// MARK: - Extensions (UICollectionViewDelegate)
+
+extension CountryView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: frame.width, height: frame.height)
-//    }
 }
 
 // MARK: - Extensions (UITableViewDataSource)

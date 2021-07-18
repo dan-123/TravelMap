@@ -13,22 +13,15 @@ enum AnnotationType {
 }
 
 class CustomAnnotation: NSObject, MKAnnotation {
+    
+    // MARK: - Properties
+    
     let coordinate: CLLocationCoordinate2D
     let title: String?
     let subtitle: String?
     let countryCode: String?
     let placeId: String?
     let annotationType: AnnotationType
-    
-    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, countryCode: String?, placeId: String?, annotationType: AnnotationType) {
-        self.title = title
-        self.subtitle = subtitle
-        self.countryCode = countryCode
-        self.coordinate = coordinate
-        self.placeId = placeId
-        self.annotationType = annotationType
-        super.init()
-    }
     
     // свойство для первого варианта из CustomAnnotationVew
     var annotationTintColor: UIColor   {
@@ -41,14 +34,23 @@ class CustomAnnotation: NSObject, MKAnnotation {
     }
     
     var image: UIImage {
-        #warning("force")
         switch annotationType {
         case .global:
-//            return UIImage(systemName: "checkmark.circle.fill")!
-            return UIImage(named: "globalAnnotation")!
+            return UIImage(named: "globalAnnotation") ?? UIImage()
         case .local:
-//            return UIImage(systemName: "exclamationmark.circle.fill")!
-            return UIImage(named: "localAnnotation")!
+            return UIImage(named: "localAnnotation") ?? UIImage()
         }
+    }
+    
+    // MARK: - Init
+    
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, countryCode: String?, placeId: String?, annotationType: AnnotationType) {
+        self.title = title
+        self.subtitle = subtitle
+        self.countryCode = countryCode
+        self.coordinate = coordinate
+        self.placeId = placeId
+        self.annotationType = annotationType
+        super.init()
     }
 }

@@ -114,7 +114,6 @@ class MapViewController: UIViewController {
             case .localMode:
                 self.loadCityCoordinate(city: place)
             }
-            
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertConrtoller.addAction(okAction)
@@ -341,5 +340,4 @@ extension MapViewController: MapViewDelegate {
         let placemarkViewController = CountryViewController(countryCode: "", country: country)
         navigationController?.pushViewController(placemarkViewController, animated: true)
     }
-    
 }

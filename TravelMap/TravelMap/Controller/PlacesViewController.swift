@@ -60,7 +60,6 @@ class PlacesViewController: UIViewController {
             placesTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
-
 }
 
 extension PlacesViewController: PlacesTableViewDelegate {
@@ -79,6 +78,4 @@ extension PlacesViewController: PlacesTableViewDelegate {
     func selectRow(viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
-    
 }

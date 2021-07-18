@@ -115,7 +115,6 @@ class CountryViewController: UIViewController {
     }
     
     private func loadImage() {
-        print("загрузка картинки")
         self.networkService.loadImage(imageStringURL: imageStringURL) { responce in
             DispatchQueue.main.async {
                 switch responce {
@@ -138,8 +137,7 @@ extension CountryViewController: CountryCollectionViewDelegate {
         if index < imageCountry.count {
             return imageCountry[index]
         } else {
-            //force
-            return UIImage(systemName: "photo")!
+            return UIImage(systemName: "photo") ?? UIImage()
         }
     }
 }
@@ -155,5 +153,4 @@ extension CountryViewController: CountryTableViewDelegate {
     func getData(at indexPath: IndexPath) -> City {
         return (coreDataService.frcCity.object(at: indexPath))
     }
-      
 }
