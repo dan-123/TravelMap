@@ -36,6 +36,7 @@ class PlacesTableView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         placesTable.reloadData()
         setupElement()
         setupConstraint()
@@ -67,7 +68,7 @@ class PlacesTableView: UIView {
     }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - Extensions (UITableViewDataSource)
 
 extension PlacesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,7 +84,7 @@ extension PlacesTableView: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - Extensions (UITableViewDelegate)
 
 extension PlacesTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

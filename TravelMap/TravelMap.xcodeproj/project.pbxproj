@@ -37,6 +37,8 @@
 		C58CD74226A3016300C15802 /* CityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74126A3016300C15802 /* CityDTO.swift */; };
 		C58CD74526A308FE00C15802 /* City+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */; };
 		C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */; };
+		C58CD74926A45F6600C15802 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74826A45F6600C15802 /* SettingView.swift */; };
+		C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74A26A461E300C15802 /* SettingModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		C58CD74126A3016300C15802 /* CityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDTO.swift; sourceTree = "<group>"; };
 		C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C58CD74826A45F6600C15802 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		C58CD74A26A461E300C15802 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 				C58CD71B269D9C5100C15802 /* CountryImageModel.swift */,
 				C58CD73B26A1C99F00C15802 /* CountryDTO.swift */,
 				C58CD74126A3016300C15802 /* CityDTO.swift */,
+				C58CD74A26A461E300C15802 /* SettingModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 		C58CD74726A4306C00C15802 /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
+				C58CD74826A45F6600C15802 /* SettingView.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -308,6 +314,7 @@
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
 				C58CD72F26A1878000C15802 /* CoreDataService.swift in Sources */,
+				C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
 				C58CD6302697299900C15802 /* TabBarController.swift in Sources */,
@@ -315,6 +322,7 @@
 				C56B060F2681C63F00057FE3 /* SettingViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
+				C58CD74926A45F6600C15802 /* SettingView.swift in Sources */,
 				C58CD73226A1B95E00C15802 /* TravelMap.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,15 +11,11 @@ class SettingViewController: UIViewController {
     
     // MARK: - Properties
     
-    lazy var label: UILabel = {
-        let label = UILabel()
-        
-        label.text = "Настройки пользователя"
+    lazy var settingView: SettingView = {
+        let label = SettingView()
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
-    
     
     // MARK: - Lyfe cycle
     
@@ -36,7 +32,7 @@ class SettingViewController: UIViewController {
     // MARK: - UI
     
     func setupElements() {
-        view.addSubview(label)
+        view.addSubview(settingView)
     }
     
     private func setupNavigationTools() {
@@ -49,10 +45,10 @@ class SettingViewController: UIViewController {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            settingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
 }
