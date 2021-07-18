@@ -9,9 +9,8 @@ import UIKit
 import MapKit
 
 protocol MapViewDelegate: AnyObject {
-//    func tappedLocalInformationButton(annotation: MKAnnotation)
+    func tappedLocalInformationButton(localAnnotation: CustomAnnotation)
     func tappedGlobalInformationButton(country: String)
-
     func tappedGlobalAnnotation(_ countryCode: String)
 }
 
@@ -76,15 +75,37 @@ class MapView: UIView {
         map.setRegion(coordinateRegion, animated: true)
       }
     
+    //добавление одной аннотации
     func addAnnotationOnMap(_ annotation: MKAnnotation) {
         map.addAnnotation(annotation)
     }
-    
+    //удаление одной аннотации
+    func deleteAnnotationFromMap(_ annotation: MKAnnotation) {
+        map.removeAnnotation(annotation)
+    }
+    //добавление массива с аннотациями
+    func addAnnotationsOnMap(_ annotations: [MKAnnotation]) {
+        map.addAnnotations(annotations)
+    }
+    //удаление локальных аннотаций
+    func deleteAnnotationsFromMap() {
+        let annotations = map.annotations
+        var localAnnotation = [MKAnnotation]()
+        
+        for annotation in annotations {
+            guard let customAnnotation = annotation as? CustomAnnotation else { return }
+            if customAnnotation.annotationType == .local {
+                localAnnotation.append(customAnnotation)
+            }
+            map.removeAnnotations(localAnnotation)
+        }
+    }
+    //отображение страны на карте
     func viewCountryOnMap(region: MKCoordinateRegion) {
         map.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
         map.setRegion(region, animated: true)
     }
-    
+    //отображение всех стран на карте
     func viewAllCountry(region: MKCoordinateRegion) {
         map.cameraBoundary = MKMapView.CameraBoundary()
         map.setRegion(region, animated: true)
@@ -115,7 +136,10 @@ extension MapView: MKMapViewDelegate {
 //            delegate?.tappedLocalInformationButton(latitude: customAnnotation.coordinate.latitude,
 //                                                   longitude: customAnnotation.coordinate.longitude)
 //            deleteLocalAnnotation()
+        
+            delegate?.tappedLocalInformationButton(localAnnotation: customAnnotation)
             map.removeAnnotation(customAnnotation)
+        
         case .global:
             guard let country = customAnnotation.title else { return }
             delegate?.tappedGlobalInformationButton(country: country)

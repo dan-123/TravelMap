@@ -10,8 +10,6 @@ enum NetworkServiceError: Error {
     case city
     case repeatCountry
     case repeatCity
-    case localAnnotation
-    case coordinate
     case network
     case unknown
 }

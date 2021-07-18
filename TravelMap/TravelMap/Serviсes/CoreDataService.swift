@@ -32,7 +32,6 @@ extension CoreDataService: CoreDataServiceProtocol {
         context.performAndWait {
             country.forEach {
                 if ((try? self.fetchRequestForCountry(for: $0).execute().first) != nil) {
-                    print("такая страна есть")
                     result = true
                 } else {
                     let country = Country(context: context)
@@ -41,7 +40,6 @@ extension CoreDataService: CoreDataServiceProtocol {
                     country.latitude = $0.latitude
                     country.longitude = $0.longitude
                     country.border = $0.border
-                    print("add to core data")
                 }
             }
         try? context.save()
@@ -51,7 +49,6 @@ extension CoreDataService: CoreDataServiceProtocol {
     
     // получение данных
     func getCountryData(predicate: String?) -> [CountryDTO]? {
-        print("show core data 1")
         let context = coreDataStack.viewContext
         var result = [CountryDTO]()
         
@@ -97,7 +94,6 @@ extension CoreDataService {
         context.performAndWait {
             city.forEach {
                 if ((try? self.fetchRequestForCity(for: $0).execute().first) != nil) {
-                    print("такой город есть")
                     result = true
                 } else {
                     let city = City(context: context)
@@ -106,7 +102,6 @@ extension CoreDataService {
                     city.city = $0.city
                     city.latitude = $0.latitude
                     city.longitude = $0.longitude
-                    print("add to core data")
                 }
             }
         try? context.save()
@@ -116,7 +111,6 @@ extension CoreDataService {
     
     // получение городов
     func getCityData(predicate: String?) -> [CityDTO]? {
-        print("show core data 1")
         let context = coreDataStack.viewContext
         var result = [CityDTO]()
         

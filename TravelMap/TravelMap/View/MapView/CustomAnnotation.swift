@@ -17,13 +17,15 @@ class CustomAnnotation: NSObject, MKAnnotation {
     let title: String?
     let subtitle: String?
     let countryCode: String?
+    let placeId: String?
     let annotationType: AnnotationType
     
-    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, countryCode: String?, annotationType: AnnotationType) {
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, countryCode: String?, placeId: String?, annotationType: AnnotationType) {
         self.title = title
         self.subtitle = subtitle
         self.countryCode = countryCode
         self.coordinate = coordinate
+        self.placeId = placeId
         self.annotationType = annotationType
         super.init()
     }
