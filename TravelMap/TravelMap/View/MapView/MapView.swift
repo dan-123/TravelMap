@@ -133,10 +133,6 @@ extension MapView: MKMapViewDelegate {
         
         switch customAnnotation.annotationType {
         case .local:
-//            delegate?.tappedLocalInformationButton(latitude: customAnnotation.coordinate.latitude,
-//                                                   longitude: customAnnotation.coordinate.longitude)
-//            deleteLocalAnnotation()
-        
             delegate?.tappedLocalInformationButton(localAnnotation: customAnnotation)
             map.removeAnnotation(customAnnotation)
         

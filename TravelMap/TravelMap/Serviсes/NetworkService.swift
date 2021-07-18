@@ -27,7 +27,7 @@ final class NetworkService {
     
     // MARK: - Properties
     private let session: URLSession = .shared
-    //    убрать
+
     //    private let imageCache = NSCache<NSString, UIImage>()
     
     private let decoder: JSONDecoder = {

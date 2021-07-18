@@ -22,7 +22,6 @@ class MapViewController: UIViewController {
     
     //переделать
     var networkService = NetworkService()
-    var annotationData = AnnotationData()
     var coreDataService = CoreDataService()
     
     // код текущей страны
@@ -249,7 +248,7 @@ class MapViewController: UIViewController {
         
         mapView.viewCountryOnMap(region: region)
         
-        // mode
+        // режим отображения карты
         mapMode = .localMode
         // код текущей страны
         countryCode = country.countryCode
@@ -268,7 +267,7 @@ class MapViewController: UIViewController {
         
         mapView.viewAllCountry(region: region)
         
-        // mode
+        // режим отображения карты
         mapMode = .globalMode
         //добавление/удаление городов на карту
         viewCityForCountry(for: mapMode)
@@ -287,7 +286,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    //глобальная аннотация
+    //добавление глобальной аннотации
     private func addGlobalAnnotation(for country: CountryDTO) {
         let coordinate = CLLocationCoordinate2D(latitude: country.latitude, longitude: country.longitude)
         let globalAnnotation = CustomAnnotation(coordinate: coordinate, title: country.country, subtitle: nil, countryCode: country.countryCode, placeId: nil, annotationType: .global)
@@ -302,13 +301,6 @@ class MapViewController: UIViewController {
         
         mapView.addAnnotationOnMap(localAnnotation)
     }
-    
-    //удаление одной локальной аннотации
-//    private func addLocalAnnotation(_ coordinate: CLLocationCoordinate2D, _ title: String?, _ subtitle: String?) {
-//        let localAnnotation = CustomAnnotation(coordinate: coordinate, title: title, subtitle: subtitle, countryCode: nil, annotationType: .local)
-//
-//        mapView.addAnnotationOnMap(localAnnotation)
-//    }
     
     //добавление массива с локальными аннотациями
     private func addLocalAnnotations(for city: [CityDTO]) {

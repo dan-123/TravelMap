@@ -29,9 +29,6 @@ class PlacesTableView: UIView {
         return tableView
     }()
     
-    //временное
-    let data = AnnotationData()
-    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -68,13 +65,13 @@ class PlacesTableView: UIView {
 
 extension PlacesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.globalAnnotation.count
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.indentifirer, for: indexPath)
         // передать значения
-        (cell as? PlaceCell)?.configure(country: Array(data.globalAnnotation.keys)[indexPath.row])
+        (cell as? PlaceCell)?.configure(country: "Страна")
         return cell
     }
 }

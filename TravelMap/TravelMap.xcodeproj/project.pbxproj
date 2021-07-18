@@ -22,12 +22,9 @@
 		C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56B06012681BAD500057FE3 /* Assets.xcassets */; };
 		C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */; };
 		C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060C2681C40400057FE3 /* PlacesViewController.swift */; };
-		C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* ThirdViewController.swift */; };
-		C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62B2696D83700C15802 /* AnnotationData.swift */; };
+		C56B060F2681C63F00057FE3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B060E2681C63F00057FE3 /* SettingViewController.swift */; };
 		C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* CountryView.swift */; };
-		C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62F2697299900C15802 /* CustomTabBarController.swift */; };
-		C58CD637269857AC00C15802 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD636269857AB00C15802 /* CustomTabBarView.swift */; };
-		C58CD63926999C6400C15802 /* MapSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63826999C6400C15802 /* MapSettingView.swift */; };
+		C58CD6302697299900C15802 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62F2697299900C15802 /* TabBarController.swift */; };
 		C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
 		C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */; };
 		C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
@@ -60,12 +57,9 @@
 		C56B06042681BAD500057FE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C56B06062681BAD500057FE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C56B060C2681C40400057FE3 /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
-		C56B060E2681C63F00057FE3 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		C58CD62B2696D83700C15802 /* AnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationData.swift; sourceTree = "<group>"; };
+		C56B060E2681C63F00057FE3 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C58CD62D2696ED1E00C15802 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
-		C58CD62F2697299900C15802 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
-		C58CD636269857AB00C15802 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
-		C58CD63826999C6400C15802 /* MapSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingView.swift; sourceTree = "<group>"; };
+		C58CD62F2697299900C15802 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewCell.swift; sourceTree = "<group>"; };
 		C58CD71B269D9C5100C15802 /* CountryImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryImageModel.swift; sourceTree = "<group>"; };
@@ -94,11 +88,11 @@
 		C55CE72D268C5E9C00B1942C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C58CD62F2697299900C15802 /* CustomTabBarController.swift */,
-				C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */,
+				C58CD62F2697299900C15802 /* TabBarController.swift */,
 				C56B060C2681C40400057FE3 /* PlacesViewController.swift */,
+				C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */,
 				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
-				C56B060E2681C63F00057FE3 /* ThirdViewController.swift */,
+				C56B060E2681C63F00057FE3 /* SettingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -106,10 +100,10 @@
 		C55CE72E268C5EFC00B1942C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C58CD6352698576200C15802 /* TabBarView */,
-				C5640EBE2694879D00F8DB8A /* CountryView */,
 				C5640EB72694760900F8DB8A /* PlacesView */,
+				C5640EBE2694879D00F8DB8A /* CountryView */,
 				C5640EB62694717500F8DB8A /* MapView */,
+				C58CD74726A4306C00C15802 /* SettingView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -119,7 +113,6 @@
 			children = (
 				C55CE73E268E09B100B1942C /* CoordinateModel.swift */,
 				C58CD71B269D9C5100C15802 /* CountryImageModel.swift */,
-				C58CD62B2696D83700C15802 /* AnnotationData.swift */,
 				C58CD73B26A1C99F00C15802 /* CountryDTO.swift */,
 				C58CD74126A3016300C15802 /* CityDTO.swift */,
 			);
@@ -140,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				C5640E2A268F34BE00F8DB8A /* MapView.swift */,
-				C58CD63826999C6400C15802 /* MapSettingView.swift */,
 				C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */,
 				C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */,
 			);
@@ -199,14 +191,6 @@
 			path = TravelMap;
 			sourceTree = "<group>";
 		};
-		C58CD6352698576200C15802 /* TabBarView */ = {
-			isa = PBXGroup;
-			children = (
-				C58CD636269857AB00C15802 /* CustomTabBarView.swift */,
-			);
-			path = TabBarView;
-			sourceTree = "<group>";
-		};
 		C58CD71F26A0968600C15802 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +210,13 @@
 				C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		C58CD74726A4306C00C15802 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SettingView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,21 +304,18 @@
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
-				C58CD637269857AC00C15802 /* CustomTabBarView.swift in Sources */,
 				C58CD74226A3016300C15802 /* CityDTO.swift in Sources */,
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
-				C58CD63926999C6400C15802 /* MapSettingView.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesTableView.swift in Sources */,
 				C58CD72F26A1878000C15802 /* CoreDataService.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
-				C58CD6302697299900C15802 /* CustomTabBarController.swift in Sources */,
+				C58CD6302697299900C15802 /* TabBarController.swift in Sources */,
 				C58CD74526A308FE00C15802 /* City+CoreDataClass.swift in Sources */,
-				C56B060F2681C63F00057FE3 /* ThirdViewController.swift in Sources */,
+				C56B060F2681C63F00057FE3 /* SettingViewController.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
 				C58CD73226A1B95E00C15802 /* TravelMap.xcdatamodeld in Sources */,
-				C58CD62C2696D83700C15802 /* AnnotationData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

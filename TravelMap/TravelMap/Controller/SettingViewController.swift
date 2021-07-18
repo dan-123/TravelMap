@@ -1,5 +1,5 @@
 //
-//  ThirdViewController.swift
+//  SettingViewController.swift
 //  TravelMap
 //
 //  Created by Даниил Петров on 22.06.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdViewController: UIViewController {
+class SettingViewController: UIViewController {
     
     // MARK: - Properties
     
