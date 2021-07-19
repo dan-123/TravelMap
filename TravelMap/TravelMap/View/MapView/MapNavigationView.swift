@@ -8,9 +8,16 @@
 import Foundation
 import  UIKit
 
+protocol MapNavigationViewDelegate: AnyObject {
+    func tappedBackButton()
+    func tappedAddButton() -> MapMode
+}
+
 class MapNavigationView: UIView {
     
     // MARK: - Properties
+    
+    weak var delegate: MapNavigationViewDelegate?
     
     private let buttonDiameter: CGFloat = 80
     private let imageSize: CGFloat = 30
@@ -21,7 +28,7 @@ class MapNavigationView: UIView {
         button.backgroundColor = .systemBlue
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedBackButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -32,7 +39,7 @@ class MapNavigationView: UIView {
         button.backgroundColor = .systemBlue
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedAddButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -105,12 +112,20 @@ class MapNavigationView: UIView {
         
     // MARK: - Action
     
-    @objc private func backButtonPressed() {
-        print("backButtonPressed")
+    @objc private func tappedBackButton() {
+        delegate?.tappedBackButton()
     }
     
-    @objc private func addButtonPressed() {
-        print("addButtonPressed")
+    @objc private func tappedAddButton() {
+        let mapMode = delegate?.tappedAddButton()
+        switch mapMode {
+        case .globalMode:
+            addButtonImage.image = UIImage(systemName: "plus.circle.fill")
+        case .localMode:
+            addButtonImage.image = UIImage(systemName: "mappin.circle.fill")
+        case .none:
+            break
+        }
     }
         
     // MARK: - Methods

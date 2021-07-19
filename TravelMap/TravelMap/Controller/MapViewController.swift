@@ -7,7 +7,12 @@
 
 import UIKit
 import MapKit
-import AudioToolbox
+
+//режим отображения
+enum MapMode {
+    case globalMode
+    case localMode
+}
 
 class MapViewController: UIViewController {
     
@@ -21,6 +26,7 @@ class MapViewController: UIViewController {
     
     lazy var mapNavigationView: MapNavigationView = {
         let navigationView = MapNavigationView()
+        navigationView.delegate = self
         navigationView.translatesAutoresizingMaskIntoConstraints = false
         return navigationView
     }()
@@ -31,12 +37,6 @@ class MapViewController: UIViewController {
     
     // код текущей страны
     private var countryCode: String?
-    
-    //режим отображения
-    private enum MapMode {
-        case globalMode
-        case localMode
-    }
     
     private var mapMode: MapMode = .globalMode
     
@@ -65,10 +65,6 @@ class MapViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = "Карта"
-        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedLeftBarButton))
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(tappedRightBarButton))
-        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
-        self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
     
     private func setupConstraint() {
@@ -85,21 +81,6 @@ class MapViewController: UIViewController {
             mapNavigationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mapNavigationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
-    }
-    
-    // MARK: - Actions
-    
-    @objc private func tappedLeftBarButton() {
-        viewAllCountry()
-    }
-    
-    @objc private func tappedRightBarButton() {
-        switch mapMode {
-        case .globalMode:
-            addNewPlace(title: "Новая страна", message: "Добавление новой страны", mapMode: mapMode)
-        case .localMode:
-            addNewPlace(title: "Новый город", message: "Добавление нового города", mapMode: mapMode)
-        }
     }
     
     // MARK: - Methods
@@ -367,6 +348,14 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
     
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        mapNavigationView.isHidden = true
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        mapNavigationView.isHidden = false
+    }
+    
 //    private func deleteLocalAnnotation(annotation: MKAnnotation) {
 //        let alertConrtoller = UIAlertController(title: "Удаление", message: "Вы уверены что хотите удалить город", preferredStyle: .alert)
 //        alertConrtoller.addTextField()
@@ -381,4 +370,23 @@ extension MapViewController: MKMapViewDelegate {
 //
 //        present(alertConrtoller, animated: true)
 //    }
+}
+
+// MARK: - Extensions (MapNavigationViewDelegate)
+
+extension MapViewController: MapNavigationViewDelegate {
+    func tappedBackButton() {
+        viewAllCountry()
+    }
+    
+    func tappedAddButton() -> MapMode {
+        switch mapMode {
+        case .globalMode:
+            addNewPlace(title: "Новая страна", message: "Добавление новой страны", mapMode: mapMode)
+            return mapMode
+        case .localMode:
+            addNewPlace(title: "Новый город", message: "Добавление нового города", mapMode: mapMode)
+            return mapMode
+        }
+    }
 }
