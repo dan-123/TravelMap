@@ -8,23 +8,9 @@
 //import Foundation
 import UIKit
 
-protocol CountryCollectionViewDelegate: AnyObject {
-    //data sourse
-    func getImageCountry(index: Int) -> UIImage
-}
-
-protocol CountryTableViewDelegate: AnyObject {
-    //data source
-    func getNumberOfSection(_ section: Int) -> Int
-    func getData(at indexPath: IndexPath) -> City
-}
-
 class CountryView: UIView {
     
     // MARK: - Properties
-
-    weak var delegateCollection: CountryCollectionViewDelegate?
-    weak var delegateTable: CountryTableViewDelegate?
     
     lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -37,8 +23,6 @@ class CountryView: UIView {
     
     lazy var photoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.register(CountryCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CountryCollectionViewCell.reusableIdentifier)
         collectionView.backgroundColor = .systemBackground
@@ -57,8 +41,6 @@ class CountryView: UIView {
     
     lazy var citiesTableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = self
-//        tableView.delegate = self
         tableView.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         tableView.showsVerticalScrollIndicator = false
@@ -116,57 +98,10 @@ class CountryView: UIView {
     func reloadCityTable() {
         citiesTableView.reloadData()
     }
-}
-
-// MARK: - Extensions (UICollectionViewDataSource)
-
-extension CountryView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Constants.Image.perPage
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCollectionViewCell.reusableIdentifier,
-                                                            for: indexPath) as? CountryCollectionViewCell
-        else { preconditionFailure("Failed to load filter collection view cell") }
-        
-        if let image = delegateCollection?.getImageCountry(index: indexPath.row) {
-            cell.setImage(image)
-        } else {
-            cell.setImage(UIImage(named: "testPhoto"))
-        }
-        
-        return cell
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.bounds.height, height: collectionView.bounds.height)
-//    }
-}
-
-// MARK: - Extensions (UICollectionViewDelegate)
-
-extension CountryView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+    func update(dataProvider: UITableViewDataSource & UICollectionViewDataSource & UICollectionViewDelegate) {
+        citiesTableView.dataSource = dataProvider
+        photoCollectionView.dataSource = dataProvider
+        photoCollectionView.delegate = dataProvider
     }
 }
-
-// MARK: - Extensions (UITableViewDataSource)
-
-extension CountryView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = delegateTable?.getNumberOfSection(section) else { return 0 }
-        return section
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let city = delegateTable?.getData(at: indexPath),
-              let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
-        cell.textLabel?.text = city.city
-        return cell
-    }
-}
-
-
-

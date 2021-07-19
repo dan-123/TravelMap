@@ -15,7 +15,6 @@ class MapViewController: UIViewController {
     
     lazy var mapView: MapView = {
         let mapView = MapView()
-        mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
@@ -46,6 +45,7 @@ class MapViewController: UIViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        mapView.update(dataProvider: self)
         
         setupGlobalAnnotation()
     }
@@ -57,7 +57,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        //        self.title = "Карта"
+        self.title = "Карта"
         let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedLeftBarButton))
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(tappedRightBarButton))
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
@@ -313,31 +313,58 @@ class MapViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions (MKMapViewDelegate)
 
-// MARK: - Extensions
-
-extension MapViewController: MapViewDelegate {
-    //нажатие на страну
-    func tappedGlobalAnnotation(_ countryCode: String) {
-        guard let country = coreDataService.getCountryData(predicate: countryCode)?.first else { return }
-        viewCountryOnMap(for: country)
+extension MapViewController: MKMapViewDelegate {
+    
+    //нажатие на метку
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
+        
+        if customAnnotation.annotationType == .global {
+            guard let countryCode = customAnnotation.countryCode,
+                  let country = coreDataService.getCountryData(predicate: countryCode)?.first else { return }
+            viewCountryOnMap(for: country)} else {
+                return
+            }
     }
     
-    //нажатие на город
-    func tappedLocalInformationButton(localAnnotation: CustomAnnotation) {
-        guard let cityId = localAnnotation.placeId,
-              let countryCode = localAnnotation.countryCode,
-              let title = localAnnotation.title else { return }
+    //нажатие на кнопку внутри метки
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
         
-        let cityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: title, latitude: localAnnotation.coordinate.latitude, longitude: localAnnotation.coordinate.longitude)
+        switch customAnnotation.annotationType {
+        case .local:
+            guard let cityId = customAnnotation.placeId,
+                  let countryCode = customAnnotation.countryCode,
+                  let title = customAnnotation.title else { return }
+            
+            let cityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: title, latitude: customAnnotation.coordinate.latitude, longitude: customAnnotation.coordinate.longitude)
+            
+            coreDataService.deleteCity(city: [cityDTO])
+            mapView.removeAnnotation(customAnnotation)
         
-        //удаление из core data
-        coreDataService.deleteCity(city: [cityDTO])
+        case .global:
+            guard let countryCode = customAnnotation.countryCode,
+                  let country = customAnnotation.title else { return }
+            
+            let countryViewController = CountryViewController(countryCode: countryCode, country: country)
+            navigationController?.pushViewController(countryViewController, animated: true)
+        }
     }
     
-    //нажатие на кнопку информации у страны
-    func tappedGlobalInformationButton(countryCode: String, country: String) {
-        let placemarkViewController = CountryViewController(countryCode: countryCode, country: country)
-        navigationController?.pushViewController(placemarkViewController, animated: true)
-    }
+//    private func deleteLocalAnnotation(annotation: MKAnnotation) {
+//        let alertConrtoller = UIAlertController(title: "Удаление", message: "Вы уверены что хотите удалить город", preferredStyle: .alert)
+//        alertConrtoller.addTextField()
+//
+//        let okAction = UIAlertAction(title: "Да", style: .default) { [weak alertConrtoller] (_) in
+//            self.map.removeAnnotation(annotation)
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Нет", style: .cancel, handler: nil)
+//        alertConrtoller.addAction(okAction)
+//        alertConrtoller.addAction(cancelAction)
+//
+//        present(alertConrtoller, animated: true)
+//    }
 }

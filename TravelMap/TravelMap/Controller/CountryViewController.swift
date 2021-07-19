@@ -13,12 +13,10 @@ class CountryViewController: UIViewController {
     
     // MARK: - Properties
     
-    lazy var countryInfo: CountryView = {
-        countryInfo = CountryView()
-        countryInfo.delegateCollection = self
-        countryInfo.delegateTable = self
-        countryInfo.translatesAutoresizingMaskIntoConstraints = false
-        return countryInfo
+    lazy var countryView: CountryView = {
+        countryView = CountryView()
+        countryView.translatesAutoresizingMaskIntoConstraints = false
+        return countryView
     }()
     
     private let countryCode: String
@@ -60,6 +58,7 @@ class CountryViewController: UIViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        countryView.update(dataProvider: self)
        
         loadCountryImageURL(counrty: country)
     }
@@ -70,13 +69,13 @@ class CountryViewController: UIViewController {
         frcCity = coreDataService.GetFrcForCity(predicate: countryCode)
         print("countryCode = \(countryCode)")
         try? frcCity.performFetch()
-        countryInfo.reloadCityTable()
+        countryView.reloadCityTable()
     }
     
     // MARK: - UI
     
     private func setupElements() {
-        view.addSubview(countryInfo)
+        view.addSubview(countryView)
     }
     
     private func setupNavigationTools() {
@@ -87,10 +86,10 @@ class CountryViewController: UIViewController {
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            countryInfo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            countryInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            countryInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            countryInfo.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+            countryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            countryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            countryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            countryView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
         ])
     }
     
@@ -129,7 +128,7 @@ class CountryViewController: UIViewController {
                 case .success(let data):
                     self.imageCountry = data
                     print(self.imageCountry.count)
-                    self.countryInfo.reloadCountryImage()
+                    self.countryView.reloadCountryImage()
                 case .failure(let error):
                     print(error)
                 }
@@ -138,29 +137,52 @@ class CountryViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions (CountryCollectionViewDelegate)
+// MARK: - Extensions (UICollectionViewDataSource)
 
-extension CountryViewController: CountryCollectionViewDelegate {
-    func getImageCountry(index: Int) -> UIImage {
-        if index < imageCountry.count {
-            return imageCountry[index]
+extension CountryViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Constants.Image.perPage
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCollectionViewCell.reusableIdentifier,
+                                                            for: indexPath) as? CountryCollectionViewCell
+        else { return UICollectionViewCell() }
+        
+        if indexPath.row < imageCountry.count {
+            cell.setImage(imageCountry[indexPath.row])
         } else {
-            return UIImage(systemName: "photo") ?? UIImage()
+            cell.setImage(UIImage(systemName: "photo"))
         }
+        
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: collectionView.bounds.height, height: collectionView.bounds.height)
+//    }
+}
+
+// MARK: - Extensions (UICollectionViewDelegate)
+
+extension CountryViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
 }
 
-// MARK: - Extensions (CountryTableViewDelegate)
+// MARK: - Extensions (UITableViewDataSource)
 
-extension CountryViewController: CountryTableViewDelegate {
-    func getNumberOfSection(_ section: Int) -> Int {
-//        let frcCity = coreDataService.FrcForCity(predicate: countryCode)
+extension CountryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = frcCity.sections else { return 0 }
         return sections[section].numberOfObjects
     }
     
-    func getData(at indexPath: IndexPath) -> City {
-//        let frcCity = coreDataService.FrcForCity(predicate: countryCode)
-        return (frcCity.object(at: indexPath))
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
+        let city = (frcCity.object(at: indexPath))
+        cell.textLabel?.text = city.city
+        return cell
     }
 }

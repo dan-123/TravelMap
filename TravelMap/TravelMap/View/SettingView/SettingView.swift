@@ -55,7 +55,7 @@ class SettingView: UIView {
     
     // MARK: - Methods
     
-    func update(dataProvider: UITableViewDelegate & UITableViewDataSource) {
+    func update(dataProvider: UITableViewDataSource & UITableViewDelegate) {
         settingTableView.dataSource = dataProvider
         settingTableView.delegate = dataProvider
     }

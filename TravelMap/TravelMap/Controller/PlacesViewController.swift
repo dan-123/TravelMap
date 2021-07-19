@@ -14,11 +14,10 @@ class PlacesViewController: UIViewController {
     //переделать
     let coreDataService = CoreDataService()
     
-    lazy var placesTable: PlacesTableView = {
-        let table = PlacesTableView()
-        table.delegate = self
-        table.translatesAutoresizingMaskIntoConstraints = false
-        return table
+    lazy var placesTableView: PlacesView = {
+        let tableView = PlacesView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     // MARK: - Lyfe cycle
@@ -29,6 +28,7 @@ class PlacesViewController: UIViewController {
         setupElements()
         setupConstraint()
         setupNavigationTools()
+        placesTableView.update(dataProvider: self)
         
         view.backgroundColor = .systemBlue
     }
@@ -37,45 +37,53 @@ class PlacesViewController: UIViewController {
         super.viewWillAppear(true)
         
         try? coreDataService.frcCountry.performFetch()
-        placesTable.reloadData()
+        placesTableView.reloadData()
     }
     
     // MARK: - UI
     
     func setupElements() {
-        view.addSubview(placesTable)
+        view.addSubview(placesTableView)
     }
     
     private func setupNavigationTools() {
         self.title = "Места"
-//        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(tappedBackButton))
-//        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
     }
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            placesTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            placesTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            placesTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            placesTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            placesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            placesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            placesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            placesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
 }
 
-extension PlacesViewController: PlacesTableViewDelegate {
-    //количество секций для таблицы
-    func getNumberOfSection(_ section: Int) -> Int {
+// MARK: - Extensions (UITableViewDataSource)
+
+extension PlacesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = coreDataService.frcCountry.sections else { return 0 }
         return sections[section].numberOfObjects
     }
-
-    //данныя для ячейки
-    func getData(at indexPath: IndexPath) -> Country {
-        return coreDataService.frcCountry.object(at: indexPath)
-    }
     
-    //нажатие на выбранную ячейку
-    func selectRow(viewController: UIViewController) {
-        navigationController?.pushViewController(viewController, animated: true)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
+        let country = coreDataService.frcCountry.object(at: indexPath)
+        cell.textLabel?.text = country.country
+        return cell
+    }
+}
+
+// MARK: - Extensions (UITableViewDelegate)
+
+extension PlacesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let country = coreDataService.frcCountry.object(at: indexPath)
+        let countryViewController = CountryViewController(countryCode: country.countryCode, country: country.country)
+        navigationController?.pushViewController(countryViewController, animated: true)
     }
 }
