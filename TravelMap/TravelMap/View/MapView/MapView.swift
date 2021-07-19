@@ -10,7 +10,7 @@ import MapKit
 
 protocol MapViewDelegate: AnyObject {
     func tappedLocalInformationButton(localAnnotation: CustomAnnotation)
-    func tappedGlobalInformationButton(country: String)
+    func tappedGlobalInformationButton(countryCode: String, country: String)
     func tappedGlobalAnnotation(_ countryCode: String)
 }
 
@@ -136,8 +136,9 @@ extension MapView: MKMapViewDelegate {
             map.removeAnnotation(customAnnotation)
         
         case .global:
-            guard let country = customAnnotation.title else { return }
-            delegate?.tappedGlobalInformationButton(country: country)
+            guard let countryCode = customAnnotation.countryCode,
+                  let country = customAnnotation.title else { return }
+            delegate?.tappedGlobalInformationButton(countryCode: countryCode, country: country)
         }
     }
     

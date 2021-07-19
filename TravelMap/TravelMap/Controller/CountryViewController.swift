@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class CountryViewController: UIViewController {
     
@@ -22,6 +23,11 @@ class CountryViewController: UIViewController {
     
     private let countryCode: String
     private let country: String
+    
+    private lazy var frcCity: NSFetchedResultsController<City> = {
+        let frcCity = NSFetchedResultsController<City>()
+        return frcCity
+    }()
     
     //массив для url с картинками
     private var imageStringURL = [String]()
@@ -61,7 +67,9 @@ class CountryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        try? coreDataService.frcCity.performFetch()
+        frcCity = coreDataService.GetFrcForCity(predicate: countryCode)
+        print("countryCode = \(countryCode)")
+        try? frcCity.performFetch()
         countryInfo.reloadCityTable()
     }
     
@@ -146,11 +154,13 @@ extension CountryViewController: CountryCollectionViewDelegate {
 
 extension CountryViewController: CountryTableViewDelegate {
     func getNumberOfSection(_ section: Int) -> Int {
-        guard let sections = coreDataService.frcCity.sections else { return 0 }
+//        let frcCity = coreDataService.FrcForCity(predicate: countryCode)
+        guard let sections = frcCity.sections else { return 0 }
         return sections[section].numberOfObjects
     }
     
     func getData(at indexPath: IndexPath) -> City {
-        return (coreDataService.frcCity.object(at: indexPath))
+//        let frcCity = coreDataService.FrcForCity(predicate: countryCode)
+        return (frcCity.object(at: indexPath))
     }
 }
