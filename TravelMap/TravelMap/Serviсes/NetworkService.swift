@@ -25,7 +25,7 @@ protocol ImageNetworkServiceProtocol {
 
 final class NetworkService {
     
-    // MARK: - Properties
+    // MARK: Properties
     private let session: URLSession = .shared
 
     //    private let imageCache = NSCache<NSString, UIImage>()
@@ -36,8 +36,7 @@ final class NetworkService {
         return decoder
     }()
     
-    // MARK: - Methods
-    
+    // MARK: Methods
     private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {
         guard let httpResponse = response as? HTTPURLResponse,
               (200..<300).contains(httpResponse.statusCode),

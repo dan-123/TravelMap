@@ -8,13 +8,31 @@
 import Foundation
 import CoreData
 
-protocol CoreDataServiceProtocol {
+// MARK: - Protocol
+
+protocol CoreDataServiceCountryProtocol {
+    //добавление новой страны (возвращает true если такая страна уже есть)
     func addCountry(country: [CountryDTO]) -> Bool
-    // добавить функции в протокол
-    
+    // получение информации о стране
+    func getCountryData(predicate: String?) -> [CountryDTO]?
+    // удаление страны
+    func deleteCountry(country: [CountryDTO]?)
 }
 
+protocol CoreDataServiceCityProtocol {
+    //добавление города (возвращает true если такой город уже есть)
+    func addCity(city: [CityDTO]) -> Bool
+    // получение инофрмации о городах
+    func getCityData(predicate: String?) -> [CityDTO]?
+    // удаление города
+    func deleteCity(city: [CityDTO]?)
+}
+
+// MARK: - Core data serivce
+
 class CoreDataService {
+    
+    // MARK: Properties
     private let coreDataStack = CoreDataStack.shared
     
     lazy var frcCountry: NSFetchedResultsController<Country> = {
@@ -27,11 +45,7 @@ class CoreDataService {
         return frc
     }()
     
-}
-
-// MARK: - FRC City
-
-extension CoreDataService {
+    // MARK: Methods
     func GetFrcForCity(predicate: String) -> NSFetchedResultsController<City> {
         let request = NSFetchRequest<City>(entityName: "City")
         request.predicate = .init(format: "countryCode == %@", predicate)
@@ -42,14 +56,15 @@ extension CoreDataService {
                                              cacheName: nil)
         return frc
     }
+    
 }
 
+// MARK: - Extensions for Country
 
-// MARK: - Country
+//MARK: extension (CoreDataServiceCountryProtocol)
 
-extension CoreDataService: CoreDataServiceProtocol {
+extension CoreDataService: CoreDataServiceCountryProtocol {
     
-    //добавление страны
     func addCountry(country: [CountryDTO]) -> Bool {
         var result = false
         let context = coreDataStack.backgroundContext
@@ -71,7 +86,6 @@ extension CoreDataService: CoreDataServiceProtocol {
         return result
     }
     
-    // получение стран
     func getCountryData(predicate: String?) -> [CountryDTO]? {
         let context = coreDataStack.viewContext
         var result = [CountryDTO]()
@@ -85,11 +99,9 @@ extension CoreDataService: CoreDataServiceProtocol {
             guard let country = try? request.execute() else { return }
             result = country.map { CountryDTO(with: $0) }
         }
-        print("добавленные страны: \(result)")
         return result
     }
     
-    // удаление страны
     func deleteCountry(country: [CountryDTO]?) {
         guard let country = country else {
             deleteAllForCountry()
@@ -106,12 +118,51 @@ extension CoreDataService: CoreDataServiceProtocol {
         }
     }
 }
-    
-// MARK: - City
 
-extension CoreDataService {
+// MARK: extension (Delete all element from Country)
+
+private extension CoreDataService {
+    private func deleteAllForCountry() {
+        let context = coreDataStack.backgroundContext
+        let fetchRequest = NSFetchRequest<Country>(entityName: "Country")
+        context.performAndWait {
+            let countries = try? fetchRequest.execute()
+            countries?.forEach {
+                context.delete($0)
+            }
+            try? context.save()
+        }
+    }
+}
+
+// MARK: extension (Fetch request for Country)
+
+private extension CoreDataService {
+    private func fetchRequestForCountry(for dto: CountryDTO) -> NSFetchRequest<Country> {
+        let request = NSFetchRequest<Country>(entityName: "Country")
+        request.predicate = .init(format: "countryCode == %@", dto.countryCode)
+        return request
+    }
+}
+
+// MARK: extension (Init Country DTO)
+
+fileprivate extension CountryDTO {
+    init(with MO: Country) {
+        self.countryCode = MO.countryCode
+        self.country = MO.country
+        self.latitude = MO.latitude
+        self.longitude = MO.longitude
+        self.border = MO.border
+    }
+}
+
+// MARK: - Extensions for City
+
+// MARK: Extensions (CoreDataServiceCityProtocol)
+
+extension CoreDataService: CoreDataServiceCityProtocol {
     
-    //добавление города
     func addCity(city: [CityDTO]) -> Bool {
         var result = false
         let context = coreDataStack.backgroundContext
@@ -133,7 +184,6 @@ extension CoreDataService {
         return result
     }
     
-    // получение городов
     func getCityData(predicate: String?) -> [CityDTO]? {
         let context = coreDataStack.viewContext
         var result = [CityDTO]()
@@ -147,11 +197,9 @@ extension CoreDataService {
             guard let city = try? request.execute() else { return }
             result = city.map { CityDTO(with: $0) }
         }
-        print("добавленные города: \(result)")
         return result
     }
     
-    // удаление городов
     func deleteCity(city: [CityDTO]?) {
         guard let city = city else {
             deleteAllForCity()
@@ -169,23 +217,7 @@ extension CoreDataService {
     }
 }
     
-
-// MARK: - Delete all element for Country DTO
-
-private extension CoreDataService {
-    private func deleteAllForCountry() {
-        let context = coreDataStack.backgroundContext
-        let fetchRequest = NSFetchRequest<Country>(entityName: "Country")
-        context.performAndWait {
-            let countries = try? fetchRequest.execute()
-            countries?.forEach {
-                context.delete($0)
-            }
-            try? context.save()
-        }
-    }
-}
-// MARK: - Delete all element for City DTO
+// MARK: extension (Delete all element from City)
 
 private extension CoreDataService {
     private func deleteAllForCity() {
@@ -201,17 +233,7 @@ private extension CoreDataService {
     }
 }
 
-// MARK: - Fetch request for Country DTO
-
-private extension CoreDataService {
-    private func fetchRequestForCountry(for dto: CountryDTO) -> NSFetchRequest<Country> {
-        let request = NSFetchRequest<Country>(entityName: "Country")
-        request.predicate = .init(format: "countryCode == %@", dto.countryCode)
-        return request
-    }
-}
-
-// MARK: - Fetch request for City DTO
+// MARK: extension (Fetch request for City)
 
 private extension CoreDataService {
     private func fetchRequestForCity(for dto: CityDTO) -> NSFetchRequest<City> {
@@ -221,19 +243,7 @@ private extension CoreDataService {
     }
 }
 
-// MARK: - Init for Country DTO
-
-fileprivate extension CountryDTO {
-    init(with MO: Country) {
-        self.countryCode = MO.countryCode
-        self.country = MO.country
-        self.latitude = MO.latitude
-        self.longitude = MO.longitude
-        self.border = MO.border
-    }
-}
-
-// MARK: - Init for City DTO
+// MARK: extension (Init City DTO)
 
 fileprivate extension CityDTO {
     init(with MO: City) {
