@@ -47,7 +47,7 @@ class PlacesViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        self.title = "Места"
+        self.title = Constants.ControllerTitle.placesTitle
     }
     
     func setupConstraint() {

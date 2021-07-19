@@ -8,7 +8,6 @@
 import UIKit
 import MapKit
 
-//режим отображения
 enum MapMode {
     case globalMode
     case localMode
@@ -38,6 +37,7 @@ class MapViewController: UIViewController {
     // код текущей страны
     private var countryCode: String?
     
+    //режим отображения карты
     private var mapMode: MapMode = .globalMode
     
     
@@ -64,7 +64,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        self.title = "Карта"
+        self.title = Constants.ControllerTitle.mapTitle
     }
     
     private func setupConstraint() {
@@ -251,7 +251,7 @@ class MapViewController: UIViewController {
     }
     
     private func viewAllCountry() {
-        navigationItem.title = "Карта"
+        navigationItem.title = Constants.ControllerTitle.mapTitle
         
         let center = CLLocation(latitude: Constants.InitialCoordinate.latitude,
                                 longitude: Constants.InitialCoordinate.longitude)
@@ -355,21 +355,6 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         mapNavigationView.isHidden = false
     }
-    
-//    private func deleteLocalAnnotation(annotation: MKAnnotation) {
-//        let alertConrtoller = UIAlertController(title: "Удаление", message: "Вы уверены что хотите удалить город", preferredStyle: .alert)
-//        alertConrtoller.addTextField()
-//
-//        let okAction = UIAlertAction(title: "Да", style: .default) { [weak alertConrtoller] (_) in
-//            self.map.removeAnnotation(annotation)
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Нет", style: .cancel, handler: nil)
-//        alertConrtoller.addAction(okAction)
-//        alertConrtoller.addAction(cancelAction)
-//
-//        present(alertConrtoller, animated: true)
-//    }
 }
 
 // MARK: - Extensions (MapNavigationViewDelegate)

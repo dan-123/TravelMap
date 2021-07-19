@@ -8,17 +8,9 @@
 import UIKit
 import MapKit
 
-//protocol MapViewDelegate: AnyObject {
-//    func tappedLocalInformationButton(localAnnotation: CustomAnnotation)
-//    func tappedGlobalInformationButton(countryCode: String, country: String)
-//    func tappedGlobalAnnotation(_ countryCode: String)
-//}
-
 class MapView: UIView {
     
     // MARK: - Properties
-
-//    weak var delegate: MapViewDelegate?
     
     lazy var mapView: MKMapView = {
         let mapView = MKMapView()
@@ -103,6 +95,10 @@ class MapView: UIView {
     }
     //отображение всех стран на карте
     func viewAllCountry(region: MKCoordinateRegion) {
+        //отмена выделеня метки для страны
+        let selectedAnnotation = mapView.selectedAnnotations
+        mapView.deselectAnnotation(selectedAnnotation.first, animated: true)
+        //отображение полной карты
         mapView.cameraBoundary = MKMapView.CameraBoundary()
         mapView.setRegion(region, animated: true)
     }

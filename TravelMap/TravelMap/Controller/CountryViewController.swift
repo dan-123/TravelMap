@@ -111,7 +111,7 @@ class CountryViewController: UIViewController {
                 switch responce {
                 case .success(let data):
                     for image in data.photos {
-                        self.imageStringURL.append(image.src.large2x)
+                        self.imageStringURL.append(image.src.medium)
                     }
                     self.loadImage()
                 case .failure(let error):
@@ -152,7 +152,8 @@ extension CountryViewController: UICollectionViewDataSource {
         if indexPath.row < imageCountry.count {
             cell.setImage(imageCountry[indexPath.row])
         } else {
-            cell.setImage(UIImage(systemName: "photo"))
+//            cell.setImage(UIImage(systemName: "photo"))
+            cell.setImage(UIImage())
         }
         
         return cell

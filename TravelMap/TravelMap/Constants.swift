@@ -31,6 +31,12 @@ enum Constants {
         static let longitudeDelta = 112.499994
     }
     
+    enum ControllerTitle {
+        static let placesTitle = "Места"
+        static let mapTitle = "Карта"
+        static let settingTitle = "Настройки"
+    }
+    
     //France
     //countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
 }

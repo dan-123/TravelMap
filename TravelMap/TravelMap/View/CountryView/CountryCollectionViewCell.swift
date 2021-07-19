@@ -16,7 +16,7 @@ class CountryCollectionViewCell: UICollectionViewCell {
         countryImage.layer.cornerRadius = 10
         countryImage.contentMode = .scaleAspectFill
         countryImage.clipsToBounds = true
-        countryImage.backgroundColor = .red
+        countryImage.backgroundColor = .gray
         countryImage.translatesAutoresizingMaskIntoConstraints = false
         return countryImage
     }()

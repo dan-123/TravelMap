@@ -37,7 +37,7 @@ class SettingViewController: UIViewController {
     }
     
     private func setupNavigationTools() {
-        self.title = "Настройки"
+        self.title = Constants.ControllerTitle.settingTitle
 //        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
 //        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
 //        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)

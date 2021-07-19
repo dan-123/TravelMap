@@ -21,16 +21,16 @@ class TabBarController: UITabBarController {
     
     private func setupControllers() {
         
-        let pointViewController = UINavigationController.init(rootViewController: PlacesViewController())
-        pointViewController.tabBarItem = UITabBarItem(title: "Места", image: UIImage(systemName: "mappin.and.ellipse"), tag: 1)
+        let placesViewController = UINavigationController.init(rootViewController: PlacesViewController())
+        placesViewController.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.placesTitle, image: UIImage(systemName: "mappin.and.ellipse"), tag: 1)
         
         let mapViewConroller = UINavigationController.init(rootViewController: MapViewController())
-        mapViewConroller.tabBarItem = UITabBarItem(title: "Карта", image: UIImage(systemName: "map"), tag: 1)
+        mapViewConroller.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.mapTitle, image: UIImage(systemName: "map"), tag: 1)
         
         let settingViewController = UINavigationController.init(rootViewController: SettingViewController())
-        settingViewController.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(systemName: "gearshape"), tag: 1)
+        settingViewController.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.settingTitle, image: UIImage(systemName: "gearshape"), tag: 1)
 
-        viewControllers = [pointViewController, mapViewConroller, settingViewController]
+        viewControllers = [placesViewController, mapViewConroller, settingViewController]
         selectedIndex = 1
     }
 }
