@@ -19,6 +19,12 @@ class MapViewController: UIViewController {
         return mapView
     }()
     
+    lazy var mapNavigationView: MapNavigationView = {
+        let navigationView = MapNavigationView()
+        navigationView.translatesAutoresizingMaskIntoConstraints = false
+        return navigationView
+    }()
+    
     //переделать
     var networkService = NetworkService()
     var coreDataService = CoreDataService()
@@ -54,6 +60,7 @@ class MapViewController: UIViewController {
     
     private func setupElements() {
         view.addSubview(mapView)
+        view.addSubview(mapNavigationView)
     }
     
     private func setupNavigationTools() {
@@ -70,6 +77,13 @@ class MapViewController: UIViewController {
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mapNavigationView.heightAnchor.constraint(equalToConstant: 60),
+            mapNavigationView.widthAnchor.constraint(equalToConstant: 150),
+            mapNavigationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mapNavigationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
     }
     
@@ -256,7 +270,7 @@ class MapViewController: UIViewController {
     }
     
     private func viewAllCountry() {
-        navigationItem.title = ""
+        navigationItem.title = "Карта"
         
         let center = CLLocation(latitude: Constants.InitialCoordinate.latitude,
                                 longitude: Constants.InitialCoordinate.longitude)

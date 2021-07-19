@@ -40,6 +40,7 @@
 		C58CD74926A45F6600C15802 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74826A45F6600C15802 /* SettingView.swift */; };
 		C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74A26A461E300C15802 /* SettingModel.swift */; };
 		C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
+		C58CD75226A57BF500C15802 /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75126A57BF500C15802 /* MapNavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		C58CD74826A45F6600C15802 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		C58CD74A26A461E300C15802 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
+		C58CD75126A57BF500C15802 /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				C5640E2A268F34BE00F8DB8A /* MapView.swift */,
+				C58CD75126A57BF500C15802 /* MapNavigationView.swift */,
 				C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */,
 				C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */,
 			);
@@ -332,6 +335,7 @@
 				C58CD6302697299900C15802 /* TabBarController.swift in Sources */,
 				C58CD74526A308FE00C15802 /* City+CoreDataClass.swift in Sources */,
 				C56B060F2681C63F00057FE3 /* SettingViewController.swift in Sources */,
+				C58CD75226A57BF500C15802 /* MapNavigationView.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
 				C58CD74926A45F6600C15802 /* SettingView.swift in Sources */,
