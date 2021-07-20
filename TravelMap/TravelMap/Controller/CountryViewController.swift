@@ -97,6 +97,7 @@ class CountryViewController: UIViewController {
     
     @objc private func deleteCountry() {
         print("удаление страны")
+        deleteCountryData()
     }
     
     @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
@@ -132,6 +133,20 @@ class CountryViewController: UIViewController {
                 case .failure(let error):
                     print(error)
                 }
+            }
+        }
+    }
+    
+    private func deleteCountryData() {
+        guard let countryData = coreDataService.getCountryData(predicate: countryCode) else { return }
+        
+        countryData.forEach { country in
+            coreDataService.deleteCountry(country: [country])
+        }
+        
+        if let cityData = coreDataService.getCityData(predicate: countryCode) {
+            cityData.forEach { city in
+                coreDataService.deleteCity(city: [city])
             }
         }
     }
