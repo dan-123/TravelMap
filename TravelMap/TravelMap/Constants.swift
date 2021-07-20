@@ -19,7 +19,7 @@ enum Constants {
     enum Image {
         static let keyword = "query"
         static let totalResult = "1"
-        static let perPage = 25
+        static let perPage = 5
         static let getCountryImageURL = "https://api.pexels.com/v1/search?"
         static let authorization = "563492ad6f917000010000013adcba2f0f0348fe97c6b76cc7b68602"
     }

@@ -364,14 +364,12 @@ extension MapViewController: MapNavigationViewDelegate {
         viewAllCountry()
     }
     
-    func tappedAddButton() -> MapMode {
+    func tappedAddButton() {
         switch mapMode {
         case .globalMode:
             addNewPlace(title: "Новая страна", message: "Добавление новой страны", mapMode: mapMode)
-            return mapMode
         case .localMode:
             addNewPlace(title: "Новый город", message: "Добавление нового города", mapMode: mapMode)
-            return mapMode
         }
     }
 }

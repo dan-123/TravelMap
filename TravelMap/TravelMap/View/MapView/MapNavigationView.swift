@@ -10,7 +10,7 @@ import  UIKit
 
 protocol MapNavigationViewDelegate: AnyObject {
     func tappedBackButton()
-    func tappedAddButton() -> MapMode
+    func tappedAddButton()
 }
 
 class MapNavigationView: UIView {
@@ -117,15 +117,7 @@ class MapNavigationView: UIView {
     }
     
     @objc private func tappedAddButton() {
-        let mapMode = delegate?.tappedAddButton()
-        switch mapMode {
-        case .globalMode:
-            addButtonImage.image = UIImage(systemName: "plus.circle.fill")
-        case .localMode:
-            addButtonImage.image = UIImage(systemName: "mappin.circle.fill")
-        case .none:
-            break
-        }
+        delegate?.tappedAddButton()
     }
         
     // MARK: - Methods
