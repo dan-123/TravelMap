@@ -80,7 +80,7 @@ class CountryViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = country
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action: #selector(deleteCountry))
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle"), style: .plain, target: self, action: #selector(deleteCountry))
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
     
@@ -96,8 +96,17 @@ class CountryViewController: UIViewController {
     // MARK: - Action
     
     @objc private func deleteCountry() {
-        print("удаление страны")
-        deleteCountryData()
+        
+        let alertConrtoller = UIAlertController(title: "Удаление страны", message: "Вы уверены что хотите удалить страну?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "ОК", style: .default) {_ in
+            self.deleteCountryData()
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertConrtoller.addAction(okAction)
+        alertConrtoller.addAction(cancelAction)
+        present(alertConrtoller, animated: true)
     }
     
     @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
@@ -177,14 +186,6 @@ extension CountryViewController: UICollectionViewDataSource {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        return CGSize(width: collectionView.bounds.height, height: collectionView.bounds.height)
 //    }
-}
-
-// MARK: - Extensions (UICollectionViewDelegate)
-
-extension CountryViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-    }
 }
 
 // MARK: - Extensions (UITableViewDataSource)

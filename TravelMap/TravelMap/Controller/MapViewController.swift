@@ -52,7 +52,10 @@ class MapViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         mapView.update(dataProvider: self)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupGlobalAnnotation()
     }
     
@@ -76,21 +79,43 @@ class MapViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            mapNavigationView.heightAnchor.constraint(equalToConstant: 60),
-            mapNavigationView.widthAnchor.constraint(equalToConstant: 150),
-            mapNavigationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mapNavigationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+            mapNavigationView.heightAnchor.constraint(equalToConstant: 44),
+            mapNavigationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 72),
+            mapNavigationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -72),
+            mapNavigationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
     
     // MARK: - Methods
     
-    // добавление стран на карту при запуске
+//    // добавление стран на карту при запуске
+//    private func setupGlobalAnnotation() {
+//        guard let globalAnnotations = coreDataService.getCountryData(predicate: nil) else { return }
+//
+//        globalAnnotations.forEach { countryDTO in
+//            addGlobalAnnotation(for: countryDTO)
+//        }
+//    }
+    
+    
     private func setupGlobalAnnotation() {
-        guard let globalAnnotations = coreDataService.getCountryData(predicate: nil) else { return }
         
-        globalAnnotations.forEach { countryDTO in
-            addGlobalAnnotation(for: countryDTO)
+        switch mapMode {
+        case .localMode:
+            guard let countryCode = countryCode,
+                  let globalAnnotation = coreDataService.getCountryData(predicate: countryCode) else { return }
+            print(countryCode)
+            
+            if globalAnnotation.isEmpty {
+                mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .global)
+                viewAllCountry()
+            }
+        case .globalMode:
+            mapView.deleteAllAnnotations()
+            guard let globalAnnotations = coreDataService.getCountryData(predicate: nil) else { return }
+            globalAnnotations.forEach { countryDTO in
+                addGlobalAnnotation(for: countryDTO)
+            }
         }
     }
     
@@ -276,7 +301,8 @@ class MapViewController: UIViewController {
         case .localMode:
             addLocalAnnotations(for: city)
         case .globalMode:
-            mapView.deleteAnnotationsFromMap()
+            guard let countryCode = countryCode else { return }
+            mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .local)
         }
     }
     

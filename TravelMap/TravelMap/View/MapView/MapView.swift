@@ -61,33 +61,42 @@ class MapView: UIView {
                                     longitudeDelta: Constants.InitialCoordinate.longitudeDelta)
         let coordinateRegion = MKCoordinateRegion(center: center, span: span)
         mapView.setRegion(coordinateRegion, animated: true)
-      }
+    }
     
     //добавление одной аннотации
     func addAnnotationOnMap(_ annotation: MKAnnotation) {
         mapView.addAnnotation(annotation)
     }
-    //удаление одной аннотации
-    func deleteAnnotationFromMap(_ annotation: MKAnnotation) {
-        mapView.removeAnnotation(annotation)
-    }
     //добавление массива с аннотациями
     func addAnnotationsOnMap(_ annotations: [MKAnnotation]) {
         mapView.addAnnotations(annotations)
     }
-    //удаление локальных аннотаций
-    func deleteAnnotationsFromMap() {
+    
+    //удаление одной аннотации
+    func deleteAnnotationFromMap(_ annotation: MKAnnotation) {
+        mapView.removeAnnotation(annotation)
+    }
+    
+    //удаление аннотаций по типу
+    func deleteAnnotationsFromMap(countryCode: String, annotationType: AnnotationType) {
         let annotations = mapView.annotations
-        var localAnnotation = [MKAnnotation]()
         
-        for annotation in annotations {
-            guard let customAnnotation = annotation as? CustomAnnotation else { return }
-            if customAnnotation.annotationType == .local {
-                localAnnotation.append(customAnnotation)
+        annotations.forEach { annotation in
+            guard let customAnnotation = annotation as? CustomAnnotation,
+                  let code = customAnnotation.countryCode else { return }
+            
+            if (code == countryCode && customAnnotation.annotationType == annotationType) {
+                mapView.removeAnnotation(customAnnotation)
             }
-            mapView.removeAnnotations(localAnnotation)
         }
     }
+    
+    //удаление всех аннотаций
+    func deleteAllAnnotations() {
+        let annotations = mapView.annotations
+        mapView.removeAnnotations(annotations)
+    }
+    
     //отображение страны на карте
     func viewCountryOnMap(region: MKCoordinateRegion) {
         mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
