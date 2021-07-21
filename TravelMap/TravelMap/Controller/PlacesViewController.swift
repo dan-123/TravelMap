@@ -12,7 +12,11 @@ class PlacesViewController: UIViewController {
     // MARK: - Properties
     
     //переделать
-    let coreDataService = CoreDataService()
+    lazy var coreDataService: CoreDataService = {
+        let coreDataService = CoreDataService()
+        coreDataService.delegate = self
+        return coreDataService
+    }()
     
     lazy var placesTableView: PlacesView = {
         let tableView = PlacesView()
@@ -72,6 +76,7 @@ extension PlacesViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
         let country = coreDataService.frcCountry.object(at: indexPath)
         cell.textLabel?.text = country.country
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 }
@@ -85,5 +90,29 @@ extension PlacesViewController: UITableViewDelegate {
         let country = coreDataService.frcCountry.object(at: indexPath)
         let countryViewController = CountryViewController(countryCode: country.countryCode, country: country.country)
         navigationController?.pushViewController(countryViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let country = coreDataService.frcCountry.object(at: indexPath)
+        if let cities = coreDataService.getCityData(predicate: country.countryCode) {
+            coreDataService.deleteCity(city: cities)
+        }
+        
+        let countryDTO = CountryDTO(countryCode: country.countryCode, country: country.country, latitude: country.latitude, longitude: country.longitude, border: country.border)
+
+        coreDataService.deleteCountry(country: [countryDTO])
+        
+        placesTableView.reloadData()
+    }
+}
+
+#warning("reload data")
+extension PlacesViewController: CoreDataSerivceCountryDelegate {
+    func reloadData() {
+        placesTableView.reloadData()
     }
 }

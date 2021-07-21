@@ -99,8 +99,10 @@ class CountryView: UIView {
         citiesTableView.reloadData()
     }
     
-    func update(dataProvider: UITableViewDataSource & UICollectionViewDataSource) {
+    func update(dataProvider: UITableViewDataSource & UITableViewDelegate & UICollectionViewDataSource) {
         citiesTableView.dataSource = dataProvider
+        citiesTableView.delegate = dataProvider
         photoCollectionView.dataSource = dataProvider
+        
     }
 }

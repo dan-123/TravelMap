@@ -99,7 +99,7 @@ class CountryViewController: UIViewController {
         
         let alertConrtoller = UIAlertController(title: "Удаление страны", message: "Вы уверены что хотите удалить страну?", preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "ОК", style: .default) {_ in
+        let okAction = UIAlertAction(title: "ОК", style: .default) { _ in
             self.deleteCountryData()
             self.navigationController?.popViewController(animated: true)
         }
@@ -201,5 +201,24 @@ extension CountryViewController: UITableViewDataSource {
         let city = (frcCity.object(at: indexPath))
         cell.textLabel?.text = city.city
         return cell
+    }
+}
+
+// MARK: - Extensions (UITableViewDelegate)
+
+extension CountryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let city = frcCity.object(at: indexPath)
+        
+        let cityDTO = CityDTO(cityId: city.cityId, countryCode: city.countryCode, city: city.city, latitude: city.latitude, longitude: city.longitude)
+
+        coreDataService.deleteCity(city: [cityDTO])
+        
+        #warning("reload data")
+//        placesTableView.reloadData()
     }
 }

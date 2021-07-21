@@ -19,6 +19,10 @@ protocol CoreDataServiceCountryProtocol {
     func deleteCountry(country: [CountryDTO]?)
 }
 
+protocol CoreDataSerivceCountryDelegate: AnyObject {
+    func reloadData()
+}
+
 protocol CoreDataServiceCityProtocol {
     //добавление города (возвращает true если такой город уже есть)
     func addCity(city: [CityDTO]) -> Bool
@@ -30,9 +34,11 @@ protocol CoreDataServiceCityProtocol {
 
 // MARK: - Core data serivce
 
-class CoreDataService {
+class CoreDataService: NSObject {
     
     // MARK: Properties
+    weak var delegate: CoreDataSerivceCountryDelegate?
+    
     private let coreDataStack = CoreDataStack.shared
     
     lazy var frcCountry: NSFetchedResultsController<Country> = {
@@ -42,6 +48,7 @@ class CoreDataService {
                                              managedObjectContext: coreDataStack.viewContext,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
+        frc.delegate = self
         return frc
     }()
     
@@ -155,6 +162,15 @@ fileprivate extension CountryDTO {
         self.longitude = MO.longitude
         self.border = MO.border
     }
+}
+
+// MARK: extension (NSFetchedResultsControllerDelegate)
+
+extension CoreDataService: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        delegate?.reloadData()
+    }
+    
 }
 
 // MARK: - Extensions for City
