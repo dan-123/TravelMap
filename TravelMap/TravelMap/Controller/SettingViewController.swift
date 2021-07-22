@@ -64,7 +64,7 @@ extension SettingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: settingView.cellIdentifier) else { return UITableViewCell() }
-        cell.textLabel?.text = "информация"
+        cell.textLabel?.text = "О приложении"
 //        cell.
         return cell
     }
