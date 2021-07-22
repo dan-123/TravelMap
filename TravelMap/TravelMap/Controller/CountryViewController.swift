@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import CoreData
 
 class CountryViewController: UIViewController {
     
@@ -21,11 +20,6 @@ class CountryViewController: UIViewController {
     
     private let countryCode: String
     private let country: String
-    
-    private lazy var frcCity: NSFetchedResultsController<City> = {
-        let frcCity = NSFetchedResultsController<City>()
-        return frcCity
-    }()
     
     //массив для url с картинками
     private var imageStringURL = [String]()
@@ -66,9 +60,8 @@ class CountryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        frcCity = coreDataService.GetFrcForCity(predicate: countryCode)
-        print("countryCode = \(countryCode)")
-        try? frcCity.performFetch()
+        coreDataService.predicateForFrcCity = countryCode
+        try? coreDataService.frcCity.performFetch()
         countryView.reloadCityTable()
     }
     
@@ -192,13 +185,13 @@ extension CountryViewController: UICollectionViewDataSource {
 
 extension CountryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = frcCity.sections else { return 0 }
+        guard let sections = coreDataService.frcCity.sections else { return 0 }
         return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
-        let city = (frcCity.object(at: indexPath))
+        let city = (coreDataService.frcCity.object(at: indexPath))
         cell.textLabel?.text = city.city
         return cell
     }
@@ -212,7 +205,7 @@ extension CountryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let city = frcCity.object(at: indexPath)
+        let city = coreDataService.frcCity.object(at: indexPath)
         
         let cityDTO = CityDTO(cityId: city.cityId, countryCode: city.countryCode, city: city.city, latitude: city.latitude, longitude: city.longitude)
 

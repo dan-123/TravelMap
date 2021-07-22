@@ -39,6 +39,8 @@ class CoreDataService: NSObject {
     // MARK: Properties
     weak var delegate: CoreDataSerivceCountryDelegate?
     
+    var predicateForFrcCity: String?
+    
     private let coreDataStack = CoreDataStack.shared
     
     lazy var frcCountry: NSFetchedResultsController<Country> = {
@@ -52,10 +54,18 @@ class CoreDataService: NSObject {
         return frc
     }()
     
+    lazy var frcCity: NSFetchedResultsController<City> = {
+        return GetFrcForCity(predicate: predicateForFrcCity)
+    }()
+    
     // MARK: Methods
-    func GetFrcForCity(predicate: String) -> NSFetchedResultsController<City> {
+    func GetFrcForCity(predicate: String?) -> NSFetchedResultsController<City> {
         let request = NSFetchRequest<City>(entityName: "City")
-        request.predicate = .init(format: "countryCode == %@", predicate)
+        if let predicate = predicate {
+            request.predicate = .init(format: "countryCode == %@", predicate)
+        } else {
+            print("CoreDataService: predicate for the city FRC was not declared")
+        }
         request.sortDescriptors = [.init(key: "city", ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: coreDataStack.viewContext,
