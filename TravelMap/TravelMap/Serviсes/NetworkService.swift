@@ -12,7 +12,7 @@ import UIKit
 
 typealias GetCountryCoordinateResponce = Result<CoordinateModel, NetworkServiceError>
 
-protocol NetworkServiceProtocol {
+protocol CoordinateNetworkServiceProtocol {
     func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void)
 }
 
@@ -53,7 +53,7 @@ final class NetworkService {
 
 // MARK: - Extension (NetworkServiceProtocol)
 
-extension NetworkService: NetworkServiceProtocol {
+extension NetworkService: CoordinateNetworkServiceProtocol {
     
     func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void) {
         var components = URLComponents(string: Constants.Coordinate.getContryCoordinate)

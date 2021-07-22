@@ -41,7 +41,42 @@
 		C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74A26A461E300C15802 /* SettingModel.swift */; };
 		C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
 		C58CD75226A57BF500C15802 /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75126A57BF500C15802 /* MapNavigationView.swift */; };
+		C58CD75C26A95DB000C15802 /* TravelMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75B26A95DB000C15802 /* TravelMapTests.swift */; };
+		C58CD76626A9622300C15802 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73B268E07FE00B1942C /* NetworkService.swift */; };
+		C58CD76726A9625300C15802 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE740268E0E5600B1942C /* NetworkServiceError.swift */; };
+		C58CD76826A9626700C15802 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE742268E0ED900B1942C /* Constants.swift */; };
+		C58CD76926A9626D00C15802 /* CoordinateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73E268E09B100B1942C /* CoordinateModel.swift */; };
+		C58CD76A26A9627100C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
+		C58CD76F26A9727600C15802 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
+		C58CD77126A9858900C15802 /* MapViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD77026A9858800C15802 /* MapViewControllerTest.swift */; };
+		C58CD77326A9866100C15802 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72E26A1878000C15802 /* CoreDataService.swift */; };
+		C58CD77426A98C9000C15802 /* CityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74126A3016300C15802 /* CityDTO.swift */; };
+		C58CD77526A98C9300C15802 /* CountryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73B26A1C99F00C15802 /* CountryDTO.swift */; };
+		C58CD77626A98CBD00C15802 /* TravelMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73026A1B95E00C15802 /* TravelMap.xcdatamodeld */; };
+		C58CD77726A98D4300C15802 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72C26A1861200C15802 /* CoreDataStack.swift */; };
+		C58CD77826A98D4900C15802 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */; };
+		C58CD77926A98D4C00C15802 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */; };
+		C58CD77A26A98D4F00C15802 /* City+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */; };
+		C58CD77B26A98D5200C15802 /* City+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */; };
+		C58CD77C26A98DDC00C15802 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2A268F34BE00F8DB8A /* MapView.swift */; };
+		C58CD77D26A98DF600C15802 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */; };
+		C58CD77E26A98DF900C15802 /* CustomAnnotationVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */; };
+		C58CD77F26A98E1600C15802 /* CountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */; };
+		C58CD78026A98E1B00C15802 /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75126A57BF500C15802 /* MapNavigationView.swift */; };
+		C58CD78126A98E3800C15802 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* CountryView.swift */; };
+		C58CD78226A98E3B00C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
+		C58CD78326A98E4B00C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C58CD75E26A95DB000C15802 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C56B05ED2681BAD100057FE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56B05F42681BAD100057FE3;
+			remoteInfo = TravelMap;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C55CE73B268E07FE00B1942C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -80,10 +115,21 @@
 		C58CD74A26A461E300C15802 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		C58CD75126A57BF500C15802 /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
+		C58CD75926A95DB000C15802 /* TravelMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C58CD75B26A95DB000C15802 /* TravelMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapTests.swift; sourceTree = "<group>"; };
+		C58CD75D26A95DB000C15802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C58CD77026A9858800C15802 /* MapViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewControllerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C56B05F22681BAD100057FE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C58CD75626A95DB000C15802 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -172,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				C56B05F72681BAD100057FE3 /* TravelMap */,
+				C58CD75A26A95DB000C15802 /* TravelMapTests */,
 				C56B05F62681BAD100057FE3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -180,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				C56B05F52681BAD100057FE3 /* TravelMap.app */,
+				C58CD75926A95DB000C15802 /* TravelMapTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +287,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C58CD75A26A95DB000C15802 /* TravelMapTests */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD75B26A95DB000C15802 /* TravelMapTests.swift */,
+				C58CD77026A9858800C15802 /* MapViewControllerTest.swift */,
+				C58CD75D26A95DB000C15802 /* Info.plist */,
+			);
+			path = TravelMapTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,6 +317,24 @@
 			productReference = C56B05F52681BAD100057FE3 /* TravelMap.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C58CD75826A95DB000C15802 /* TravelMapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C58CD76026A95DB000C15802 /* Build configuration list for PBXNativeTarget "TravelMapTests" */;
+			buildPhases = (
+				C58CD75526A95DB000C15802 /* Sources */,
+				C58CD75626A95DB000C15802 /* Frameworks */,
+				C58CD75726A95DB000C15802 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C58CD75F26A95DB000C15802 /* PBXTargetDependency */,
+			);
+			name = TravelMapTests;
+			productName = TravelMapTests;
+			productReference = C58CD75926A95DB000C15802 /* TravelMapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -270,6 +346,9 @@
 				TargetAttributes = {
 					C56B05F42681BAD100057FE3 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					C58CD75826A95DB000C15802 = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
@@ -287,6 +366,7 @@
 			projectRoot = "";
 			targets = (
 				C56B05F42681BAD100057FE3 /* TravelMap */,
+				C58CD75826A95DB000C15802 /* TravelMapTests */,
 			);
 		};
 /* End PBXProject section */
@@ -298,6 +378,13 @@
 			files = (
 				C56B06052681BAD500057FE3 /* LaunchScreen.storyboard in Resources */,
 				C56B06022681BAD500057FE3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C58CD75726A95DB000C15802 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +430,47 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C58CD75526A95DB000C15802 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C58CD77B26A98D5200C15802 /* City+CoreDataClass.swift in Sources */,
+				C58CD77E26A98DF900C15802 /* CustomAnnotationVew.swift in Sources */,
+				C58CD76826A9626700C15802 /* Constants.swift in Sources */,
+				C58CD78126A98E3800C15802 /* CountryView.swift in Sources */,
+				C58CD77326A9866100C15802 /* CoreDataService.swift in Sources */,
+				C58CD76726A9625300C15802 /* NetworkServiceError.swift in Sources */,
+				C58CD78326A98E4B00C15802 /* UICollectionViewCell+Identifier.swift in Sources */,
+				C58CD77926A98D4C00C15802 /* Country+CoreDataProperties.swift in Sources */,
+				C58CD77126A9858900C15802 /* MapViewControllerTest.swift in Sources */,
+				C58CD78026A98E1B00C15802 /* MapNavigationView.swift in Sources */,
+				C58CD77D26A98DF600C15802 /* CustomAnnotation.swift in Sources */,
+				C58CD76926A9626D00C15802 /* CoordinateModel.swift in Sources */,
+				C58CD76626A9622300C15802 /* NetworkService.swift in Sources */,
+				C58CD77726A98D4300C15802 /* CoreDataStack.swift in Sources */,
+				C58CD77A26A98D4F00C15802 /* City+CoreDataProperties.swift in Sources */,
+				C58CD77F26A98E1600C15802 /* CountryViewController.swift in Sources */,
+				C58CD78226A98E3B00C15802 /* CountryCollectionViewCell.swift in Sources */,
+				C58CD77826A98D4900C15802 /* Country+CoreDataClass.swift in Sources */,
+				C58CD76A26A9627100C15802 /* CountryImageModel.swift in Sources */,
+				C58CD77426A98C9000C15802 /* CityDTO.swift in Sources */,
+				C58CD77626A98CBD00C15802 /* TravelMap.xcdatamodeld in Sources */,
+				C58CD77C26A98DDC00C15802 /* MapView.swift in Sources */,
+				C58CD75C26A95DB000C15802 /* TravelMapTests.swift in Sources */,
+				C58CD77526A98C9300C15802 /* CountryDTO.swift in Sources */,
+				C58CD76F26A9727600C15802 /* MapViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C58CD75F26A95DB000C15802 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56B05F42681BAD100057FE3 /* TravelMap */;
+			targetProxy = C58CD75E26A95DB000C15802 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C56B06032681BAD500057FE3 /* LaunchScreen.storyboard */ = {
@@ -408,7 +535,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -463,7 +590,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -513,6 +640,42 @@
 			};
 			name = Release;
 		};
+		C58CD76126A95DB000C15802 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H673K7QQPB;
+				INFOPLIST_FILE = TravelMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Danil-Petrov.TravelMapTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C58CD76226A95DB000C15802 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H673K7QQPB;
+				INFOPLIST_FILE = TravelMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Danil-Petrov.TravelMapTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -530,6 +693,15 @@
 			buildConfigurations = (
 				C56B060A2681BAD500057FE3 /* Debug */,
 				C56B060B2681BAD500057FE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C58CD76026A95DB000C15802 /* Build configuration list for PBXNativeTarget "TravelMapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C58CD76126A95DB000C15802 /* Debug */,
+				C58CD76226A95DB000C15802 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

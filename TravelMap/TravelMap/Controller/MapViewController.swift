@@ -31,15 +31,32 @@ class MapViewController: UIViewController {
     }()
     
     //переделать
-    var networkService = NetworkService()
-    var coreDataService = CoreDataService()
+//    var networkService = NetworkService()
+//    var coreDataService = CoreDataService()
     
     // код текущей страны
-    private var countryCode: String?
+    var countryCode: String?
     
     //режим отображения карты
     private var mapMode: MapMode = .globalMode
     
+    // MARK: - Dependencies
+    
+    private let networkService: CoordinateNetworkServiceProtocol
+    private let coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol
+    
+    // MARK: - Init
+    
+    init(networkService: CoordinateNetworkServiceProtocol,
+         coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol) {
+        self.networkService = networkService
+        self.coreDataService = coreDataService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lyfe cycle
     
@@ -153,11 +170,12 @@ class MapViewController: UIViewController {
     }
     
     // запрос для страны
-    private func loadCountryCoordinate(country: String) {
+    func loadCountryCoordinate(country: String) {
         self.networkService.getCoordinate(placeType: Constants.Coordinate.countryCoordinte, placeName: country, countryCode: nil) { responce in
             DispatchQueue.main.async {
                 switch responce {
                 case .success(let data):
+                    print(data)
                     if data.features.isEmpty {
                         self.showAlert(for: .country)
                     } else {
