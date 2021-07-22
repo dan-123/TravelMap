@@ -32,7 +32,7 @@ enum Constants {
     }
     
     enum ControllerTitle {
-        static let placesTitle = "Места"
+        static let placesTitle = "Страны"
         static let mapTitle = "Карта"
         static let settingTitle = "Настройки"
     }

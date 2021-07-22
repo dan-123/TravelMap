@@ -19,10 +19,6 @@ protocol CoreDataServiceCountryProtocol {
     func deleteCountry(country: [CountryDTO]?)
 }
 
-protocol CoreDataSerivceCountryDelegate: AnyObject {
-    func reloadData()
-}
-
 protocol CoreDataServiceCityProtocol {
     //добавление города (возвращает true если такой город уже есть)
     func addCity(city: [CityDTO]) -> Bool
@@ -32,12 +28,16 @@ protocol CoreDataServiceCityProtocol {
     func deleteCity(city: [CityDTO]?)
 }
 
+protocol CoreDataSeriviceDelegate: AnyObject {
+    func reloadData()
+}
+
 // MARK: - Core data serivce
 
 class CoreDataService: NSObject {
     
     // MARK: Properties
-    weak var delegate: CoreDataSerivceCountryDelegate?
+    weak var delegate: CoreDataSeriviceDelegate?
     
     var predicateForFrcCity: String?
     
@@ -174,15 +174,6 @@ fileprivate extension CountryDTO {
     }
 }
 
-// MARK: extension (NSFetchedResultsControllerDelegate)
-
-extension CoreDataService: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        delegate?.reloadData()
-    }
-    
-}
-
 // MARK: - Extensions for City
 
 // MARK: Extensions (CoreDataServiceCityProtocol)
@@ -278,5 +269,13 @@ fileprivate extension CityDTO {
         self.city = MO.city
         self.latitude = MO.latitude
         self.longitude = MO.longitude
+    }
+}
+
+// MARK: - extension (NSFetchedResultsControllerDelegate)
+
+extension CoreDataService: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        delegate?.reloadData()
     }
 }
