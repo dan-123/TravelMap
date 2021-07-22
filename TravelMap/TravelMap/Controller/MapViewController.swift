@@ -88,24 +88,33 @@ class MapViewController: UIViewController {
     
     // MARK: - Methods
     
-//    // добавление стран на карту при запуске в зависимости от режима отображения
+//    // отображение аннотаций в зависимости от режима отображения
     private func setupAnnotation() {
+        //данные о всех странах в core data
+        guard let globalAnnotations = coreDataService.getCountryData(predicate: nil) else { return }
+        
         switch mapMode {
         case .localMode:
             guard let countryCode = countryCode,
-                  let globalAnnotation = coreDataService.getCountryData(predicate: countryCode) else { return }
+                  let globalAnnotation = coreDataService.getCountryData(predicate: countryCode),
+                  let localAnnotation = coreDataService.getCityData(predicate: countryCode) else { return }
             print(countryCode)
             
-            //проверка локальных аннотаций (моглb быть удалены из контроллера со страной)
-            if let localAnnotation = coreDataService.getCityData(predicate: countryCode) {
+            //проверка локальных аннотаций (могли быть удалены из контроллера со страной)
+            if localAnnotation.isEmpty {
+                print("empty")
+                mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .local)
+            } else {
+                print("not empty")
                 mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .local)
                 addLocalAnnotations(for: localAnnotation)
-            } else {
-                mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .local)
             }
             
             //добавление глобальных аннотаций (могли быть удалены с первого экрана)
-            setupGlobalAnnotation()
+            mapView.deleteAnnotationsFromMap(annotationType: .global)
+            globalAnnotations.forEach { countryDTO in
+                addGlobalAnnotation(for: countryDTO)
+            }
             
             //проверка текущей глобальной аннотации (могла быть удалена из контроллера со страной)
             if globalAnnotation.isEmpty {
@@ -114,15 +123,10 @@ class MapViewController: UIViewController {
             }
         case .globalMode:
             //удаление и добавление всех глобальных аннотаций на карту
-            setupGlobalAnnotation()
-        }
-    }
-    
-    private func setupGlobalAnnotation() {
-        mapView.deleteAllAnnotations()
-        guard let globalAnnotations = coreDataService.getCountryData(predicate: nil) else { return }
-        globalAnnotations.forEach { countryDTO in
-            addGlobalAnnotation(for: countryDTO)
+            mapView.deleteAllAnnotations()
+            globalAnnotations.forEach { countryDTO in
+                addGlobalAnnotation(for: countryDTO)
+            }
         }
     }
     
@@ -209,9 +213,9 @@ class MapViewController: UIViewController {
                             return
                         }
                         //добавление в DTO
-                        let CityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: city, latitude: latitude, longitude: longitude)
+                        let cityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: city, latitude: latitude, longitude: longitude)
                         //добавление аннотации на карту
-                        self.AddLocalAnnotationOnMap(for: CityDTO)
+                        self.AddLocalAnnotationOnMap(for: cityDTO)
                     }
                 case .failure(let error):
                     self.showAlert(for: error)

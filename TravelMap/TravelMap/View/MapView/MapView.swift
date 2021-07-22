@@ -77,7 +77,7 @@ class MapView: UIView {
         mapView.removeAnnotation(annotation)
     }
     
-    //удаление аннотаций по типу
+    //удаление аннотаций по коду страны и типу
     func deleteAnnotationsFromMap(countryCode: String, annotationType: AnnotationType) {
         let annotations = mapView.annotations
         
@@ -86,6 +86,19 @@ class MapView: UIView {
                   let code = customAnnotation.countryCode else { return }
             
             if (code == countryCode && customAnnotation.annotationType == annotationType) {
+                mapView.removeAnnotation(customAnnotation)
+            }
+        }
+    }
+    
+    //удаление аннотаций по типу
+    func deleteAnnotationsFromMap( annotationType: AnnotationType) {
+        let annotations = mapView.annotations
+        
+        annotations.forEach { annotation in
+            guard let customAnnotation = annotation as? CustomAnnotation else { return }
+            
+            if (customAnnotation.annotationType == annotationType) {
                 mapView.removeAnnotation(customAnnotation)
             }
         }
