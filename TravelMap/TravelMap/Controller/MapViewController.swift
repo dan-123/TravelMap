@@ -30,12 +30,13 @@ class MapViewController: UIViewController {
         return navigationView
     }()
     
-    //переделать
-//    var networkService = NetworkService()
-//    var coreDataService = CoreDataService()
-    
     // код текущей страны
     var countryCode: String?
+    
+    //кложур для ошибок
+    lazy var showAlert: (NetworkServiceError) -> Void = { [weak self] error in
+        self?.showNetworkAlert(for: error)
+    }
     
     //режим отображения карты
     private var mapMode: MapMode = .globalMode
@@ -177,7 +178,8 @@ class MapViewController: UIViewController {
                 case .success(let data):
                     print(data)
                     if data.features.isEmpty {
-                        self.showAlert(for: .country)
+                        self.showAlert(.country)
+                        print(self.showAlert(.country))
                     } else {
                         //получение данных
                         guard let countryCode = data.features.first?.properties.countryCode,
@@ -195,7 +197,7 @@ class MapViewController: UIViewController {
                         self.viewCountryOnMap(for: countryDTO)
                     }
                 case .failure(let error):
-                    self.showAlert(for: error)
+                    self.showAlert(error)
                 }
             }
         }
@@ -207,7 +209,7 @@ class MapViewController: UIViewController {
         let result = self.coreDataService.addCountry(country: [country])
         
         if result == true {
-            self.showAlert(for: .repeatCountry)
+            self.showAlert(.repeatCountry)
         } else {
             self.addGlobalAnnotation(for: country)
         }
@@ -220,7 +222,8 @@ class MapViewController: UIViewController {
                 switch responce {
                 case .success(let data):
                     if data.features.isEmpty {
-                        self.showAlert(for: .city)
+//                        self.showAlert(for: .city)
+                        self.showAlert(.city)
                     } else {
                         //получение данных
                         guard let cityId = data.features.first?.properties.placeId,
@@ -236,7 +239,8 @@ class MapViewController: UIViewController {
                         self.AddLocalAnnotationOnMap(for: cityDTO)
                     }
                 case .failure(let error):
-                    self.showAlert(for: error)
+//                    self.showAlert(for: error)
+                    self.showAlert(error)
                 }
             }
         }
@@ -248,13 +252,13 @@ class MapViewController: UIViewController {
         let result = self.coreDataService.addCity(city: [city])
         
         if result == true {
-            self.showAlert(for: .repeatCity)
+            self.showAlert(.repeatCity)
         } else {
             self.addLocalAnnotation(for: city)
         }
     }
     
-    private func showAlert(for error: NetworkServiceError) {
+    private func showNetworkAlert(for error: NetworkServiceError) {
         let alert = UIAlertController(title: "Что-то пошло не так",
                                       message: message(for: error),
                                       preferredStyle: .alert)

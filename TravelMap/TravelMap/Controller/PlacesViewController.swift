@@ -97,7 +97,7 @@ extension PlacesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let country = coreDataService.frcCountry.object(at: indexPath).del
+        let country = coreDataService.frcCountry.object(at: indexPath)
         if let cities = coreDataService.getCityData(predicate: country.countryCode) {
             coreDataService.deleteCity(city: cities)
         }
