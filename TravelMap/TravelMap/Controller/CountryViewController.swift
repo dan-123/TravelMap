@@ -26,9 +26,9 @@ class CountryViewController: UIViewController {
     //массив с картинками
     private var imageCountry = [UIImage]()
     
-    //переделать
-    var networkService = NetworkService()
+    var networkService: ImageNetworkServiceProtocol
     
+    //переделать
     lazy var coreDataService: CoreDataService = {
         let coreDataService = CoreDataService()
         coreDataService.delegate = self
@@ -37,7 +37,8 @@ class CountryViewController: UIViewController {
     
     // MARK: - Init
 
-    init(countryCode: String, country: String) {
+    init(countryCode: String, country: String, networkService: ImageNetworkServiceProtocol = NetworkService()) {
+        self.networkService = networkService
         self.countryCode = countryCode
         self.country = country
         super.init(nibName: nil, bundle: nil)

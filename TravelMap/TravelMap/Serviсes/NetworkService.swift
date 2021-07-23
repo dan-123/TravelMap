@@ -10,10 +10,10 @@ import UIKit
 
 // MARK: - Protocol
 
-typealias GetCountryCoordinateResponce = Result<CoordinateModel, NetworkServiceError>
+typealias GetCoordinateResponce = Result<CoordinateModel, NetworkServiceError>
 
 protocol CoordinateNetworkServiceProtocol {
-    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void)
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponce) -> Void)
 }
 
 protocol ImageNetworkServiceProtocol {
@@ -55,7 +55,7 @@ final class NetworkService {
 
 extension NetworkService: CoordinateNetworkServiceProtocol {
     
-    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCountryCoordinateResponce) -> Void) {
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponce) -> Void) {
         var components = URLComponents(string: Constants.Coordinate.getContryCoordinate)
         
         switch placeType {

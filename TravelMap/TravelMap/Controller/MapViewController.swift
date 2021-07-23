@@ -179,7 +179,6 @@ class MapViewController: UIViewController {
                     print(data)
                     if data.features.isEmpty {
                         self.showAlert(.country)
-                        print(self.showAlert(.country))
                     } else {
                         //получение данных
                         guard let countryCode = data.features.first?.properties.countryCode,
@@ -222,7 +221,6 @@ class MapViewController: UIViewController {
                 switch responce {
                 case .success(let data):
                     if data.features.isEmpty {
-//                        self.showAlert(for: .city)
                         self.showAlert(.city)
                     } else {
                         //получение данных
