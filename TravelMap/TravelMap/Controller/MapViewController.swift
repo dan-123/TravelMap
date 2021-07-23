@@ -373,14 +373,28 @@ extension MapViewController: MKMapViewDelegate {
     
     //нажатие на метку
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let customAnnotation = view.annotation as? CustomAnnotation else { return }
+        guard let customAnnotation = view.annotation as? CustomAnnotation,
+              let countryCode = customAnnotation.countryCode,
+              let country = coreDataService.getCountryData(predicate: countryCode)?.first else { return }
         
         if customAnnotation.annotationType == .global {
-            guard let countryCode = customAnnotation.countryCode,
-                  let country = coreDataService.getCountryData(predicate: countryCode)?.first else { return }
-            viewCountryOnMap(for: country)} else {
-                return
+            switch mapMode {
+            case .localMode:
+                let localAnnotation = (mapView.annotations.map { $0 as? CustomAnnotation }).filter { $0?.annotationType == .local }
+                
+                if localAnnotation.isEmpty {
+                    viewCountryOnMap(for: country)
+                } else {
+                    localAnnotation.forEach {
+                        guard let anotation = $0 else { return }
+                        mapView.removeAnnotation(anotation)
+                    }
+                    viewCountryOnMap(for: country)
+                }
+            case .globalMode:
+                viewCountryOnMap(for: country)
             }
+        }
     }
     
     //нажатие на кнопку внутри метки
