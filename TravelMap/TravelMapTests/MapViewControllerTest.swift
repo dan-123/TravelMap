@@ -9,7 +9,7 @@ import XCTest
 
 // MARK: - Network service
 
-class CoordinateNetworkService: CoordinateNetworkServiceProtocol {
+class NetworkServiceTest: CoordinateNetworkServiceProtocol {
     
     enum Completion {
         case success
@@ -36,7 +36,7 @@ class CoordinateNetworkService: CoordinateNetworkServiceProtocol {
 
 // MARK: - City core data service
 
-class CountryCoreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol {
+class CoreDataServiceTest: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol {
     
     let countryIsAdded: Bool
     
@@ -88,22 +88,20 @@ class MapViewControllerTest: XCTestCase {
         //arrange
         let coordinateModel = CoordinateModel.init(features: [])
         
-        let coordinateNetworkService = CoordinateNetworkService(coordinateModel: coordinateModel, networkCompletion: .success)
-        let countryCoreDataService = CountryCoreDataService(countryIsAdded: false)
+        let networkServiceTest = NetworkServiceTest(coordinateModel: coordinateModel, networkCompletion: .success)
+        let coreDataServiceTest = CoreDataServiceTest(countryIsAdded: false)
         
-        let mapViewController = MapViewController(networkService: coordinateNetworkService,
-                                                  coreDataService: countryCoreDataService)
+        let mapViewController = MapViewController(networkService: networkServiceTest,
+                                                  coreDataService: coreDataServiceTest)
         
         let expectation = expectation(description: "Success and no country data")
         let expectedError = NetworkServiceError.country
-        var isEqual: Bool = false
 
         //act
         mapViewController.loadCountryCoordinate(country: "Test")
         mapViewController.showAlert = { error in
-            isEqual = error.localizedDescription == expectedError.localizedDescription
             //assert
-            XCTAssertTrue(isEqual)
+            XCTAssertTrue(error.localizedDescription == expectedError.localizedDescription)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
@@ -115,22 +113,20 @@ class MapViewControllerTest: XCTestCase {
         //arrange
         let coordinateModel = CoordinateModel.init(features: [.init(properties: .init(city: nil, country: "Italy", countryCode: "it", lon: 12.674297, lat: 42.6384261, placeId: "51f294d5743d59294059d7344af2b7514540f00101f9011393050000000000c0020b"), bbox: [6.6272658, 35.2889616, 18.7844746, 47.0921462])])
         
-        let coordinateNetworkService = CoordinateNetworkService(coordinateModel: coordinateModel, networkCompletion: .success)
-        let countryCoreDataService = CountryCoreDataService(countryIsAdded: true)
+        let networkServiceTest = NetworkServiceTest(coordinateModel: coordinateModel, networkCompletion: .success)
+        let coreDataServiceTest = CoreDataServiceTest(countryIsAdded: true)
         
-        let mapViewController = MapViewController(networkService: coordinateNetworkService,
-                                                  coreDataService: countryCoreDataService)
+        let mapViewController = MapViewController(networkService: networkServiceTest,
+                                                  coreDataService: coreDataServiceTest)
         
         let expectation = expectation(description: "Success and country was added")
         let expectedError = NetworkServiceError.repeatCountry
-        var isEqual: Bool = false
         
         //act
         mapViewController.loadCountryCoordinate(country: "Test")
         mapViewController.showAlert = { error in
-            isEqual = error.localizedDescription == expectedError.localizedDescription
             //assert
-            XCTAssertTrue(isEqual)
+            XCTAssertTrue(error.localizedDescription == expectedError.localizedDescription)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
@@ -142,22 +138,20 @@ class MapViewControllerTest: XCTestCase {
         //arrange
         let coordinateModel = CoordinateModel.init(features: [])
         
-        let coordinateNetworkService = CoordinateNetworkService(coordinateModel: coordinateModel, networkCompletion: .failure)
-        let countryCoreDataService = CountryCoreDataService(countryIsAdded: true)
+        let networkServiceTest = NetworkServiceTest(coordinateModel: coordinateModel, networkCompletion: .failure)
+        let coreDataServiceTest = CoreDataServiceTest(countryIsAdded: true)
         
-        let mapViewController = MapViewController(networkService: coordinateNetworkService,
-                                                  coreDataService: countryCoreDataService)
+        let mapViewController = MapViewController(networkService: networkServiceTest,
+                                                  coreDataService: coreDataServiceTest)
         
         let expectation = expectation(description: "Failure and network error")
         let expectedError = NetworkServiceError.network
-        var isEqual: Bool = false
         
         //act
         mapViewController.loadCountryCoordinate(country: "Test")
         mapViewController.showAlert = { error in
-            isEqual = error.localizedDescription == expectedError.localizedDescription
             //assert
-            XCTAssertTrue(isEqual)
+            XCTAssertTrue(error.localizedDescription == expectedError.localizedDescription)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
