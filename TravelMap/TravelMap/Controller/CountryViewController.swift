@@ -28,7 +28,12 @@ class CountryViewController: UIViewController {
     
     //переделать
     var networkService = NetworkService()
-    let coreDataService = CoreDataService()
+    
+    lazy var coreDataService: CoreDataService = {
+        let coreDataService = CoreDataService()
+        coreDataService.delegate = self
+        return coreDataService
+    }()
     
     // MARK: - Init
 
@@ -210,8 +215,15 @@ extension CountryViewController: UITableViewDelegate {
         let cityDTO = CityDTO(cityId: city.cityId, countryCode: city.countryCode, city: city.city, latitude: city.latitude, longitude: city.longitude)
 
         coreDataService.deleteCity(city: [cityDTO])
-        
-        #warning("reload data")
-//        placesTableView.reloadData()
+    }
+}
+
+// MARK: - Extensions (CoreDataSeriviceDelegate)
+#warning("reload data")
+extension CountryViewController: CoreDataSeriviceDelegate {
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.countryView.reloadCityTable()
+        }
     }
 }

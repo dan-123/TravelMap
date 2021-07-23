@@ -47,7 +47,7 @@ class CoreDataService: NSObject {
        let request = NSFetchRequest<Country>(entityName: "Country")
         request.sortDescriptors = [.init(key: "country", ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: request,
-                                             managedObjectContext: coreDataStack.viewContext,
+                                             managedObjectContext: coreDataStack.backgroundContext,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         frc.delegate = self
@@ -68,9 +68,10 @@ class CoreDataService: NSObject {
         }
         request.sortDescriptors = [.init(key: "city", ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: request,
-                                             managedObjectContext: coreDataStack.viewContext,
+                                             managedObjectContext: coreDataStack.backgroundContext,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
+        frc.delegate = self
         return frc
     }
     
