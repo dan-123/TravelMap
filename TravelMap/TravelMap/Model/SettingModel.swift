@@ -7,6 +7,26 @@
 
 import Foundation
 
-struct SettingModel {
-    let information = "Travel map - это приложение для отметок стран и городов в которых вы были. Отмечайте страны в которых вы были, просматирвайте фото ваших стран и список городов, которые вы посетили"
+enum SettingModel: CaseIterable {
+    case countryCount
+    case citiesCount
+    case photosDisplayedCount
+    case deleteData
+    case aboutApplication
+    
+    var description: String? {
+        switch self {
+        case .countryCount:
+            return "Количество стран"
+        case .citiesCount:
+            return "Количество городов"
+        case .photosDisplayedCount:
+            return "Количество отображаемых фото"
+        case .deleteData:
+            return "Удалить данные"
+        case .aboutApplication:
+            return "О приложении"
+            
+        }
+    }
 }

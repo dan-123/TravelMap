@@ -30,7 +30,7 @@ class TabBarController: UITabBarController {
         let mapViewConroller = UINavigationController.init(rootViewController: MapViewController(networkService: networkService, coreDataService: coreDataService))
         mapViewConroller.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.mapTitle, image: UIImage(systemName: "map"), tag: 1)
         
-        let settingViewController = UINavigationController.init(rootViewController: SettingViewController())
+        let settingViewController = UINavigationController.init(rootViewController: SettingViewController(coreDataService: coreDataService))
         settingViewController.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.settingTitle, image: UIImage(systemName: "gearshape"), tag: 1)
 
         viewControllers = [placesViewController, mapViewConroller, settingViewController]

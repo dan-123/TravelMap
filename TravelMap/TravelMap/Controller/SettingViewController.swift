@@ -12,10 +12,30 @@ class SettingViewController: UIViewController {
     // MARK: - Properties
     
     lazy var settingView: SettingView = {
-        let label = SettingView()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let settingView = SettingView()
+        settingView.translatesAutoresizingMaskIntoConstraints = false
+        return settingView
     }()
+    
+    private var countryCount: Int = 0
+    private var citiesCount: Int = 0
+    
+    private var model = SettingModel.allCases
+    
+    // MARK: - Dependencies
+
+    private let coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol
+    
+    // MARK: - Init
+    
+    init(coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol) {
+        self.coreDataService = coreDataService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lyfe cycle
     
@@ -30,6 +50,11 @@ class SettingViewController: UIViewController {
         view.backgroundColor = .systemBlue
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getData()
+    }
+    
     // MARK: - UI
     
     func setupElements() {
@@ -38,10 +63,6 @@ class SettingViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = Constants.ControllerTitle.settingTitle
-//        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward.circle.fill"), style: .plain, target: self, action: #selector(testFunc))
-//        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addNewCountry))
-//        self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
-//        self.navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
     
     func setupConstraint() {
@@ -52,21 +73,68 @@ class SettingViewController: UIViewController {
             settingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
-}
+    
+    // MARK: - Methods
 
+    private func getData() {
+        countryCount = coreDataService.getCountryData(predicate: nil)?.count ?? 0
+        citiesCount = coreDataService.getCityData(predicate: nil)?.count ?? 0
+        settingView.reloadData()
+    }
+    
+    private func deleteData() {
+        coreDataService.deleteCountry(country: nil)
+        coreDataService.deleteCity(city: nil)
+        getData()
+    }
+}
 
 // MARK: - Extensions (UITableViewDataSource)
 
 extension SettingViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: settingView.cellIdentifier) else { return UITableViewCell() }
-        cell.textLabel?.text = "О приложении"
-//        cell.
+        let cell = UITableViewCell()
+        
+        let tableWidth = tableView.frame.width
+        let labelWidth: CGFloat = 45
+        let heigth = cell.frame.height
+        
+        switch model[indexPath.row] {
+        case .countryCount:
+            cell.textLabel?.text = model[indexPath.row].description
+            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: countryCount)
+            cell.addSubview(label)
+            
+        case .citiesCount:
+            cell.textLabel?.text = model[indexPath.row].description
+            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: citiesCount)
+            cell.addSubview(label)
+            
+        case .photosDisplayedCount:
+            cell.textLabel?.text = model[indexPath.row].description
+            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: 5)
+            cell.addSubview(label)
+            
+        case .deleteData:
+            cell.textLabel?.text = model[indexPath.row].description
+        case .aboutApplication:
+            cell.textLabel?.text = model[indexPath.row].description
+            cell.accessoryType = .disclosureIndicator
+        }
+        
         return cell
+    }
+    
+    private func createLabel(tableWidth: CGFloat, labelWidth: CGFloat, heigth: CGFloat, value: Int) -> UILabel {
+        let label = UILabel(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
+        label.text = String(value)
+        label.textAlignment = .center
+        return label
     }
 }
 
@@ -76,8 +144,37 @@ extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-//        guard let country = delegate?.getData(at: indexPath) else { return }
-//        let pointViewController = CountryViewController(countryCode: country.countryCode, country: country.country)
-//        delegate?.selectRow(viewController: pointViewController)
+        
+        switch model[indexPath.row] {
+        case .countryCount, .citiesCount, .photosDisplayedCount: break
+        case .deleteData:
+            
+            if (countryCount == 0 && citiesCount == 0) {
+                showAlertController(haveData: false, title: "Удаление данных", message: "Пока не добавлено ни одной страны и города")
+            } else {
+                showAlertController(haveData: true, title: "Удаление данных", message: "Вы уверены что хотите удалить данные?")
+            }
+        case .aboutApplication:
+            navigationController?.pushViewController(InformationViewController(), animated: true)
+        }
+
+    }
+    
+    private func showAlertController(haveData: Bool, title: String, message: String) {
+        let alertConrtoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        if haveData {
+            let okAction = UIAlertAction(title: "ОК", style: .default) { _ in
+                self.deleteData()
+            }
+            let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+            alertConrtoller.addAction(okAction)
+            alertConrtoller.addAction(cancelAction)
+        } else {
+            let okAction = UIAlertAction(title: "ОК", style: .default)
+            alertConrtoller.addAction(okAction)
+        }
+        
+        present(alertConrtoller, animated: true)
     }
 }

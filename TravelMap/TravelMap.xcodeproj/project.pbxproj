@@ -66,6 +66,9 @@
 		C58CD78126A98E3800C15802 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* CountryView.swift */; };
 		C58CD78226A98E3B00C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
 		C58CD78326A98E4B00C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
+		C58CD78526AAB7B700C15802 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78426AAB7B500C15802 /* InformationViewController.swift */; };
+		C58CD78826AAB7EE00C15802 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78726AAB7EE00C15802 /* InformationView.swift */; };
+		C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78926AABAD500C15802 /* InformationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +122,9 @@
 		C58CD75B26A95DB000C15802 /* TravelMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapTests.swift; sourceTree = "<group>"; };
 		C58CD75D26A95DB000C15802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C58CD77026A9858800C15802 /* MapViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewControllerTest.swift; sourceTree = "<group>"; };
+		C58CD78426AAB7B500C15802 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		C58CD78726AAB7EE00C15802 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		C58CD78926AABAD500C15802 /* InformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +153,7 @@
 				C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */,
 				C56B05FC2681BAD100057FE3 /* MapViewController.swift */,
 				C56B060E2681C63F00057FE3 /* SettingViewController.swift */,
+				C58CD78426AAB7B500C15802 /* InformationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 				C5640EBE2694879D00F8DB8A /* CountryView */,
 				C5640EB62694717500F8DB8A /* MapView */,
 				C58CD74726A4306C00C15802 /* SettingView */,
+				C58CD78626AAB7CB00C15802 /* InformationView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,6 +178,7 @@
 				C58CD73B26A1C99F00C15802 /* CountryDTO.swift */,
 				C58CD74126A3016300C15802 /* CityDTO.swift */,
 				C58CD74A26A461E300C15802 /* SettingModel.swift */,
+				C58CD78926AABAD500C15802 /* InformationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -297,6 +306,14 @@
 			path = TravelMapTests;
 			sourceTree = "<group>";
 		};
+		C58CD78626AAB7CB00C15802 /* InformationView */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD78726AAB7EE00C15802 /* InformationView.swift */,
+			);
+			path = InformationView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -407,6 +424,7 @@
 				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
 				C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */,
 				C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */,
+				C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */,
 				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
@@ -418,6 +436,7 @@
 				C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */,
 				C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
+				C58CD78526AAB7B700C15802 /* InformationViewController.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
 				C58CD6302697299900C15802 /* TabBarController.swift in Sources */,
 				C58CD74526A308FE00C15802 /* City+CoreDataClass.swift in Sources */,
@@ -425,6 +444,7 @@
 				C58CD75226A57BF500C15802 /* MapNavigationView.swift in Sources */,
 				C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */,
 				C55CE743268E0ED900B1942C /* Constants.swift in Sources */,
+				C58CD78826AAB7EE00C15802 /* InformationView.swift in Sources */,
 				C58CD74926A45F6600C15802 /* SettingView.swift in Sources */,
 				C58CD73226A1B95E00C15802 /* TravelMap.xcdatamodeld in Sources */,
 			);

@@ -16,10 +16,9 @@ class SettingView: UIView {
     
     private lazy var settingTableView: UITableView = {
         let tableView = UITableView()
-//        tableView.dataSource = self
-//        tableView.delegate = self
         tableView.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.tableFooterView = UIView()
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -54,6 +53,10 @@ class SettingView: UIView {
     }
     
     // MARK: - Methods
+    
+    func reloadData() {
+        settingTableView.reloadData()
+    }
     
     func update(dataProvider: UITableViewDataSource & UITableViewDelegate) {
         settingTableView.dataSource = dataProvider
