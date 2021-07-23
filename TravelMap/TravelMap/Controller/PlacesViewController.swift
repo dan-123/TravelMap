@@ -110,7 +110,6 @@ extension PlacesViewController: UITableViewDelegate {
 }
 
 // MARK: - Extensions (CoreDataSeriviceDelegate)
-#warning("reload data")
 extension PlacesViewController: CoreDataSeriviceDelegate {
     func reloadData() {
         DispatchQueue.main.async {

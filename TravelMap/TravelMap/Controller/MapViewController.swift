@@ -191,7 +191,7 @@ class MapViewController: UIViewController {
                         //добавление в DTO
                         let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
                         //добавление аннотации на карту
-                        self.AddGlobalAnnotationOnMap(for: countryDTO)
+                        self.addGlobalAnnotationOnMap(for: countryDTO)
                         //отборажение страны на карте
                         self.viewCountryOnMap(for: countryDTO)
                     }
@@ -203,7 +203,7 @@ class MapViewController: UIViewController {
     }
     
     //добавление страны на карту
-    private func AddGlobalAnnotationOnMap(for country: CountryDTO) {
+    private func addGlobalAnnotationOnMap(for country: CountryDTO) {
         //проверка наличия страны в core data
         let result = self.coreDataService.addCountry(country: [country])
         
@@ -237,7 +237,6 @@ class MapViewController: UIViewController {
                         self.AddLocalAnnotationOnMap(for: cityDTO)
                     }
                 case .failure(let error):
-//                    self.showAlert(for: error)
                     self.showAlert(error)
                 }
             }

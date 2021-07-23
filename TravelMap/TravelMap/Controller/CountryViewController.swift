@@ -220,7 +220,6 @@ extension CountryViewController: UITableViewDelegate {
 }
 
 // MARK: - Extensions (CoreDataSeriviceDelegate)
-#warning("reload data")
 extension CountryViewController: CoreDataSeriviceDelegate {
     func reloadData() {
         DispatchQueue.main.async {
