@@ -15,7 +15,6 @@
 		C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */; };
 		C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */; };
 		C5640EB92694762800F8DB8A /* PlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EB82694762800F8DB8A /* PlacesView.swift */; };
-		C5640EBB26947AB900F8DB8A /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBA26947AB900F8DB8A /* PlaceCell.swift */; };
 		C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */; };
 		C56B05F92681BAD100057FE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05F82681BAD100057FE3 /* AppDelegate.swift */; };
 		C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
@@ -26,7 +25,6 @@
 		C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* CountryView.swift */; };
 		C58CD6302697299900C15802 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62F2697299900C15802 /* TabBarController.swift */; };
 		C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
-		C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */; };
 		C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
 		C58CD72D26A1861200C15802 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72C26A1861200C15802 /* CoreDataStack.swift */; };
 		C58CD72F26A1878000C15802 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72E26A1878000C15802 /* CoreDataService.swift */; };
@@ -90,7 +88,6 @@
 		C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationVew.swift; sourceTree = "<group>"; };
 		C5640EB82694762800F8DB8A /* PlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesView.swift; sourceTree = "<group>"; };
-		C5640EBA26947AB900F8DB8A /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
 		C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewController.swift; sourceTree = "<group>"; };
 		C56B05F52681BAD100057FE3 /* TravelMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56B05F82681BAD100057FE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		C58CD62D2696ED1E00C15802 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
 		C58CD62F2697299900C15802 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionViewCell.swift; sourceTree = "<group>"; };
-		C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewCell.swift; sourceTree = "<group>"; };
 		C58CD71B269D9C5100C15802 /* CountryImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryImageModel.swift; sourceTree = "<group>"; };
 		C58CD72C26A1861200C15802 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C58CD72E26A1878000C15802 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
@@ -207,7 +203,6 @@
 		C5640EB72694760900F8DB8A /* PlacesView */ = {
 			isa = PBXGroup;
 			children = (
-				C5640EBA26947AB900F8DB8A /* PlaceCell.swift */,
 				C5640EB82694762800F8DB8A /* PlacesView.swift */,
 			);
 			path = PlacesView;
@@ -217,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */,
-				C58CD63C269AF56C00C15802 /* CitiesTableViewCell.swift */,
 				C58CD62D2696ED1E00C15802 /* CountryView.swift */,
 			);
 			path = CountryView;
@@ -412,7 +406,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5640EBB26947AB900F8DB8A /* PlaceCell.swift in Sources */,
 				C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */,
 				C58CD73C26A1C99F00C15802 /* CountryDTO.swift in Sources */,
 				C5640E2B268F34BE00F8DB8A /* MapView.swift in Sources */,
@@ -423,7 +416,6 @@
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
 				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
 				C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */,
-				C58CD63D269AF56C00C15802 /* CitiesTableViewCell.swift in Sources */,
 				C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */,
 				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
