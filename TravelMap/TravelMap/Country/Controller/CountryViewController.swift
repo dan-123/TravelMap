@@ -233,6 +233,7 @@ extension CountryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell") else { return UITableViewCell() }
         let city = (coreDataService.frcCity.object(at: indexPath))
+        cell.selectionStyle = .none
         cell.textLabel?.text = city.city
         return cell
     }

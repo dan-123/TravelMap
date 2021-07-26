@@ -22,6 +22,7 @@ class SettingViewController: UIViewController {
     
     private var countryCount: Int = 0
     private var citiesCount: Int = 0
+    private var photoCount: String = ""
     
     private var model = SettingModel.allCases
     
@@ -49,6 +50,7 @@ class SettingViewController: UIViewController {
         setupNavigationTools()
         setupConstraint()
         settingView.update(dataProvider: self)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeybord)))
         
         view.backgroundColor = .systemBlue
     }
@@ -94,11 +96,17 @@ class SettingViewController: UIViewController {
             guard let count = textField?.text else { return }
             print(count)
             self.userDefaultServices.saveData(object: count, key: Constants.UserDefaultsKey.keyForPhotoCount)
+            self.photoCount = "9"
+            self.settingView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertConrtoller.addAction(okAction)
         alertConrtoller.addAction(cancelAction)
         present(alertConrtoller, animated: true)
+    }
+    
+    @objc func hideKeybord() {
+        settingView.photoCountTextField.resignFirstResponder()
     }
     
     // MARK: - Methods
@@ -126,6 +134,7 @@ extension SettingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.selectionStyle = .none
         
         let tableWidth = tableView.frame.width
         let labelWidth: CGFloat = 45
@@ -134,25 +143,18 @@ extension SettingViewController: UITableViewDataSource {
         switch model[indexPath.row] {
         case .countryCount:
             cell.textLabel?.text = model[indexPath.row].description
-            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: countryCount)
+            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: countryCount)
             cell.addSubview(label)
             
         case .citiesCount:
             cell.textLabel?.text = model[indexPath.row].description
-            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: citiesCount)
+            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: citiesCount)
             cell.addSubview(label)
             
         case .photosDisplayedCount:
             cell.textLabel?.text = model[indexPath.row].description
-            
-            let button = UIButton(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
-            button.backgroundColor = .red
-            button.addTarget(self, action: #selector(tappedLabel), for: .touchUpInside)
-            
-//            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: 5)
-//            label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedLabel)))
-//            let button =
-            cell.addSubview(button)
+            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: photoCount)
+            cell.addSubview(textField)
             
         case .deleteData:
             cell.textLabel?.text = model[indexPath.row].description
@@ -162,13 +164,6 @@ extension SettingViewController: UITableViewDataSource {
         }
         
         return cell
-    }
-    
-    private func createLabel(tableWidth: CGFloat, labelWidth: CGFloat, heigth: CGFloat, value: Int) -> UILabel {
-        let label = UILabel(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
-        label.text = String(value)
-        label.textAlignment = .center
-        return label
     }
 }
 
@@ -210,5 +205,20 @@ extension SettingViewController: UITableViewDelegate {
         }
         
         present(alertConrtoller, animated: true)
+    }
+}
+
+// MARK: - Extensions (UITextFieldDelegate)
+
+extension SettingViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        print("range.length \(range.length)")
+        print("range.location \(range.location)")
+        print("string.characters.count \(string.count)")
+        print("textField.text?.count \(textField.text?.count)")
+        
+        return false
     }
 }

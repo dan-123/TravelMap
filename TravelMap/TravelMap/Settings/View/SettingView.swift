@@ -24,6 +24,16 @@ class SettingView: UIView {
         return tableView
     }()
     
+    lazy var photoCountTextField: UITextField = {
+       let textField = UITextField()
+        return textField
+    }()
+    
+    private lazy var placesCountLabel: UILabel = {
+       let label = UILabel()
+        return label
+    }()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -54,12 +64,31 @@ class SettingView: UIView {
     
     // MARK: - Methods
     
+    func getPlacesCountLabel(tableWidth: CGFloat, labelWidth: CGFloat, heigth: CGFloat, value: Int) -> UILabel {
+        placesCountLabel = UILabel(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
+        placesCountLabel.text = String(value)
+        placesCountLabel.textAlignment = .center
+        return placesCountLabel
+    }
+    
+    func getPhotoCountTextField(tableWidth: CGFloat, labelWidth: CGFloat, heigth: CGFloat, value: String) -> UITextField {
+        photoCountTextField = UITextField(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
+        photoCountTextField.layer.borderWidth = 1
+        photoCountTextField.layer.cornerRadius = 8
+        photoCountTextField.layer.borderColor = UIColor.systemBlue.cgColor
+        photoCountTextField.textAlignment = .center
+        photoCountTextField.keyboardType = .numberPad
+        photoCountTextField.backgroundColor = .systemBackground
+        return photoCountTextField
+    }
+    
     func reloadData() {
         settingTableView.reloadData()
     }
     
-    func update(dataProvider: UITableViewDataSource & UITableViewDelegate) {
+    func update(dataProvider: UITableViewDataSource & UITableViewDelegate & UITextFieldDelegate) {
         settingTableView.dataSource = dataProvider
         settingTableView.delegate = dataProvider
+        photoCountTextField.delegate = dataProvider
     }
 }
