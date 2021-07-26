@@ -79,8 +79,10 @@ class CountryViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = country
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle"), style: .plain, target: self, action: #selector(deleteCountry))
-        self.navigationItem.setRightBarButton(rightBarButton, animated: true)
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(deleteCountry))
+        let rightBarButton2 = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(deleteCountry))
+//        self.navigationItem.setRightBarButton(rightBarButton, animated: true)
+        self.navigationItem.rightBarButtonItems = [rightBarButton, rightBarButton2]
     }
     
     private func setupConstraint() {

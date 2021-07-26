@@ -23,11 +23,12 @@ class TabBarController: UITabBarController {
         
         let networkService = NetworkService()
         let coreDataService = CoreDataService()
+        let coordinateLoaderService = CoordinateLoaderService(networkService: networkService)
         
         let placesViewController = UINavigationController.init(rootViewController: PlacesViewController())
         placesViewController.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.placesTitle, image: UIImage(systemName: "mappin.and.ellipse"), tag: 1)
         
-        let mapViewConroller = UINavigationController.init(rootViewController: MapViewController(networkService: networkService, coreDataService: coreDataService))
+        let mapViewConroller = UINavigationController.init(rootViewController: MapViewController(coordinateLoaderService: coordinateLoaderService, coreDataService: coreDataService))
         mapViewConroller.tabBarItem = UITabBarItem(title: Constants.ControllerTitle.mapTitle, image: UIImage(systemName: "map"), tag: 1)
         
         let settingViewController = UINavigationController.init(rootViewController: SettingViewController(coreDataService: coreDataService))

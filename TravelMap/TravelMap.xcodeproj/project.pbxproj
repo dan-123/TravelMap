@@ -67,6 +67,7 @@
 		C58CD78526AAB7B700C15802 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78426AAB7B500C15802 /* InformationViewController.swift */; };
 		C58CD78826AAB7EE00C15802 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78726AAB7EE00C15802 /* InformationView.swift */; };
 		C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78926AABAD500C15802 /* InformationModel.swift */; };
+		C58CD78C26ADD51200C15802 /* CoordinateLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 		C58CD78426AAB7B500C15802 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		C58CD78726AAB7EE00C15802 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		C58CD78926AABAD500C15802 /* InformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationModel.swift; sourceTree = "<group>"; };
+		C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 				C58CD72E26A1878000C15802 /* CoreDataService.swift */,
+				C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */,
 			);
 			path = "Serviсes";
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
 				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
 				C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */,
+				C58CD78C26ADD51200C15802 /* CoordinateLoaderService.swift in Sources */,
 				C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */,
 				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,

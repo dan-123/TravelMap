@@ -34,23 +34,23 @@ class MapViewController: UIViewController {
     var countryCode: String?
     
     //кложур для ошибок
-    lazy var showAlert: (NetworkServiceError) -> Void = { [weak self] error in
-        self?.showNetworkAlert(for: error)
-    }
+//    lazy var showAlert: (NetworkServiceError) -> Void = { [weak self] error in
+//        self?.showNetworkAlert(for: error)
+//    }
     
     //режим отображения карты
     private var mapMode: MapMode = .globalMode
     
     // MARK: - Dependencies
     
-    private let networkService: CoordinateNetworkServiceProtocol
+    private let coordinateLoaderService: CoordinateCountryLoaderServiceProtocol & CoordinateCityLoaderServiceProtocol
     private let coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol
     
     // MARK: - Init
     
-    init(networkService: CoordinateNetworkServiceProtocol,
+    init(coordinateLoaderService: CoordinateCountryLoaderServiceProtocol & CoordinateCityLoaderServiceProtocol,
          coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol) {
-        self.networkService = networkService
+        self.coordinateLoaderService = coordinateLoaderService
         self.coreDataService = coreDataService
         super.init(nibName: nil, bundle: nil)
     }
@@ -161,7 +161,8 @@ class MapViewController: UIViewController {
             case .globalMode:
                 self.loadCountryCoordinate(country: place)
             case .localMode:
-                self.loadCityCoordinate(city: place)
+                guard let countryCode = self.countryCode else { return }
+                self.loadCityCoordinate(city: place, countryCode: countryCode)
             }
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
@@ -171,33 +172,18 @@ class MapViewController: UIViewController {
     }
     
     // запрос для страны
+    // новая функция (через сервис)
     func loadCountryCoordinate(country: String) {
-        self.networkService.getCoordinate(placeType: Constants.Coordinate.countryCoordinte, placeName: country, countryCode: nil) { responce in
-            DispatchQueue.main.async {
-                switch responce {
-                case .success(let data):
-                    print(data)
-                    if data.features.isEmpty {
-                        self.showAlert(.country)
-                    } else {
-                        //получение данных
-                        guard let countryCode = data.features.first?.properties.countryCode,
-                              let country = data.features.first?.properties.country,
-                              let latitude = data.features.first?.properties.lat,
-                              let longitude = data.features.first?.properties.lon,
-                              let countryBorder = data.features.first?.bbox else {
-                            return
-                        }
-                        //добавление в DTO
-                        let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
-                        //добавление аннотации на карту
-                        self.addGlobalAnnotationOnMap(for: countryDTO)
-                        //отборажение страны на карте
-                        self.viewCountryOnMap(for: countryDTO)
-                    }
-                case .failure(let error):
-                    self.showAlert(error)
-                }
+        coordinateLoaderService.loadCountryCoordinate(country: country) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let countryDTO):
+                self.addGlobalAnnotationOnMap(for: countryDTO)
+                self.viewCountryOnMap(for: countryDTO)
+            case .failure(let error):
+//                self.showAlert(error)
+                self.showAlert(for: error)
+            
             }
         }
     }
@@ -208,37 +194,24 @@ class MapViewController: UIViewController {
         let result = self.coreDataService.addCountry(country: [country])
         
         if result == true {
-            self.showAlert(.repeatCountry)
+//            self.showAlert(.repeatCountry)
+            self.showAlert(for: .repeatCountry)
         } else {
             self.addGlobalAnnotation(for: country)
         }
     }
     
     //запрос для города
-    private func loadCityCoordinate(city: String) {
-        self.networkService.getCoordinate(placeType: Constants.Coordinate.cityCoordinate, placeName: city, countryCode: countryCode) { responce in
-            DispatchQueue.main.async {
-                switch responce {
-                case .success(let data):
-                    if data.features.isEmpty {
-                        self.showAlert(.city)
-                    } else {
-                        //получение данных
-                        guard let cityId = data.features.first?.properties.placeId,
-                              let countryCode = data.features.first?.properties.countryCode,
-                              let city = data.features.first?.properties.city,
-                              let latitude = data.features.first?.properties.lat,
-                              let longitude = data.features.first?.properties.lon else {
-                            return
-                        }
-                        //добавление в DTO
-                        let cityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: city, latitude: latitude, longitude: longitude)
-                        //добавление аннотации на карту
-                        self.AddLocalAnnotationOnMap(for: cityDTO)
-                    }
-                case .failure(let error):
-                    self.showAlert(error)
-                }
+    // новая функция (через сервис)
+    private func loadCityCoordinate(city: String, countryCode: String) {
+        coordinateLoaderService.loadCityCoordinate(city: city, countryCode: countryCode) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let cityDTO):
+                self.AddLocalAnnotationOnMap(for: cityDTO)
+            case .failure(let error):
+//                self.showAlert(error)
+                self.showAlert(for: error)
             }
         }
     }
@@ -249,13 +222,14 @@ class MapViewController: UIViewController {
         let result = self.coreDataService.addCity(city: [city])
         
         if result == true {
-            self.showAlert(.repeatCity)
+//            self.showAlert(.repeatCity)
+            self.showAlert(for: .repeatCity)
         } else {
             self.addLocalAnnotation(for: city)
         }
     }
     
-    private func showNetworkAlert(for error: NetworkServiceError) {
+    private func showAlert(for error: NetworkServiceError) {
         let alert = UIAlertController(title: "Что-то пошло не так",
                                       message: message(for: error),
                                       preferredStyle: .alert)
