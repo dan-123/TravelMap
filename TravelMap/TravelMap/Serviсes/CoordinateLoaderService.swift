@@ -23,12 +23,16 @@ class CoordinateLoaderService {
     
     // MARK: - Properties
     
+    let coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol
+    
     let networkService: CoordinateNetworkServiceProtocol
     
     // MARK: - Init
     
-    init(networkService: CoordinateNetworkServiceProtocol) {
+    init(networkService: CoordinateNetworkServiceProtocol = NetworkService(),
+         coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol = CoreDataService()) {
         self.networkService = networkService
+        self.coreDataService = coreDataService
     }
 }
 
@@ -52,7 +56,14 @@ extension CoordinateLoaderService: CoordinateCountryLoaderServiceProtocol {
                             return
                         }
                         let countryDTO = CountryDTO(countryCode: countryCode, country: country, latitude: latitude, longitude: longitude, border: countryBorder)
-                        completion(.success(countryDTO))
+                        //добавление данных в core data
+                        let result = self.coreDataService.addCountry(country: [countryDTO])
+                        
+                        if result == true {
+                            completion(.failure(.repeatCountry))
+                        } else {
+                            completion(.success(countryDTO))
+                        }
                     }
                 case .failure(let error):
                     completion(.failure(error))
@@ -80,9 +91,16 @@ extension CoordinateLoaderService: CoordinateCityLoaderServiceProtocol {
                               let longitude = data.features.first?.properties.lon else {
                             return
                         }
-                        //добавление в DTO
                         let cityDTO = CityDTO(cityId: cityId, countryCode: countryCode, city: city, latitude: latitude, longitude: longitude)
                         completion(.success(cityDTO))
+                        //добавление данных в core data
+                        let result = self.coreDataService.addCity(city: [cityDTO])
+                        
+                        if result == true {
+                            completion(.failure(.repeatCity))
+                        } else {
+                            completion(.success(cityDTO))
+                        }
                     }
                 case .failure(let error):
                     completion(.failure(error))

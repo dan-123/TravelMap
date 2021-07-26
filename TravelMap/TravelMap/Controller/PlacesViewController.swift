@@ -24,6 +24,21 @@ class PlacesViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - Dependencies
+    
+    private let coordinateLoaderService: CoordinateCountryLoaderServiceProtocol
+    
+    // MARK: - Init
+    
+    init(coordinateLoaderService: CoordinateCountryLoaderServiceProtocol) {
+        self.coordinateLoaderService = coordinateLoaderService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lyfe cycle
     
     override func viewDidLoad() {
@@ -52,6 +67,8 @@ class PlacesViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = Constants.ControllerTitle.placesTitle
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCountry))
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func setupConstraint() {
@@ -61,6 +78,37 @@ class PlacesViewController: UIViewController {
             placesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             placesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
+    }
+    
+    // MARK: - Action
+    
+    @objc private func addCountry() {
+        let alertConrtoller = UIAlertController(title: "Новая страна", message: "Добавление новой страны", preferredStyle: .alert)
+        alertConrtoller.addTextField()
+        
+        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] _ in
+            let textField = alertConrtoller?.textFields?.first
+            guard let country = textField?.text else { return }
+            self.loadCountry(country: country)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertConrtoller.addAction(okAction)
+        alertConrtoller.addAction(cancelAction)
+        present(alertConrtoller, animated: true)
+    }
+    
+    // MARK: - Methods
+    
+    private func loadCountry(country: String) {
+        coordinateLoaderService.loadCountryCoordinate(country: country) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                print("added new country in table")
+            case .failure(let error):
+                self.showAlert(for: error)
+            }
+        }
     }
 }
 

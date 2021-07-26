@@ -68,6 +68,7 @@
 		C58CD78826AAB7EE00C15802 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78726AAB7EE00C15802 /* InformationView.swift */; };
 		C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78926AABAD500C15802 /* InformationModel.swift */; };
 		C58CD78C26ADD51200C15802 /* CoordinateLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */; };
+		C58CD78E26AE997400C15802 /* UIViewController+showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		C58CD78726AAB7EE00C15802 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		C58CD78926AABAD500C15802 /* InformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationModel.swift; sourceTree = "<group>"; };
 		C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderService.swift; sourceTree = "<group>"; };
+		C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showAlert.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */,
+				C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				C58CD78C26ADD51200C15802 /* CoordinateLoaderService.swift in Sources */,
 				C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */,
 				C56B060D2681C40400057FE3 /* PlacesViewController.swift in Sources */,
+				C58CD78E26AE997400C15802 /* UIViewController+showAlert.swift in Sources */,
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,

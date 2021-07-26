@@ -26,7 +26,8 @@ class CountryViewController: UIViewController {
     //массив с картинками
     private var imageCountry = [UIImage]()
     
-    var networkService: ImageNetworkServiceProtocol
+    let networkService: ImageNetworkServiceProtocol
+    let coordinateLoaderService: CoordinateCityLoaderServiceProtocol
     
     //переделать
     lazy var coreDataService: CoreDataService = {
@@ -37,8 +38,12 @@ class CountryViewController: UIViewController {
     
     // MARK: - Init
 
-    init(countryCode: String, country: String, networkService: ImageNetworkServiceProtocol = NetworkService()) {
+    init(networkService: ImageNetworkServiceProtocol = NetworkService(),
+         coordinateLoaderService: CoordinateCityLoaderServiceProtocol = CoordinateLoaderService(),
+         countryCode: String,
+         country: String) {
         self.networkService = networkService
+        self.coordinateLoaderService = coordinateLoaderService
         self.countryCode = countryCode
         self.country = country
         super.init(nibName: nil, bundle: nil)
@@ -79,10 +84,9 @@ class CountryViewController: UIViewController {
     
     private func setupNavigationTools() {
         self.title = country
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(deleteCountry))
-        let rightBarButton2 = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(deleteCountry))
-//        self.navigationItem.setRightBarButton(rightBarButton, animated: true)
-        self.navigationItem.rightBarButtonItems = [rightBarButton, rightBarButton2]
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCity))
+        let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(deleteCountry))
+        self.navigationItem.rightBarButtonItems = [deleteButton, addButton]
     }
     
     private func setupConstraint() {
@@ -112,6 +116,35 @@ class CountryViewController: UIViewController {
     
     @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
         print("редактирование описания")
+    }
+    
+    @objc private func addCity() {
+        let alertConrtoller = UIAlertController(title: "Новый город", message: "Добавление нового города", preferredStyle: .alert)
+        alertConrtoller.addTextField()
+
+        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] _ in
+            let textField = alertConrtoller?.textFields?.first
+            guard let city = textField?.text else { return }
+            self.loadCity(city: city)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertConrtoller.addAction(okAction)
+        alertConrtoller.addAction(cancelAction)
+        present(alertConrtoller, animated: true)
+    }
+    
+    // MARK: - Methods
+    
+    private func loadCity(city: String) {
+        coordinateLoaderService.loadCityCoordinate(city: city, countryCode: countryCode) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                print("added new city in table")
+            case .failure(let error):
+                self.showAlert(for: error)
+            }
+        }
     }
     
     // MARK: - Methods
