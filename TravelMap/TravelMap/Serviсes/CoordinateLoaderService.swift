@@ -84,6 +84,7 @@ extension CoordinateLoaderService: CoordinateCityLoaderServiceProtocol {
                     if data.features.isEmpty {
                         completion(.failure(.city))
                     } else {
+                        print(data)
                         guard let cityId = data.features.first?.properties.placeId,
                               let countryCode = data.features.first?.properties.countryCode,
                               let city = data.features.first?.properties.city,

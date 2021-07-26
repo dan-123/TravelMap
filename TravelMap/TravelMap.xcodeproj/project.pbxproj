@@ -39,36 +39,27 @@
 		C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74A26A461E300C15802 /* SettingModel.swift */; };
 		C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
 		C58CD75226A57BF500C15802 /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75126A57BF500C15802 /* MapNavigationView.swift */; };
-		C58CD75C26A95DB000C15802 /* TravelMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75B26A95DB000C15802 /* TravelMapTests.swift */; };
-		C58CD76626A9622300C15802 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73B268E07FE00B1942C /* NetworkService.swift */; };
-		C58CD76726A9625300C15802 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE740268E0E5600B1942C /* NetworkServiceError.swift */; };
-		C58CD76826A9626700C15802 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE742268E0ED900B1942C /* Constants.swift */; };
-		C58CD76926A9626D00C15802 /* CoordinateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73E268E09B100B1942C /* CoordinateModel.swift */; };
-		C58CD76A26A9627100C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
-		C58CD76F26A9727600C15802 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56B05FC2681BAD100057FE3 /* MapViewController.swift */; };
-		C58CD77126A9858900C15802 /* MapViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD77026A9858800C15802 /* MapViewControllerTest.swift */; };
 		C58CD77326A9866100C15802 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72E26A1878000C15802 /* CoreDataService.swift */; };
-		C58CD77426A98C9000C15802 /* CityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74126A3016300C15802 /* CityDTO.swift */; };
-		C58CD77526A98C9300C15802 /* CountryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73B26A1C99F00C15802 /* CountryDTO.swift */; };
 		C58CD77626A98CBD00C15802 /* TravelMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73026A1B95E00C15802 /* TravelMap.xcdatamodeld */; };
 		C58CD77726A98D4300C15802 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD72C26A1861200C15802 /* CoreDataStack.swift */; };
 		C58CD77826A98D4900C15802 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73726A1BAC400C15802 /* Country+CoreDataClass.swift */; };
 		C58CD77926A98D4C00C15802 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73826A1BAC400C15802 /* Country+CoreDataProperties.swift */; };
 		C58CD77A26A98D4F00C15802 /* City+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74426A308FE00C15802 /* City+CoreDataProperties.swift */; };
 		C58CD77B26A98D5200C15802 /* City+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74326A308FE00C15802 /* City+CoreDataClass.swift */; };
-		C58CD77C26A98DDC00C15802 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2A268F34BE00F8DB8A /* MapView.swift */; };
-		C58CD77D26A98DF600C15802 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2C2690A5B900F8DB8A /* CustomAnnotation.swift */; };
-		C58CD77E26A98DF900C15802 /* CustomAnnotationVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640E2E2691A32800F8DB8A /* CustomAnnotationVew.swift */; };
-		C58CD77F26A98E1600C15802 /* CountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5640EBC26947EBB00F8DB8A /* CountryViewController.swift */; };
-		C58CD78026A98E1B00C15802 /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD75126A57BF500C15802 /* MapNavigationView.swift */; };
-		C58CD78126A98E3800C15802 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD62D2696ED1E00C15802 /* CountryView.swift */; };
-		C58CD78226A98E3B00C15802 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD63A269AE4D200C15802 /* CountryCollectionViewCell.swift */; };
-		C58CD78326A98E4B00C15802 /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */; };
 		C58CD78526AAB7B700C15802 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78426AAB7B500C15802 /* InformationViewController.swift */; };
 		C58CD78826AAB7EE00C15802 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78726AAB7EE00C15802 /* InformationView.swift */; };
 		C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78926AABAD500C15802 /* InformationModel.swift */; };
 		C58CD78C26ADD51200C15802 /* CoordinateLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */; };
 		C58CD78E26AE997400C15802 /* UIViewController+showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */; };
+		C58CD7A726AEABF400C15802 /* CoordinateLoaderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */; };
+		C58CD7A826AEAD3900C15802 /* CoordinateLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */; };
+		C58CD7A926AEB07500C15802 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE740268E0E5600B1942C /* NetworkServiceError.swift */; };
+		C58CD7AA26AEB07700C15802 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73B268E07FE00B1942C /* NetworkService.swift */; };
+		C58CD7AB26AEB0F400C15802 /* CountryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD73B26A1C99F00C15802 /* CountryDTO.swift */; };
+		C58CD7AC26AEB0F700C15802 /* CityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD74126A3016300C15802 /* CityDTO.swift */; };
+		C58CD7AD26AEB11400C15802 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE742268E0ED900B1942C /* Constants.swift */; };
+		C58CD7AE26AEB11F00C15802 /* CoordinateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73E268E09B100B1942C /* CoordinateModel.swift */; };
+		C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,14 +108,13 @@
 		C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		C58CD75126A57BF500C15802 /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
 		C58CD75926A95DB000C15802 /* TravelMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C58CD75B26A95DB000C15802 /* TravelMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapTests.swift; sourceTree = "<group>"; };
 		C58CD75D26A95DB000C15802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C58CD77026A9858800C15802 /* MapViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewControllerTest.swift; sourceTree = "<group>"; };
 		C58CD78426AAB7B500C15802 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		C58CD78726AAB7EE00C15802 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		C58CD78926AABAD500C15802 /* InformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationModel.swift; sourceTree = "<group>"; };
 		C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderService.swift; sourceTree = "<group>"; };
 		C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showAlert.swift"; sourceTree = "<group>"; };
+		C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,8 +197,7 @@
 		C58CD75A26A95DB000C15802 /* TravelMapTests */ = {
 			isa = PBXGroup;
 			children = (
-				C58CD75B26A95DB000C15802 /* TravelMapTests.swift */,
-				C58CD77026A9858800C15802 /* MapViewControllerTest.swift */,
+				C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */,
 				C58CD75D26A95DB000C15802 /* Info.plist */,
 			);
 			path = TravelMapTests;
@@ -559,30 +548,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				C58CD77B26A98D5200C15802 /* City+CoreDataClass.swift in Sources */,
-				C58CD77E26A98DF900C15802 /* CustomAnnotationVew.swift in Sources */,
-				C58CD76826A9626700C15802 /* Constants.swift in Sources */,
-				C58CD78126A98E3800C15802 /* CountryView.swift in Sources */,
+				C58CD7A926AEB07500C15802 /* NetworkServiceError.swift in Sources */,
+				C58CD7AB26AEB0F400C15802 /* CountryDTO.swift in Sources */,
 				C58CD77326A9866100C15802 /* CoreDataService.swift in Sources */,
-				C58CD76726A9625300C15802 /* NetworkServiceError.swift in Sources */,
-				C58CD78326A98E4B00C15802 /* UICollectionViewCell+Identifier.swift in Sources */,
 				C58CD77926A98D4C00C15802 /* Country+CoreDataProperties.swift in Sources */,
-				C58CD77126A9858900C15802 /* MapViewControllerTest.swift in Sources */,
-				C58CD78026A98E1B00C15802 /* MapNavigationView.swift in Sources */,
-				C58CD77D26A98DF600C15802 /* CustomAnnotation.swift in Sources */,
-				C58CD76926A9626D00C15802 /* CoordinateModel.swift in Sources */,
-				C58CD76626A9622300C15802 /* NetworkService.swift in Sources */,
+				C58CD7AC26AEB0F700C15802 /* CityDTO.swift in Sources */,
+				C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */,
+				C58CD7AD26AEB11400C15802 /* Constants.swift in Sources */,
+				C58CD7AA26AEB07700C15802 /* NetworkService.swift in Sources */,
 				C58CD77726A98D4300C15802 /* CoreDataStack.swift in Sources */,
 				C58CD77A26A98D4F00C15802 /* City+CoreDataProperties.swift in Sources */,
-				C58CD77F26A98E1600C15802 /* CountryViewController.swift in Sources */,
-				C58CD78226A98E3B00C15802 /* CountryCollectionViewCell.swift in Sources */,
+				C58CD7AE26AEB11F00C15802 /* CoordinateModel.swift in Sources */,
 				C58CD77826A98D4900C15802 /* Country+CoreDataClass.swift in Sources */,
-				C58CD76A26A9627100C15802 /* CountryImageModel.swift in Sources */,
-				C58CD77426A98C9000C15802 /* CityDTO.swift in Sources */,
+				C58CD7A826AEAD3900C15802 /* CoordinateLoaderService.swift in Sources */,
 				C58CD77626A98CBD00C15802 /* TravelMap.xcdatamodeld in Sources */,
-				C58CD77C26A98DDC00C15802 /* MapView.swift in Sources */,
-				C58CD75C26A95DB000C15802 /* TravelMapTests.swift in Sources */,
-				C58CD77526A98C9300C15802 /* CountryDTO.swift in Sources */,
-				C58CD76F26A9727600C15802 /* MapViewController.swift in Sources */,
+				C58CD7A726AEABF400C15802 /* CoordinateLoaderServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
