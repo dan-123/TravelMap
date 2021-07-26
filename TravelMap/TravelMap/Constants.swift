@@ -37,6 +37,10 @@ enum Constants {
         static let settingTitle = "Настройки"
     }
     
+    enum UserDefaultsKey {
+        static let keyForPhotoCount = "keyForPhotoCount"
+    }
+    
     //France
     //countryBorder = [-7.518476, 39.190641, 12.520585, 53.088162]
 }

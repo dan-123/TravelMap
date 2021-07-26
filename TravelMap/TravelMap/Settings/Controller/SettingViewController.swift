@@ -11,6 +11,9 @@ class SettingViewController: UIViewController {
     
     // MARK: - Properties
     
+    //переделать
+    let userDefaultServices = UserDefaultsService()
+    
     lazy var settingView: SettingView = {
         let settingView = SettingView()
         settingView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +77,30 @@ class SettingViewController: UIViewController {
         ])
     }
     
+    // MARK: - Action
+    
+    @objc func tappedLabel() {
+        
+        if let photoCount: String? = userDefaultServices.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
+        print(photoCount)
+        }
+        
+        let alertConrtoller = UIAlertController(title: "Количество фото", message: "Введите количество отображаемых фото в диапазоне от 1 до 10", preferredStyle: .alert)
+        
+        alertConrtoller.addTextField()
+
+        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] _ in
+            let textField = alertConrtoller?.textFields?.first
+            guard let count = textField?.text else { return }
+            print(count)
+            self.userDefaultServices.saveData(object: count, key: Constants.UserDefaultsKey.keyForPhotoCount)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertConrtoller.addAction(okAction)
+        alertConrtoller.addAction(cancelAction)
+        present(alertConrtoller, animated: true)
+    }
+    
     // MARK: - Methods
 
     private func getData() {
@@ -117,8 +144,15 @@ extension SettingViewController: UITableViewDataSource {
             
         case .photosDisplayedCount:
             cell.textLabel?.text = model[indexPath.row].description
-            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: 5)
-            cell.addSubview(label)
+            
+            let button = UIButton(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
+            button.backgroundColor = .red
+            button.addTarget(self, action: #selector(tappedLabel), for: .touchUpInside)
+            
+//            let label = createLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: 5)
+//            label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedLabel)))
+//            let button =
+            cell.addSubview(button)
             
         case .deleteData:
             cell.textLabel?.text = model[indexPath.row].description

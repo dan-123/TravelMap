@@ -60,6 +60,7 @@
 		C58CD7AD26AEB11400C15802 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE742268E0ED900B1942C /* Constants.swift */; };
 		C58CD7AE26AEB11F00C15802 /* CoordinateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73E268E09B100B1942C /* CoordinateModel.swift */; };
 		C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
+		C58CD7B126AED43400C15802 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B026AED43300C15802 /* UserDefaultsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderService.swift; sourceTree = "<group>"; };
 		C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showAlert.swift"; sourceTree = "<group>"; };
 		C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderServiceTests.swift; sourceTree = "<group>"; };
+		C58CD7B026AED43300C15802 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 				C58CD72E26A1878000C15802 /* CoreDataService.swift */,
 				C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */,
+				C58CD7B026AED43300C15802 /* UserDefaultsService.swift */,
 			);
 			path = "Serviсes";
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				C58CD74E26A48F5500C15802 /* UICollectionViewCell+Identifier.swift in Sources */,
 				C58CD74B26A461E300C15802 /* SettingModel.swift in Sources */,
 				C58CD62E2696ED1E00C15802 /* CountryView.swift in Sources */,
+				C58CD7B126AED43400C15802 /* UserDefaultsService.swift in Sources */,
 				C58CD78526AAB7B700C15802 /* InformationViewController.swift in Sources */,
 				C5640EBD26947EBB00F8DB8A /* CountryViewController.swift in Sources */,
 				C58CD6302697299900C15802 /* TabBarController.swift in Sources */,
