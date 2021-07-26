@@ -33,11 +33,6 @@ class MapViewController: UIViewController {
     // код текущей страны
     var countryCode: String?
     
-    //кложур для ошибок
-//    lazy var showAlert: (NetworkServiceError) -> Void = { [weak self] error in
-//        self?.showNetworkAlert(for: error)
-//    }
-    
     //режим отображения карты
     private var mapMode: MapMode = .globalMode
     
@@ -172,90 +167,32 @@ class MapViewController: UIViewController {
     }
     
     // запрос для страны
-    // новая функция (через сервис)
     func loadCountryCoordinate(country: String) {
         coordinateLoaderService.loadCountryCoordinate(country: country) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let countryDTO):
-//                self.addGlobalAnnotationOnMap(for: countryDTO)
                 self.addGlobalAnnotation(for: countryDTO)
                 self.viewCountryOnMap(for: countryDTO)
             case .failure(let error):
-//                self.showAlert(error)
                 self.showAlert(for: error)
             
             }
         }
     }
     
-//    //добавление страны на карту
-//    private func addGlobalAnnotationOnMap(for country: CountryDTO) {
-//        //проверка наличия страны в core data
-//        let result = self.coreDataService.addCountry(country: [country])
-//
-//        if result == true {
-////            self.showAlert(.repeatCountry)
-//            self.showAlert(for: .repeatCountry)
-//        } else {
-//            self.addGlobalAnnotation(for: country)
-//        }
-//    }
-    
     //запрос для города
-    // новая функция (через сервис)
     private func loadCityCoordinate(city: String, countryCode: String) {
         coordinateLoaderService.loadCityCoordinate(city: city, countryCode: countryCode) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let cityDTO):
-//                self.AddLocalAnnotationOnMap(for: cityDTO)
                 self.addLocalAnnotation(for: cityDTO)
             case .failure(let error):
-//                self.showAlert(error)
                 self.showAlert(for: error)
             }
         }
     }
-    
-//    //добавление города на карту
-//    private func AddLocalAnnotationOnMap(for city: CityDTO) {
-//        //проверка наличия города в core data
-//        let result = self.coreDataService.addCity(city: [city])
-//
-//        if result == true {
-////            self.showAlert(.repeatCity)
-//            self.showAlert(for: .repeatCity)
-//        } else {
-//            self.addLocalAnnotation(for: city)
-//        }
-//    }
-    
-//    private func showAlert(for error: NetworkServiceError) {
-//        let alert = UIAlertController(title: "Что-то пошло не так",
-//                                      message: message(for: error),
-//                                      preferredStyle: .alert)
-//        let buttonOk = UIAlertAction(title: "OK", style: .default, handler: nil)
-//        alert.addAction(buttonOk)
-//        present(alert, animated: true)
-//    }
-//    
-//    private func message(for error: NetworkServiceError) -> String {
-//        switch error {
-//        case .country:
-//            return "Кажется вы ввели некоректное название страны"
-//        case .city:
-//            return "Кажется вы ввели некоректное название города"
-//        case .repeatCountry:
-//            return "Вы уже добаляли эту страну ранее"
-//        case .repeatCity:
-//            return "Вы уже добаляли эту страну ранее"
-//        case .network:
-//            return "Запрос сформирован некоорректно"
-//        case .unknown:
-//            return "Неизвестная ошибка"
-//        }
-//    }
     
     // MARK: - Methods for map
     
