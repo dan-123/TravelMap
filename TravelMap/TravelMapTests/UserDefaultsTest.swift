@@ -11,9 +11,9 @@ class UserDefaultsTest: XCTestCase {
     
     let userDefaultsTest = UserDefaultsService()
     
-    //MARK: - Test that the data is stored in the user defaults
+    //MARK: - Test that the data is stored correctly in the user defaults
     
-    func testThatDataIsStoredInTheUserDefaults() {
+    func testThatDataIsStoredСorrectlyInTheUserDefaults() {
         //arrange
         let string = "Test value"
         let key = "Test string"

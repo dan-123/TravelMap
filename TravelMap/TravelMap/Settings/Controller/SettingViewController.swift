@@ -134,30 +134,30 @@ extension SettingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.selectionStyle = .none
         
         let tableWidth = tableView.frame.width
-        let labelWidth: CGFloat = 45
+        let viewWidth: CGFloat = 45
         let heigth = cell.frame.height
         
         switch model[indexPath.row] {
         case .countryCount:
             cell.textLabel?.text = model[indexPath.row].description
-            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: countryCount)
+            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: countryCount)
             cell.addSubview(label)
             
         case .citiesCount:
             cell.textLabel?.text = model[indexPath.row].description
-            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: citiesCount)
+            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: citiesCount)
             cell.addSubview(label)
             
         case .photosDisplayedCount:
             cell.textLabel?.text = model[indexPath.row].description
-            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, labelWidth: labelWidth, heigth: heigth, value: photoCount)
+            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: photoCount)
             cell.addSubview(textField)
             
         case .deleteData:
             cell.textLabel?.text = model[indexPath.row].description
+            
         case .aboutApplication:
             cell.textLabel?.text = model[indexPath.row].description
             cell.accessoryType = .disclosureIndicator

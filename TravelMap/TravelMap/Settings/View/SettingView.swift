@@ -64,15 +64,15 @@ class SettingView: UIView {
     
     // MARK: - Methods
     
-    func getPlacesCountLabel(tableWidth: CGFloat, labelWidth: CGFloat, heigth: CGFloat, value: Int) -> UILabel {
-        placesCountLabel = UILabel(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
+    func getPlacesCountLabel(tableWidth: CGFloat, viewWidth: CGFloat, heigth: CGFloat, value: Int) -> UILabel {
+        placesCountLabel = UILabel(frame: .init(x: tableWidth-viewWidth, y: 0, width: viewWidth, height: heigth))
         placesCountLabel.text = String(value)
         placesCountLabel.textAlignment = .center
         return placesCountLabel
     }
     
-    func getPhotoCountTextField(tableWidth: CGFloat, labelWidth: CGFloat, heigth: CGFloat, value: String) -> UITextField {
-        photoCountTextField = UITextField(frame: .init(x: tableWidth-labelWidth, y: 0, width: labelWidth, height: heigth))
+    func getPhotoCountTextField(tableWidth: CGFloat, viewWidth: CGFloat, heigth: CGFloat, value: String) -> UITextField {
+        photoCountTextField = UITextField(frame: .init(x: tableWidth-viewWidth, y: 0, width: viewWidth, height: heigth))
         photoCountTextField.layer.borderWidth = 1
         photoCountTextField.layer.cornerRadius = 8
         photoCountTextField.layer.borderColor = UIColor.systemBlue.cgColor

@@ -24,7 +24,6 @@ class CoordinateLoaderService {
     // MARK: - Properties
     
     let coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol
-    
     let networkService: CoordinateNetworkServiceProtocol
     
     // MARK: - Init
