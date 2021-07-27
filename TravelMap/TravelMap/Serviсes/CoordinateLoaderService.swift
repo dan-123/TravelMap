@@ -21,12 +21,12 @@ protocol CoordinateCityLoaderServiceProtocol {
 
 class CoordinateLoaderService {
     
-    // MARK: - Properties
+    // MARK: Properties
     
     let coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol
     let networkService: CoordinateNetworkServiceProtocol
     
-    // MARK: - Init
+    // MARK: Init
     
     init(networkService: CoordinateNetworkServiceProtocol = NetworkService(),
          coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol = CoreDataService()) {

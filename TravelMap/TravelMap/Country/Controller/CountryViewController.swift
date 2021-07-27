@@ -18,15 +18,7 @@ class CountryViewController: UIViewController {
         return countryView
     }()
     
-    private let countryCode: String
-    private let country: String
-    
-    //массив для url с картинками
-    private var imageStringURL = [String]()
-    //массив с картинками
-    private var imageCountry = [UIImage]()
-    
-    let networkService: ImageNetworkServiceProtocol
+    let imageLoaderService: ImageLoaderServiceProtocol
     let coordinateLoaderService: CoordinateCityLoaderServiceProtocol
     
     //переделать
@@ -36,13 +28,17 @@ class CountryViewController: UIViewController {
         return coreDataService
     }()
     
+    private let country: String
+    private let countryCode: String
+    private var imageCountry = [UIImage]()
+    
     // MARK: - Init
 
-    init(networkService: ImageNetworkServiceProtocol = NetworkService(),
+    init(imageLoaderService: ImageLoaderServiceProtocol = ImageLoaderService(),
          coordinateLoaderService: CoordinateCityLoaderServiceProtocol = CoordinateLoaderService(),
          countryCode: String,
          country: String) {
-        self.networkService = networkService
+        self.imageLoaderService = imageLoaderService
         self.coordinateLoaderService = coordinateLoaderService
         self.countryCode = countryCode
         self.country = country
@@ -64,8 +60,7 @@ class CountryViewController: UIViewController {
         setupConstraint()
         setupNavigationTools()
         countryView.update(dataProvider: self)
-       
-        loadCountryImageURL(counrty: country)
+        loadCountryImage(country: country)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +127,7 @@ class CountryViewController: UIViewController {
         alertConrtoller.addAction(cancelAction)
         present(alertConrtoller, animated: true)
     }
-    
+
     // MARK: - Methods
     
     private func loadCity(city: String) {
@@ -147,35 +142,15 @@ class CountryViewController: UIViewController {
         }
     }
     
-    // MARK: - Methods
-    
-    private func loadCountryImageURL(counrty: String) {
-        self.networkService.getCountryImageURL(country: counrty) { responce in
-            DispatchQueue.main.async {
-                switch responce {
-                case .success(let data):
-                    for image in data.photos {
-                        self.imageStringURL.append(image.src.medium)
-                    }
-                    self.loadImage()
-                case .failure(let error):
-                    print("Image error: \(error)")
-                }
-            }
-        }
-    }
-    
-    private func loadImage() {
-        self.networkService.loadImage(imageStringURL: imageStringURL) { responce in
-            DispatchQueue.main.async {
-                switch responce {
-                case .success(let data):
-                    self.imageCountry = data
-                    print(self.imageCountry.count)
-                    self.countryView.reloadCountryImage()
-                case .failure(let error):
-                    print(error)
-                }
+    private func loadCountryImage(country: String) {
+        imageLoaderService.loadImage(country: country) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                self.imageCountry = data
+                self.countryView.reloadCountryImage()
+            case .failure(let error):
+                self.showAlert(for: error)
             }
         }
     }

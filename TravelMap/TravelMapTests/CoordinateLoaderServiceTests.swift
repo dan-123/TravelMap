@@ -24,7 +24,7 @@ class CoordinateNetworkServiceTest: CoordinateNetworkServiceProtocol {
         self.networkCompletion = networkCompletion
     }
     
-    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponce) -> Void) {
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponse) -> Void) {
         switch networkCompletion {
         case .success:
             completion(.success(coordinateModel))

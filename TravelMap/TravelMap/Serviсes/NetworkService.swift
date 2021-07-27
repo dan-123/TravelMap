@@ -10,15 +10,15 @@ import UIKit
 
 // MARK: - Protocol
 
-typealias GetCoordinateResponce = Result<CoordinateModel, NetworkServiceError>
+typealias GetCoordinateResponse = Result<CoordinateModel, NetworkServiceError>
 
 protocol CoordinateNetworkServiceProtocol {
-    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponce) -> Void)
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponse) -> Void)
 }
 
 protocol ImageNetworkServiceProtocol {
     func getCountryImageURL(country: String, completion: @escaping (Result<CountryImageModel, NetworkServiceError>) -> Void)
-    func loadImage(imageStringURL: [String], completion: @escaping (Result<[UIImage], Error>) -> Void)
+    func loadImage(imageStringURL: [String], completion: @escaping (Result<[UIImage], NetworkServiceError>) -> Void)
 }
 
 // MARK: - Network service
@@ -55,7 +55,7 @@ final class NetworkService {
 
 extension NetworkService: CoordinateNetworkServiceProtocol {
     
-    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponce) -> Void) {
+    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponse) -> Void) {
         var components = URLComponents(string: Constants.Coordinate.getContryCoordinate)
         
         switch placeType {
@@ -86,11 +86,11 @@ extension NetworkService: CoordinateNetworkServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
-        session.dataTask(with: request) { rawData, responce, taskError in
+        session.dataTask(with: request) { rawData, response, taskError in
             do {
-                let data = try self.httpResponse(data: rawData, response: responce)
-                let responce = try self.decoder.decode(CoordinateModel.self, from: data)
-                completion(.success(responce))
+                let data = try self.httpResponse(data: rawData, response: response)
+                let response = try self.decoder.decode(CoordinateModel.self, from: data)
+                completion(.success(response))
             } catch let error as NetworkServiceError {
                 completion(.failure(error))
             } catch {
@@ -122,11 +122,11 @@ extension NetworkService: ImageNetworkServiceProtocol {
         request.httpMethod = "GET"
         request.setValue(Constants.Image.authorization, forHTTPHeaderField: "Authorization")
         
-        session.dataTask(with: request) { rawData, responce, taskError in
+        session.dataTask(with: request) { rawData, response, taskError in
             do {
-                let data = try self.httpResponse(data: rawData, response: responce)
-                let responce = try self.decoder.decode(CountryImageModel.self, from: data)
-                completion(.success(responce))
+                let data = try self.httpResponse(data: rawData, response: response)
+                let response = try self.decoder.decode(CountryImageModel.self, from: data)
+                completion(.success(response))
             } catch let error as NetworkServiceError {
                 completion(.failure(error))
             } catch {
@@ -135,7 +135,7 @@ extension NetworkService: ImageNetworkServiceProtocol {
         }.resume()
     }
     
-    func loadImage(imageStringURL: [String], completion: @escaping (Result<[UIImage], Error>) -> Void) {
+    func loadImage(imageStringURL: [String], completion: @escaping (Result<[UIImage], NetworkServiceError>) -> Void) {
         let myGroup = DispatchGroup()
         var results = [UIImage]()
         
@@ -143,23 +143,27 @@ extension NetworkService: ImageNetworkServiceProtocol {
             myGroup.enter()
             
             guard let url = URL(string: stringURL) else { return }
+            let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
             
 //            if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
 //                results.append(cachedImage)
 //                print("cache")
 //                myGroup.leave()
 //            } else {
-            session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-                guard let httpResponse = response as? HTTPURLResponse,
-                      (200..<300).contains(httpResponse.statusCode),
-                      let data = data else {
-                    guard let error = error else { return }
-                    return completion(.failure(error))
+            session.dataTask(with: request) { (rawData: Data?, response: URLResponse?, error: Error?) in
+                do {
+                    let data = try self.httpResponse(data: rawData, response: response)
+                    guard let image = UIImage(data: data) else { return }
+                    results.append(image)
+                } catch let error as NetworkServiceError {
+                    completion(.failure(error))
+                } catch {
+                    completion(.failure(.unknown))
                 }
-                guard let image = UIImage(data: data) else { return }
+//                guard let image = UIImage(data: data) else { return }
 //                self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
 //                print("network")
-                results.append(image)
+                
                 myGroup.leave()
             }.resume()
         }

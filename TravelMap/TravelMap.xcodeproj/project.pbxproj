@@ -63,6 +63,7 @@
 		C58CD7B126AED43400C15802 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B026AED43300C15802 /* UserDefaultsService.swift */; };
 		C58CD7B526AF0F2400C15802 /* UserDefaultsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */; };
 		C58CD7B826AF109E00C15802 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B026AED43300C15802 /* UserDefaultsService.swift */; };
+		C58CD7BC26B0111100C15802 /* ImageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderServiceTests.swift; sourceTree = "<group>"; };
 		C58CD7B026AED43300C15802 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTest.swift; sourceTree = "<group>"; };
+		C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,8 +149,9 @@
 				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 				C58CD72E26A1878000C15802 /* CoreDataService.swift */,
-				C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */,
 				C58CD7B026AED43300C15802 /* UserDefaultsService.swift */,
+				C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */,
+				C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */,
 			);
 			path = "Serviсes";
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				C5640E2B268F34BE00F8DB8A /* MapView.swift in Sources */,
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
 				C58CD72D26A1861200C15802 /* CoreDataStack.swift in Sources */,
+				C58CD7BC26B0111100C15802 /* ImageLoaderService.swift in Sources */,
 				C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */,
 				C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
