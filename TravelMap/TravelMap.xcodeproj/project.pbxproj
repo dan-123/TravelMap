@@ -61,6 +61,8 @@
 		C58CD7AE26AEB11F00C15802 /* CoordinateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55CE73E268E09B100B1942C /* CoordinateModel.swift */; };
 		C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD71B269D9C5100C15802 /* CountryImageModel.swift */; };
 		C58CD7B126AED43400C15802 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B026AED43300C15802 /* UserDefaultsService.swift */; };
+		C58CD7B526AF0F2400C15802 /* UserDefaultsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */; };
+		C58CD7B826AF109E00C15802 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B026AED43300C15802 /* UserDefaultsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,7 @@
 		C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showAlert.swift"; sourceTree = "<group>"; };
 		C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLoaderServiceTests.swift; sourceTree = "<group>"; };
 		C58CD7B026AED43300C15802 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */,
+				C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */,
 				C58CD75D26A95DB000C15802 /* Info.plist */,
 			);
 			path = TravelMapTests;
@@ -555,7 +559,9 @@
 				C58CD7A926AEB07500C15802 /* NetworkServiceError.swift in Sources */,
 				C58CD7AB26AEB0F400C15802 /* CountryDTO.swift in Sources */,
 				C58CD77326A9866100C15802 /* CoreDataService.swift in Sources */,
+				C58CD7B526AF0F2400C15802 /* UserDefaultsTest.swift in Sources */,
 				C58CD77926A98D4C00C15802 /* Country+CoreDataProperties.swift in Sources */,
+				C58CD7B826AF109E00C15802 /* UserDefaultsService.swift in Sources */,
 				C58CD7AC26AEB0F700C15802 /* CityDTO.swift in Sources */,
 				C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */,
 				C58CD7AD26AEB11400C15802 /* Constants.swift in Sources */,
