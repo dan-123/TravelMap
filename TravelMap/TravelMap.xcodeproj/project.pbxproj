@@ -217,8 +217,7 @@
 		C58CD75A26A95DB000C15802 /* TravelMapTests */ = {
 			isa = PBXGroup;
 			children = (
-				C58CD7C326B046CB00C15802 /* CoordinateNetworkServiceClass.swift */,
-				C58CD7C526B0470700C15802 /* CoreDataServiceClass.swift */,
+				C58CD7CE26B0A3BD00C15802 /* ClassesForTests */,
 				C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */,
 				C58CD7B426AF0F2400C15802 /* UserDefaultsServiceTest.swift */,
 				C58CD7CB26B07B1500C15802 /* ImageCacheServiceTest.swift */,
@@ -429,6 +428,15 @@
 				C58CD62F2697299900C15802 /* TabBarController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		C58CD7CE26B0A3BD00C15802 /* ClassesForTests */ = {
+			isa = PBXGroup;
+			children = (
+				C58CD7C326B046CB00C15802 /* CoordinateNetworkServiceClass.swift */,
+				C58CD7C526B0470700C15802 /* CoreDataServiceClass.swift */,
+			);
+			path = ClassesForTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
