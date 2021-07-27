@@ -9,24 +9,25 @@ import XCTest
 
 // MARK: -  Description
 
-/// Проверка сервиса на корректность сохранения данных в userDefaults.
+/// Проверка сервиса на корректность сохранения данных в userDefaults по ключу
 
 class UserDefaultsServiceTest: XCTestCase {
     
     let userDefaultsTest = UserDefaultsService()
     
-    //MARK: - Test that the data is stored correctly in the user defaults
+    //MARK: - Test that service correctly saves data by key
     
-    func testThatDataIsStoredСorrectlyInTheUserDefaults() {
+    func testThatServiceCorrectlySavesDataByKey() {
         //arrange
+        let key = "Test key"
         let string = "Test value"
-        let key = "Test string"
+        let expectedString = "Test value"
         
         //act
         userDefaultsTest.saveData(object: string, key: key)
-        let expectedString: String? = userDefaultsTest.getData(key: key)
+        let result: String? = userDefaultsTest.getData(key: key)
         
         //assert
-        XCTAssertEqual(string, expectedString)
+        XCTAssertEqual(result, expectedString)
     }
 }
