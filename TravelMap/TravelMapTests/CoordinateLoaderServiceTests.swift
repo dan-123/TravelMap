@@ -7,79 +7,14 @@
 
 import XCTest
 
-// MARK: - Network service
+// MARK: -  Description
 
-class CoordinateNetworkServiceTest: CoordinateNetworkServiceProtocol {
-    
-    enum Completion {
-        case success
-        case failure
-    }
-    
-    let coordinateModel: CoordinateModel
-    let networkCompletion: Completion
-    
-    init(coordinateModel: CoordinateModel, networkCompletion: Completion) {
-        self.coordinateModel = coordinateModel
-        self.networkCompletion = networkCompletion
-    }
-    
-    func getCoordinate(placeType: String, placeName: String, countryCode: String?, completion: @escaping (GetCoordinateResponse) -> Void) {
-        switch networkCompletion {
-        case .success:
-            completion(.success(coordinateModel))
-        case .failure:
-            completion(.failure(.network))
-        }
-    }
-}
-
-// MARK: - Core data service
-
-class CoreDataServiceTest: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol {
-    
-    let countryIsAdded: Bool
-    let cityIsAdded: Bool
-    
-    init(countryIsAdded: Bool, cityIsAdded: Bool) {
-        self.countryIsAdded = countryIsAdded
-        self.cityIsAdded = cityIsAdded
-    }
-    
-    func addCountry(country: [CountryDTO]) -> Bool {
-        return countryIsAdded
-    }
-    
-    func getCountryData(predicate: String?) -> [CountryDTO]? {
-        return []
-    }
-    
-    func deleteCountry(country: [CountryDTO]?) {
-        
-    }
-    
-    func addCity(city: [CityDTO]) -> Bool {
-        return cityIsAdded
-    }
-    
-    func getCityData(predicate: String?) -> [CityDTO]? {
-        return []
-    }
-    
-    func deleteCity(city: [CityDTO]?) {
-    }
-    
-    
-}
+/// Проверка сервиса загрузки данных о стране и городе по следующим кейсам:
+/// 1. Запрос вернул пустые данные (возможно при некорректном введении страны или города).
+/// 2. Страна или город уже были добавлены ранее.
+/// 3. Некорректные данные от сервера.
 
 class CoordinateLoaderServiceTests: XCTestCase {
-    
-    // MARK: -  Description
-    
-    // Проверка сервиса по следующим кейсам:
-    // 1. Запрос вернул пустые данные (возможно при некорректном введении страны или города).
-    // 2. Страна или город уже были добавлены ранее.
-    // 3. Некорректные данные от сервера.
     
     // MARK: - Test that function return error if there is no country data
     

@@ -37,7 +37,7 @@ extension ImageLoaderService: ImageLoaderServiceProtocol {
                 switch responce {
                 case .success(let data):
                     for image in data.photos {
-                        self.imageStringURL.append(image.src.medium)
+                        self.imageStringURL.append(image.src.medium) 
                     }
                     loadImageData()
                 case .failure(let error):

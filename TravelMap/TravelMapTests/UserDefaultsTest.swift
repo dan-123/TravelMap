@@ -7,6 +7,10 @@
 
 import XCTest
 
+// MARK: -  Description
+
+/// Проверка сервиса на корректность сохранения данных в userDefaults.
+
 class UserDefaultsTest: XCTestCase {
     
     let userDefaultsTest = UserDefaultsService()
