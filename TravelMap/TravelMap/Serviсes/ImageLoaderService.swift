@@ -19,12 +19,10 @@ protocol ImageLoaderServiceProtocol {
 class ImageLoaderService {
     
     // MARK: Properties
-    
     private var imageStringURL = [String]()
     let networkService: ImageNetworkServiceProtocol
     
     // MARK: Init
-    
     init(networkService: ImageNetworkServiceProtocol = NetworkService()) {
         self.networkService = networkService
     }

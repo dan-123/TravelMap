@@ -22,12 +22,10 @@ protocol CoordinateCityLoaderServiceProtocol {
 class CoordinateLoaderService {
     
     // MARK: Properties
-    
     let coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol
     let networkService: CoordinateNetworkServiceProtocol
     
     // MARK: Init
-    
     init(networkService: CoordinateNetworkServiceProtocol = NetworkService(),
          coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol = CoreDataService()) {
         self.networkService = networkService
@@ -43,7 +41,6 @@ extension CoordinateLoaderService: CoordinateCountryLoaderServiceProtocol {
             DispatchQueue.main.async {
                 switch responce {
                 case .success(let data):
-                    print(data)
                     if data.features.isEmpty {
                         completion(.failure(.country))
                     } else {
@@ -83,7 +80,6 @@ extension CoordinateLoaderService: CoordinateCityLoaderServiceProtocol {
                     if data.features.isEmpty {
                         completion(.failure(.city))
                     } else {
-                        print(data)
                         guard let cityId = data.features.first?.properties.placeId,
                               let countryCode = data.features.first?.properties.countryCode,
                               let city = data.features.first?.properties.city,

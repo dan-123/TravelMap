@@ -19,13 +19,11 @@ protocol UserDefaultsServiceProtocol {
 class UserDefaultsService {
     
     // MARK: Properties
-    
     private let userDefaults: UserDefaults
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
     // MARK: Init
-
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
     }

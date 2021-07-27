@@ -111,14 +111,11 @@ class MapViewController: UIViewController {
             guard let countryCode = countryCode,
                   let globalAnnotation = coreDataService.getCountryData(predicate: countryCode),
                   let localAnnotation = coreDataService.getCityData(predicate: countryCode) else { return }
-            print(countryCode)
             
             //проверка локальных аннотаций (могли быть удалены из контроллера со страной)
             if localAnnotation.isEmpty {
-                print("empty")
                 mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .local)
             } else {
-                print("not empty")
                 mapView.deleteAnnotationsFromMap(countryCode: countryCode, annotationType: .local)
                 addLocalAnnotations(for: localAnnotation)
             }

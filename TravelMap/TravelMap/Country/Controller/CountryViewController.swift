@@ -109,10 +109,6 @@ class CountryViewController: UIViewController {
         present(alertConrtoller, animated: true)
     }
     
-    @objc private func editSubtitle(gesture: UITapGestureRecognizer) {
-        print("редактирование описания")
-    }
-    
     @objc private func addCity() {
         let alertConrtoller = UIAlertController(title: "Новый город", message: "Добавление нового города", preferredStyle: .alert)
         alertConrtoller.addTextField()
