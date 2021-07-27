@@ -7,7 +7,7 @@
 
 // MARK: - Coordinate network service
 
-class CoordinateNetworkServiceTest: CoordinateNetworkServiceProtocol {
+class CoordinateNetworkServiceClass: CoordinateNetworkServiceProtocol {
     
     let coordinateModel: CoordinateModel
     let networkCompletion: Completion

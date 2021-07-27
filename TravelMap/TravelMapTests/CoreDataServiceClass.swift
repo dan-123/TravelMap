@@ -7,7 +7,7 @@
 
 // MARK: - Core data service
 
-class CoreDataServiceTest: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol {
+class CoreDataServiceClass: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol {
     
     let countryIsAdded: Bool
     let cityIsAdded: Bool
