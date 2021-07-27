@@ -64,13 +64,12 @@
 		C58CD7B526AF0F2400C15802 /* UserDefaultsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */; };
 		C58CD7B826AF109E00C15802 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7B026AED43300C15802 /* UserDefaultsService.swift */; };
 		C58CD7BC26B0111100C15802 /* ImageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */; };
-		C58CD7BE26B01FEF00C15802 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7BD26B01FEF00C15802 /* ImageCacheService.swift */; };
-		C58CD7BF26B0228100C15802 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7BD26B01FEF00C15802 /* ImageCacheService.swift */; };
 		C58CD7C126B0240A00C15802 /* ImageLoaderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C026B0240A00C15802 /* ImageLoaderServiceTests.swift */; };
 		C58CD7C226B0242F00C15802 /* ImageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */; };
 		C58CD7C426B046CC00C15802 /* CoordinateNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C326B046CB00C15802 /* CoordinateNetworkServiceTest.swift */; };
 		C58CD7C626B0470700C15802 /* CoreDataServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C526B0470700C15802 /* CoreDataServiceTest.swift */; };
 		C58CD7C826B0491500C15802 /* ImageNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C726B0491500C15802 /* ImageNetworkServiceTest.swift */; };
+		C58CD7CA26B06EF200C15802 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C926B06EF200C15802 /* ImageCacheService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,11 +128,11 @@
 		C58CD7B026AED43300C15802 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTest.swift; sourceTree = "<group>"; };
 		C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderService.swift; sourceTree = "<group>"; };
-		C58CD7BD26B01FEF00C15802 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		C58CD7C026B0240A00C15802 /* ImageLoaderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderServiceTests.swift; sourceTree = "<group>"; };
 		C58CD7C326B046CB00C15802 /* CoordinateNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateNetworkServiceTest.swift; sourceTree = "<group>"; };
 		C58CD7C526B0470700C15802 /* CoreDataServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceTest.swift; sourceTree = "<group>"; };
 		C58CD7C726B0491500C15802 /* ImageNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkServiceTest.swift; sourceTree = "<group>"; };
+		C58CD7C926B06EF200C15802 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,8 +160,8 @@
 				C55CE73B268E07FE00B1942C /* NetworkService.swift */,
 				C55CE740268E0E5600B1942C /* NetworkServiceError.swift */,
 				C58CD72E26A1878000C15802 /* CoreDataService.swift */,
-				C58CD7BD26B01FEF00C15802 /* ImageCacheService.swift */,
 				C58CD7B026AED43300C15802 /* UserDefaultsService.swift */,
+				C58CD7C926B06EF200C15802 /* ImageCacheService.swift */,
 				C58CD78B26ADD51100C15802 /* CoordinateLoaderService.swift */,
 				C58CD7BB26B0111100C15802 /* ImageLoaderService.swift */,
 			);
@@ -222,8 +221,8 @@
 				C58CD7C326B046CB00C15802 /* CoordinateNetworkServiceTest.swift */,
 				C58CD7C726B0491500C15802 /* ImageNetworkServiceTest.swift */,
 				C58CD7C526B0470700C15802 /* CoreDataServiceTest.swift */,
-				C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */,
 				C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */,
+				C58CD7B426AF0F2400C15802 /* UserDefaultsTest.swift */,
 				C58CD7C026B0240A00C15802 /* ImageLoaderServiceTests.swift */,
 				C58CD75D26A95DB000C15802 /* Info.plist */,
 			);
@@ -532,13 +531,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C58CD7CA26B06EF200C15802 /* ImageCacheService.swift in Sources */,
 				C58CD63B269AE4D200C15802 /* CountryCollectionViewCell.swift in Sources */,
 				C58CD73C26A1C99F00C15802 /* CountryDTO.swift in Sources */,
 				C5640E2B268F34BE00F8DB8A /* MapView.swift in Sources */,
 				C56B05FD2681BAD100057FE3 /* MapViewController.swift in Sources */,
 				C58CD72D26A1861200C15802 /* CoreDataStack.swift in Sources */,
 				C58CD7BC26B0111100C15802 /* ImageLoaderService.swift in Sources */,
-				C58CD7BE26B01FEF00C15802 /* ImageCacheService.swift in Sources */,
 				C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */,
 				C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
@@ -590,7 +589,6 @@
 				C58CD7AC26AEB0F700C15802 /* CityDTO.swift in Sources */,
 				C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */,
 				C58CD7C426B046CC00C15802 /* CoordinateNetworkServiceTest.swift in Sources */,
-				C58CD7BF26B0228100C15802 /* ImageCacheService.swift in Sources */,
 				C58CD7C126B0240A00C15802 /* ImageLoaderServiceTests.swift in Sources */,
 				C58CD7AD26AEB11400C15802 /* Constants.swift in Sources */,
 				C58CD7AA26AEB07700C15802 /* NetworkService.swift in Sources */,

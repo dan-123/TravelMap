@@ -27,7 +27,7 @@ final class NetworkService {
     
     // MARK: Properties
     private let session: URLSession = .shared
-    private let imageCache = ImageCache.shared.imageCache
+    private let imageCacheService: ImageCacheService = .shared
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -140,11 +140,9 @@ extension NetworkService: ImageNetworkServiceProtocol {
             guard let url = URL(string: stringURL) else { return }
             let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
             
-            
-            if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            if let cachedImage = imageCacheService.getImage(key: url.absoluteString) {
                 results.append(cachedImage)
                 myGroup.leave()
-
                 
             } else {
                 session.dataTask(with: request) { (rawData: Data?, response: URLResponse?, error: Error?) in
@@ -152,7 +150,7 @@ extension NetworkService: ImageNetworkServiceProtocol {
                         let data = try self.httpResponse(data: rawData, response: response)
                         guard let image = UIImage(data: data) else { return }
                         results.append(image)
-                        self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                        self.imageCacheService.saveImage(image: image, key: url.absoluteString)
                     } catch let error as NetworkServiceError {
                         completion(.failure(error))
                     } catch {
