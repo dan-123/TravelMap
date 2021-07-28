@@ -26,6 +26,10 @@ class SettingViewController: UIViewController {
     
     private var model = SettingModel.allCases
     
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        return UITapGestureRecognizer(target: self, action: #selector(hideKeybord))
+    }()
+    
     // MARK: - Dependencies
 
     private let coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol
@@ -50,7 +54,7 @@ class SettingViewController: UIViewController {
         setupNavigationTools()
         setupConstraint()
         settingView.update(dataProvider: self)
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeybord)))
+        setupGesture()
         
         view.backgroundColor = .systemBlue
     }
@@ -107,6 +111,7 @@ class SettingViewController: UIViewController {
     
     @objc func hideKeybord() {
         settingView.photoCountTextField.resignFirstResponder()
+        tapGesture.isEnabled = false
     }
     
     // MARK: - Methods
@@ -121,6 +126,10 @@ class SettingViewController: UIViewController {
         coreDataService.deleteCountry(country: nil)
         coreDataService.deleteCity(city: nil)
         getData()
+    }
+    
+    private func setupGesture() {
+        view.addGestureRecognizer(tapGesture)
     }
 }
 
@@ -211,6 +220,10 @@ extension SettingViewController: UITableViewDelegate {
 // MARK: - Extensions (UITextFieldDelegate)
 
 extension SettingViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        tapGesture.isEnabled = true
+        return true
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
