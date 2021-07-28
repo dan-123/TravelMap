@@ -55,6 +55,7 @@ class SettingViewController: UIViewController {
         setupConstraint()
         settingView.update(dataProvider: self)
         setupGesture()
+        setupPhotoCount()
         
         view.backgroundColor = .systemBlue
     }
@@ -85,30 +86,6 @@ class SettingViewController: UIViewController {
     
     // MARK: - Action
     
-    @objc func tappedLabel() {
-        
-        if let photoCount: String? = userDefaultServices.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
-        print(photoCount)
-        }
-        
-        let alertConrtoller = UIAlertController(title: "Количество фото", message: "Введите количество отображаемых фото в диапазоне от 1 до 10", preferredStyle: .alert)
-        
-        alertConrtoller.addTextField()
-
-        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak alertConrtoller] _ in
-            let textField = alertConrtoller?.textFields?.first
-            guard let count = textField?.text else { return }
-            print(count)
-            self.userDefaultServices.saveData(object: count, key: Constants.UserDefaultsKey.keyForPhotoCount)
-            self.photoCount = "9"
-            self.settingView.reloadData()
-        }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        alertConrtoller.addAction(okAction)
-        alertConrtoller.addAction(cancelAction)
-        present(alertConrtoller, animated: true)
-    }
-    
     @objc func hideKeybord() {
         settingView.photoCountTextField.resignFirstResponder()
         tapGesture.isEnabled = false
@@ -116,6 +93,17 @@ class SettingViewController: UIViewController {
     
     // MARK: - Methods
 
+    private func setupPhotoCount() {
+        if let data: String = userDefaultServices.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
+            settingView.photoCountTextField.text = data
+            photoCount = data
+        } else {
+            photoCount = String(Constants.Settings.defaultCountOfPhoto)
+            settingView.photoCountTextField.text = photoCount
+            userDefaultServices.saveData(object: photoCount, key: Constants.UserDefaultsKey.keyForPhotoCount)
+        }
+    }
+    
     private func getData() {
         countryCount = coreDataService.getCountryData(predicate: nil)?.count ?? 0
         citiesCount = coreDataService.getCityData(predicate: nil)?.count ?? 0
@@ -225,16 +213,27 @@ extension SettingViewController: UITableViewDelegate {
 extension SettingViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         tapGesture.isEnabled = true
+        guard let text = textField.text else { return true }
+        photoCount = text
         return true
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        print("range.length \(range.length)")
-        print("range.location \(range.location)")
-        print("string.characters.count \(string.count)")
-        print("textField.text?.count \(textField.text?.count)")
-        
-        return false
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text,
+              let value = Int(text) else {
+            textField.text = photoCount
+            return
+        }
+        if value <= Constants.Settings.maxiNumberOfPhotos {
+            userDefaultServices.saveData(object: text, key: Constants.UserDefaultsKey.keyForPhotoCount)
+            textField.text = text
+        } else {
+            let alertConrtoller = UIAlertController(title: "Предупреждение", message: "Количество фото должно быть в  диапазоне от 1 до 20", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "ОК", style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                textField.text = self.photoCount
+            }
+            alertConrtoller.addAction(okAction)
+            present(alertConrtoller, animated: true)
+        }
     }
 }

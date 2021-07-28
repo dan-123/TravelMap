@@ -29,11 +29,6 @@ class SettingView: UIView {
         return textField
     }()
     
-    private lazy var placesCountLabel: UILabel = {
-       let label = UILabel()
-        return label
-    }()
-    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -65,14 +60,16 @@ class SettingView: UIView {
     // MARK: - Methods
     
     func getPlacesCountLabel(tableWidth: CGFloat, viewWidth: CGFloat, heigth: CGFloat, value: Int) -> UILabel {
-        placesCountLabel = UILabel(frame: .init(x: tableWidth-viewWidth, y: 0, width: viewWidth, height: heigth))
+        let labelFrame: CGRect = .init(x: tableWidth-viewWidth, y: 0, width: viewWidth, height: heigth)
+        let placesCountLabel = UILabel(frame: labelFrame)
         placesCountLabel.text = String(value)
         placesCountLabel.textAlignment = .center
         return placesCountLabel
     }
     
     func getPhotoCountTextField(tableWidth: CGFloat, viewWidth: CGFloat, heigth: CGFloat, value: String) -> UITextField {
-        photoCountTextField = UITextField(frame: .init(x: tableWidth-viewWidth, y: 0, width: viewWidth, height: heigth))
+        let textFieldFrame: CGRect = .init(x: tableWidth-viewWidth, y: 0, width: viewWidth, height: heigth)
+        photoCountTextField.frame = textFieldFrame
         photoCountTextField.layer.borderWidth = 1
         photoCountTextField.layer.cornerRadius = 8
         photoCountTextField.layer.borderColor = UIColor.systemBlue.cgColor

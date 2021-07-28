@@ -28,6 +28,7 @@ final class NetworkService {
     // MARK: Properties
     private let session: URLSession = .shared
     private let imageCacheService: ImageCacheService = .shared
+    private let userDefaults = UserDefaultsService()
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -43,6 +44,16 @@ final class NetworkService {
             throw NetworkServiceError.network
         }
         return data
+    }
+    
+    private func getPhotoCount() -> String {
+        if let count: String = userDefaults.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
+            print("из юзер")
+            return count
+        } else {
+            print("из констант")
+            return String(Constants.Image.perPage)
+        }
     }
 }
 
@@ -101,11 +112,12 @@ extension NetworkService: ImageNetworkServiceProtocol {
     
     func getCountryImageURL(country: String, completion: @escaping (Result<CountryImageModel, NetworkServiceError>) -> Void) {
         var components = URLComponents(string: Constants.Image.getCountryImageURL)
+        var photoCount = getPhotoCount()
         
         components?.queryItems = [
             URLQueryItem(name: "query", value: country),
             URLQueryItem(name: "total_results", value: Constants.Image.totalResult),
-            URLQueryItem(name: "per_page", value: String(Constants.Image.perPage))
+            URLQueryItem(name: "per_page", value: photoCount)
         ]
         
         guard let url = components?.url else {
