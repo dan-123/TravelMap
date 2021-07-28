@@ -132,9 +132,9 @@ class CoordinateLoaderServiceTests: XCTestCase {
         waitForExpectations(timeout: 10)
     }
     
-    // MARK: - Test that function returns error if received network error from the service for country
+    // MARK: - Test that function returns error if received network error from service for country
     
-    func testThatFunctionReturnsErrorIfReceivedNetworkErrorFromTheServiceForCountry() {
+    func testThatFunctionReturnsErrorIfReceivedNetworkErrorFromServiceForCountry() {
         //arrange
         let coordinateModel = CoordinateModel.init(features: [])
         
@@ -161,9 +161,9 @@ class CoordinateLoaderServiceTests: XCTestCase {
         waitForExpectations(timeout: 10)
     }
     
-    // MARK: - Test that function returns error if received network error from the service for city
+    // MARK: - Test that function returns error if received network error from service for city
     
-    func testThatFunctionReturnsErrorIfReceivedNetworkErrorFromTheServiceForCity() {
+    func testThatFunctionReturnsErrorIfReceivedNetworkErrorFromServiceForCity() {
         //arrange
         let coordinateModel = CoordinateModel.init(features: [])
         

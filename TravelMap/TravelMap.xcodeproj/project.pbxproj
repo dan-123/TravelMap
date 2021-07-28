@@ -70,6 +70,8 @@
 		C58CD7CA26B06EF200C15802 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C926B06EF200C15802 /* ImageCacheService.swift */; };
 		C58CD7CC26B07B1500C15802 /* ImageCacheServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7CB26B07B1500C15802 /* ImageCacheServiceTest.swift */; };
 		C58CD7CD26B07C7600C15802 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD7C926B06EF200C15802 /* ImageCacheService.swift */; };
+		C5EF4D8226B165EC0074EA05 /* ImageNetworkServiceClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4D8126B165EC0074EA05 /* ImageNetworkServiceClass.swift */; };
+		C5EF4D8426B167980074EA05 /* ImageLoaderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4D8326B167980074EA05 /* ImageLoaderServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,8 @@
 		C58CD7C526B0470700C15802 /* CoreDataServiceClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceClass.swift; sourceTree = "<group>"; };
 		C58CD7C926B06EF200C15802 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		C58CD7CB26B07B1500C15802 /* ImageCacheServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheServiceTest.swift; sourceTree = "<group>"; };
+		C5EF4D8126B165EC0074EA05 /* ImageNetworkServiceClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkServiceClass.swift; sourceTree = "<group>"; };
+		C5EF4D8326B167980074EA05 /* ImageLoaderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +223,7 @@
 			children = (
 				C58CD7CE26B0A3BD00C15802 /* ClassesForTests */,
 				C58CD7A626AEABF400C15802 /* CoordinateLoaderServiceTests.swift */,
+				C5EF4D8326B167980074EA05 /* ImageLoaderServiceTests.swift */,
 				C58CD7B426AF0F2400C15802 /* UserDefaultsServiceTest.swift */,
 				C58CD7CB26B07B1500C15802 /* ImageCacheServiceTest.swift */,
 				C58CD75D26A95DB000C15802 /* Info.plist */,
@@ -434,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD7C326B046CB00C15802 /* CoordinateNetworkServiceClass.swift */,
+				C5EF4D8126B165EC0074EA05 /* ImageNetworkServiceClass.swift */,
 				C58CD7C526B0470700C15802 /* CoreDataServiceClass.swift */,
 			);
 			path = ClassesForTests;
@@ -592,6 +598,7 @@
 				C58CD7C626B0470700C15802 /* CoreDataServiceClass.swift in Sources */,
 				C58CD7B826AF109E00C15802 /* UserDefaultsService.swift in Sources */,
 				C58CD7AC26AEB0F700C15802 /* CityDTO.swift in Sources */,
+				C5EF4D8426B167980074EA05 /* ImageLoaderServiceTests.swift in Sources */,
 				C58CD7AF26AEB17300C15802 /* CountryImageModel.swift in Sources */,
 				C58CD7C426B046CC00C15802 /* CoordinateNetworkServiceClass.swift in Sources */,
 				C58CD7CC26B07B1500C15802 /* ImageCacheServiceTest.swift in Sources */,
@@ -603,6 +610,7 @@
 				C58CD7AE26AEB11F00C15802 /* CoordinateModel.swift in Sources */,
 				C58CD77826A98D4900C15802 /* Country+CoreDataClass.swift in Sources */,
 				C58CD7A826AEAD3900C15802 /* CoordinateLoaderService.swift in Sources */,
+				C5EF4D8226B165EC0074EA05 /* ImageNetworkServiceClass.swift in Sources */,
 				C58CD77626A98CBD00C15802 /* TravelMap.xcdatamodeld in Sources */,
 				C58CD7A726AEABF400C15802 /* CoordinateLoaderServiceTests.swift in Sources */,
 			);

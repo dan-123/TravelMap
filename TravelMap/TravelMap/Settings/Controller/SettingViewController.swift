@@ -143,6 +143,7 @@ extension SettingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.selectionStyle = .none
         
         let tableWidth = tableView.frame.width
         let viewWidth: CGFloat = 45
@@ -166,10 +167,12 @@ extension SettingViewController: UITableViewDataSource {
             
         case .deleteData:
             cell.textLabel?.text = model[indexPath.row].description
+            cell.selectionStyle = .default
             
         case .aboutApplication:
             cell.textLabel?.text = model[indexPath.row].description
             cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
         }
         
         return cell

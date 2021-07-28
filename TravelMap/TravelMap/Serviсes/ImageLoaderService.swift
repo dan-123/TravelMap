@@ -36,6 +36,7 @@ extension ImageLoaderService: ImageLoaderServiceProtocol {
             DispatchQueue.main.async {
                 switch responce {
                 case .success(let data):
+                    print(data)
                     for image in data.photos {
                         self.imageStringURL.append(image.src.medium) 
                     }
