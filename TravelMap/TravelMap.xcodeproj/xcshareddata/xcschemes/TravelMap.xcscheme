@@ -39,6 +39,16 @@
                ReferencedContainer = "container:TravelMap.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5EF4D8826B1CD1E0074EA05"
+               BuildableName = "TravelMapUITests.xctest"
+               BlueprintName = "TravelMapUITests"
+               ReferencedContainer = "container:TravelMap.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
