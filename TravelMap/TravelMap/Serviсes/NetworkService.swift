@@ -112,12 +112,11 @@ extension NetworkService: ImageNetworkServiceProtocol {
     
     func getCountryImageURL(country: String, completion: @escaping (Result<CountryImageModel, NetworkServiceError>) -> Void) {
         var components = URLComponents(string: Constants.Image.getCountryImageURL)
-        var photoCount = getPhotoCount()
         
         components?.queryItems = [
             URLQueryItem(name: "query", value: country),
             URLQueryItem(name: "total_results", value: Constants.Image.totalResult),
-            URLQueryItem(name: "per_page", value: photoCount)
+            URLQueryItem(name: "per_page", value: getPhotoCount())
         ]
         
         guard let url = components?.url else {
