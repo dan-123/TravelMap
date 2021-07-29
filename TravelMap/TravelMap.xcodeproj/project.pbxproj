@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -75,6 +75,8 @@
 		C5EF4D9426B1E7710074EA05 /* PhotoCountUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4D9326B1E7700074EA05 /* PhotoCountUITest.swift */; };
 		C5EF4D9626B200D20074EA05 /* XCUIApplication+functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4D9526B200D20074EA05 /* XCUIApplication+functions.swift */; };
 		C5EF4D9926B201550074EA05 /* XCTestCase+functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4D9826B201550074EA05 /* XCTestCase+functions.swift */; };
+		C5EF4DD026B309310074EA05 /* TravelMapSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */; };
+		C5EF4DD926B309FD0074EA05 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = C5EF4DD826B309FD0074EA05 /* SnapshotTesting */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,13 @@
 			remoteInfo = TravelMap;
 		};
 		C5EF4D8E26B1CD1E0074EA05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C56B05ED2681BAD100057FE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56B05F42681BAD100057FE3;
+			remoteInfo = TravelMap;
+		};
+		C5EF4DD226B309310074EA05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C56B05ED2681BAD100057FE3 /* Project object */;
 			proxyType = 1;
@@ -151,6 +160,9 @@
 		C5EF4D9326B1E7700074EA05 /* PhotoCountUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCountUITest.swift; sourceTree = "<group>"; };
 		C5EF4D9526B200D20074EA05 /* XCUIApplication+functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+functions.swift"; sourceTree = "<group>"; };
 		C5EF4D9826B201550074EA05 /* XCTestCase+functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+functions.swift"; sourceTree = "<group>"; };
+		C5EF4DCD26B309310074EA05 /* TravelMapSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelMapSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapSnapshotTests.swift; sourceTree = "<group>"; };
+		C5EF4DD126B309310074EA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +184,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EF4DCA26B309310074EA05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5EF4DD926B309FD0074EA05 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +219,7 @@
 				C56B05F72681BAD100057FE3 /* TravelMap */,
 				C58CD75A26A95DB000C15802 /* TravelMapTests */,
 				C5EF4D8A26B1CD1E0074EA05 /* TravelMapUITests */,
+				C5EF4DCE26B309310074EA05 /* TravelMapSnapshotTests */,
 				C56B05F62681BAD100057FE3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -209,6 +230,7 @@
 				C56B05F52681BAD100057FE3 /* TravelMap.app */,
 				C58CD75926A95DB000C15802 /* TravelMapTests.xctest */,
 				C5EF4D8926B1CD1E0074EA05 /* TravelMapUITests.xctest */,
+				C5EF4DCD26B309310074EA05 /* TravelMapSnapshotTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -488,6 +510,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C5EF4DCE26B309310074EA05 /* TravelMapSnapshotTests */ = {
+			isa = PBXGroup;
+			children = (
+				C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */,
+				C5EF4DD126B309310074EA05 /* Info.plist */,
+			);
+			path = TravelMapSnapshotTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -544,6 +575,27 @@
 			productReference = C5EF4D8926B1CD1E0074EA05 /* TravelMapUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C5EF4DCC26B309310074EA05 /* TravelMapSnapshotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5EF4DD426B309310074EA05 /* Build configuration list for PBXNativeTarget "TravelMapSnapshotTests" */;
+			buildPhases = (
+				C5EF4DC926B309310074EA05 /* Sources */,
+				C5EF4DCA26B309310074EA05 /* Frameworks */,
+				C5EF4DCB26B309310074EA05 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5EF4DD326B309310074EA05 /* PBXTargetDependency */,
+			);
+			name = TravelMapSnapshotTests;
+			packageProductDependencies = (
+				C5EF4DD826B309FD0074EA05 /* SnapshotTesting */,
+			);
+			productName = TravelMapSnapshotTests;
+			productReference = C5EF4DCD26B309310074EA05 /* TravelMapSnapshotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -563,6 +615,10 @@
 						CreatedOnToolsVersion = 12.5.1;
 						TestTargetID = C56B05F42681BAD100057FE3;
 					};
+					C5EF4DCC26B309310074EA05 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = C56B05F42681BAD100057FE3;
+					};
 				};
 			};
 			buildConfigurationList = C56B05F02681BAD100057FE3 /* Build configuration list for PBXProject "TravelMap" */;
@@ -574,6 +630,9 @@
 				Base,
 			);
 			mainGroup = C56B05EC2681BAD100057FE3;
+			packageReferences = (
+				C5EF4DD726B309FD0074EA05 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = C56B05F62681BAD100057FE3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -581,6 +640,7 @@
 				C56B05F42681BAD100057FE3 /* TravelMap */,
 				C58CD75826A95DB000C15802 /* TravelMapTests */,
 				C5EF4D8826B1CD1E0074EA05 /* TravelMapUITests */,
+				C5EF4DCC26B309310074EA05 /* TravelMapSnapshotTests */,
 			);
 		};
 /* End PBXProject section */
@@ -603,6 +663,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C5EF4D8726B1CD1E0074EA05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EF4DCB26B309310074EA05 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -699,6 +766,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5EF4DC926B309310074EA05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5EF4DD026B309310074EA05 /* TravelMapSnapshotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -711,6 +786,11 @@
 			isa = PBXTargetDependency;
 			target = C56B05F42681BAD100057FE3 /* TravelMap */;
 			targetProxy = C5EF4D8E26B1CD1E0074EA05 /* PBXContainerItemProxy */;
+		};
+		C5EF4DD326B309310074EA05 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56B05F42681BAD100057FE3 /* TravelMap */;
+			targetProxy = C5EF4DD226B309310074EA05 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -958,6 +1038,48 @@
 			};
 			name = Release;
 		};
+		C5EF4DD526B309310074EA05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H673K7QQPB;
+				INFOPLIST_FILE = TravelMapSnapshotTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Danil-Petrov.TravelMapSnapshotTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TravelMap.app/TravelMap";
+			};
+			name = Debug;
+		};
+		C5EF4DD626B309310074EA05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H673K7QQPB;
+				INFOPLIST_FILE = TravelMapSnapshotTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Danil-Petrov.TravelMapSnapshotTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TravelMap.app/TravelMap";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -997,7 +1119,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C5EF4DD426B309310074EA05 /* Build configuration list for PBXNativeTarget "TravelMapSnapshotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5EF4DD526B309310074EA05 /* Debug */,
+				C5EF4DD626B309310074EA05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C5EF4DD726B309FD0074EA05 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C5EF4DD826B309FD0074EA05 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C5EF4DD726B309FD0074EA05 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C58CD73026A1B95E00C15802 /* TravelMap.xcdatamodeld */ = {

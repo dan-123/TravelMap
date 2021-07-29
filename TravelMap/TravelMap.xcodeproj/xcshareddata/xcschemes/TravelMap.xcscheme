@@ -49,6 +49,26 @@
                ReferencedContainer = "container:TravelMap.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5EF4DBE26B309060074EA05"
+               BuildableName = "SnapshotTests.xctest"
+               BlueprintName = "SnapshotTests"
+               ReferencedContainer = "container:TravelMap.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5EF4DCC26B309310074EA05"
+               BuildableName = "TravelMapSnapshotTests.xctest"
+               BlueprintName = "TravelMapSnapshotTests"
+               ReferencedContainer = "container:TravelMap.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
