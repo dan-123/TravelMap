@@ -77,6 +77,8 @@
 		C5EF4D9926B201550074EA05 /* XCTestCase+functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4D9826B201550074EA05 /* XCTestCase+functions.swift */; };
 		C5EF4DD026B309310074EA05 /* TravelMapSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */; };
 		C5EF4DD926B309FD0074EA05 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = C5EF4DD826B309FD0074EA05 /* SnapshotTesting */; };
+		C5EF4DDB26B3439C0074EA05 /* TableViewInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DDA26B3439B0074EA05 /* TableViewInputCell.swift */; };
+		C5EF4DDD26B3440B0074EA05 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DDC26B3440B0074EA05 /* UITableViewCell+Identifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +165,8 @@
 		C5EF4DCD26B309310074EA05 /* TravelMapSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelMapSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapSnapshotTests.swift; sourceTree = "<group>"; };
 		C5EF4DD126B309310074EA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C5EF4DDA26B3439B0074EA05 /* TableViewInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInputCell.swift; sourceTree = "<group>"; };
+		C5EF4DDC26B3440B0074EA05 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */,
+				C5EF4DDC26B3440B0074EA05 /* UITableViewCell+Identifier.swift */,
 				C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */,
 			);
 			path = Extensions;
@@ -392,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD74826A45F6600C15802 /* SettingView.swift */,
+				C5EF4DDA26B3439B0074EA05 /* TableViewInputCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -692,6 +698,7 @@
 				C58CD7BC26B0111100C15802 /* ImageLoaderService.swift in Sources */,
 				C5640E2D2690A5B900F8DB8A /* CustomAnnotation.swift in Sources */,
 				C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */,
+				C5EF4DDB26B3439C0074EA05 /* TableViewInputCell.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
 				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
 				C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */,
@@ -702,6 +709,7 @@
 				C55CE73C268E07FE00B1942C /* NetworkService.swift in Sources */,
 				C5640E2F2691A32800F8DB8A /* CustomAnnotationVew.swift in Sources */,
 				C55CE741268E0E5600B1942C /* NetworkServiceError.swift in Sources */,
+				C5EF4DDD26B3440B0074EA05 /* UITableViewCell+Identifier.swift in Sources */,
 				C58CD74226A3016300C15802 /* CityDTO.swift in Sources */,
 				C58CD71C269D9C5100C15802 /* CountryImageModel.swift in Sources */,
 				C5640EB92694762800F8DB8A /* PlacesView.swift in Sources */,

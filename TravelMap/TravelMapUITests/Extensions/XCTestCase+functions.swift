@@ -42,6 +42,7 @@ extension XCTestCase {
         choiceScreen()
         tapPhotoCountTextField()
         deleteFromPhotoCountTextField()
+        deleteFromPhotoCountTextField()
         InputIntoPhotoCountTextField(key: firstKey)
         InputIntoPhotoCountTextField(key: secondKey)
         hideKeybord()

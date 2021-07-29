@@ -30,8 +30,10 @@ class SettingViewController: UIViewController {
         return UITapGestureRecognizer(target: self, action: #selector(hideKeybord))
     }()
     
+    private var onDeselectPhotoCountTextField: (() -> Void)?
+    
     // MARK: - Dependencies
-
+    
     private let coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol
     
     // MARK: - Init
@@ -87,19 +89,17 @@ class SettingViewController: UIViewController {
     // MARK: - Action
     
     @objc func hideKeybord() {
-        settingView.photoCountTextField.resignFirstResponder()
+        onDeselectPhotoCountTextField?()
         tapGesture.isEnabled = false
     }
     
     // MARK: - Methods
-
+    
     private func setupPhotoCount() {
         if let data: String = userDefaultServices.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
-            settingView.photoCountTextField.text = data
             photoCount = data
         } else {
             photoCount = String(Constants.Settings.defaultCountOfPhoto)
-            settingView.photoCountTextField.text = photoCount
             userDefaultServices.saveData(object: photoCount, key: Constants.UserDefaultsKey.keyForPhotoCount)
         }
     }
@@ -117,7 +117,8 @@ class SettingViewController: UIViewController {
     }
     
     private func setupGesture() {
-        view.addGestureRecognizer(tapGesture)
+//        view.addGestureRecognizer(tapGesture)
+        settingView.settingTableView.addGestureRecognizer(tapGesture)
     }
 }
 
@@ -130,40 +131,45 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.selectionStyle = .none
-        
-        let tableWidth = tableView.frame.width
-        let viewWidth: CGFloat = 45
-        let heigth = cell.frame.height
-        
-        switch model[indexPath.row] {
-        case .countryCount:
-            cell.textLabel?.text = model[indexPath.row].description
-            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: countryCount)
-            cell.addSubview(label)
+        if model[indexPath.row] == .photosDisplayedCount {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableViewInputCell.reusableIdentifier, for: indexPath)
+            if let cell = cell as? TableViewInputCell {
+                cell.update(title: model[indexPath.row].description, photoCount: photoCount, delegate: self)
+                onDeselectPhotoCountTextField = { cell.resignTextField() }
+            }
+            return cell
+        } else {
             
-        case .citiesCount:
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: UITableViewCell.reusableIdentifier)
             cell.textLabel?.text = model[indexPath.row].description
-            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: citiesCount)
-            cell.addSubview(label)
             
-        case .photosDisplayedCount:
-            cell.textLabel?.text = model[indexPath.row].description
-            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: photoCount)
-            cell.addSubview(textField)
+            switch model[indexPath.row] {
+            case .countryCount, .citiesCount:
+                cell.selectionStyle = .none
+            case .deleteData, .aboutApplication:
+                cell.selectionStyle = .default
+            default:
+                break
+            }
             
-        case .deleteData:
-            cell.textLabel?.text = model[indexPath.row].description
-            cell.selectionStyle = .default
+            if model[indexPath.row] == .aboutApplication {
+                cell.accessoryType = .disclosureIndicator
+            }
             
-        case .aboutApplication:
-            cell.textLabel?.text = model[indexPath.row].description
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .default
+            var cellDescription: String?
+            
+            switch model[indexPath.row] {
+            case .countryCount:
+                cellDescription = String(countryCount)
+            case .citiesCount:
+                cellDescription = String(citiesCount)
+            default:
+                break
+            }
+            cell.detailTextLabel?.text = cellDescription
+            
+            return cell
         }
-        
-        return cell
     }
 }
 
@@ -186,7 +192,7 @@ extension SettingViewController: UITableViewDelegate {
         case .aboutApplication:
             navigationController?.pushViewController(InformationViewController(), animated: true)
         }
-
+        
     }
     
     private func showAlertController(haveData: Bool, title: String, message: String) {
@@ -235,5 +241,13 @@ extension SettingViewController: UITextFieldDelegate {
             alertConrtoller.addAction(okAction)
             present(alertConrtoller, animated: true)
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isEmpty {
+            return true
+        }
+        
+        return (textField.text?.count ?? 0) + string.count <= 2
     }
 }
