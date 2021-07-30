@@ -89,7 +89,6 @@ final class SettingViewController: UIViewController {
     // MARK: - Action
     
     @objc func hideKeybord() {
-        //        settingView.photoCountTextField.resignFirstResponder()
         onDidResigneResponder?()
         tapGesture.isEnabled = false
     }
@@ -170,42 +169,6 @@ extension SettingViewController: UITableViewDataSource {
             return cell
         }
     }
-    
-    //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //        let cell = UITableViewCell()
-    //        cell.selectionStyle = .none
-    //
-    //        let tableWidth = tableView.frame.width
-    //        let viewWidth: CGFloat = 45
-    //        let heigth = cell.frame.height
-    //
-    //        switch model[indexPath.row] {
-    //        case .countryCount:
-    //            cell.textLabel?.text = model[indexPath.row].description
-    //            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: countryCount)
-    //            cell.addSubview(label)
-    //
-    //        case .citiesCount:
-    //            cell.textLabel?.text = model[indexPath.row].description
-    //            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: citiesCount)
-    //            cell.addSubview(label)
-    //
-    //        case .photosDisplayedCount:
-    //            cell.textLabel?.text = model[indexPath.row].description
-    //            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: photoCount)
-    //            cell.addSubview(textField)
-    //
-    //        case .deleteData:
-    //            cell.textLabel?.text = model[indexPath.row].description
-    //            cell.selectionStyle = .default
-    //
-    //        case .aboutApplication:
-    //            cell.textLabel?.text = model[indexPath.row].description
-    //            cell.accessoryType = .disclosureIndicator
-    //            cell.selectionStyle = .default
-    //        }
-    //        return cell
-    //    }
 }
 
 // MARK: - Extensions (UITableViewDelegate)

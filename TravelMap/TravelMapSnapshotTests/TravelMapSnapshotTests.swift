@@ -10,9 +10,11 @@ import XCTest
 @testable import TravelMap
 
 class SnapshotTest: XCTestCase {
-
+    
+    // MARK: - Test information view controller
+    
     func testInformationViewController() throws {
         let informationViewController = InformationViewController()
-        assertSnapshot(matching: informationViewController, as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: informationViewController, as: .image(on: .iPhone8))
     }
 }
