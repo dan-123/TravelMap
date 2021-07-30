@@ -26,12 +26,14 @@ final class SettingViewController: UIViewController {
     
     private var model = SettingModel.allCases
     
+    private var onDidResigneResponder: (() -> Void)?
+    
     private lazy var tapGesture: UITapGestureRecognizer = {
         return UITapGestureRecognizer(target: self, action: #selector(hideKeybord))
     }()
     
     // MARK: - Dependencies
-
+    
     private let coreDataService: CoreDataServiceCityProtocol & CoreDataServiceCountryProtocol
     
     // MARK: - Init
@@ -87,19 +89,20 @@ final class SettingViewController: UIViewController {
     // MARK: - Action
     
     @objc func hideKeybord() {
-        settingView.photoCountTextField.resignFirstResponder()
+        //        settingView.photoCountTextField.resignFirstResponder()
+        onDidResigneResponder?()
         tapGesture.isEnabled = false
     }
     
     // MARK: - Methods
-
+    
     private func setupPhotoCount() {
         if let data: String = userDefaultServices.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
-            settingView.photoCountTextField.text = data
+            //            settingView.photoCountTextField.text = data
             photoCount = data
         } else {
             photoCount = String(Constants.Settings.defaultCountOfPhoto)
-            settingView.photoCountTextField.text = photoCount
+            //            settingView.photoCountTextField.text = photoCount
             userDefaultServices.saveData(object: photoCount, key: Constants.UserDefaultsKey.keyForPhotoCount)
         }
     }
@@ -128,42 +131,81 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.selectionStyle = .none
         
-        let tableWidth = tableView.frame.width
-        let viewWidth: CGFloat = 45
-        let heigth = cell.frame.height
-        
-        switch model[indexPath.row] {
-        case .countryCount:
+        if model[indexPath.row] == .photosDisplayedCount {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewInputCell.reusableIdentifier, for: indexPath) as? TableViewInputCell else { return UITableViewCell() }
+            cell.update(title: model[indexPath.row].description, photoCount: photoCount, delegate: self)
+            onDidResigneResponder = {
+                cell.resignTextFieldResponder()
+            }
+            return cell
+        } else {
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: UITableViewCell.reusableIdentifier)
             cell.textLabel?.text = model[indexPath.row].description
-            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: countryCount)
-            cell.addSubview(label)
             
-        case .citiesCount:
-            cell.textLabel?.text = model[indexPath.row].description
-            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: citiesCount)
-            cell.addSubview(label)
+            switch model[indexPath.row] {
+            case .countryCount, .citiesCount:
+                cell.selectionStyle = .none
+            case .deleteData, .aboutApplication:
+                cell.selectionStyle = .default
+            default:
+                break
+            }
             
-        case .photosDisplayedCount:
-            cell.textLabel?.text = model[indexPath.row].description
-            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: photoCount)
-            cell.addSubview(textField)
+            if model[indexPath.row] == .aboutApplication {
+                cell.accessoryType = .disclosureIndicator
+            }
             
-        case .deleteData:
-            cell.textLabel?.text = model[indexPath.row].description
-            cell.selectionStyle = .default
-            
-        case .aboutApplication:
-            cell.textLabel?.text = model[indexPath.row].description
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .default
+            var cellDescription: String?
+            switch model[indexPath.row] {
+            case .countryCount:
+                cellDescription = String(countryCount)
+            case .citiesCount:
+                cellDescription = String(citiesCount)
+            default:
+                break
+            }
+            cell.detailTextLabel?.text = cellDescription
+            return cell
         }
-        return cell
     }
+    
+    //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    //        let cell = UITableViewCell()
+    //        cell.selectionStyle = .none
+    //
+    //        let tableWidth = tableView.frame.width
+    //        let viewWidth: CGFloat = 45
+    //        let heigth = cell.frame.height
+    //
+    //        switch model[indexPath.row] {
+    //        case .countryCount:
+    //            cell.textLabel?.text = model[indexPath.row].description
+    //            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: countryCount)
+    //            cell.addSubview(label)
+    //
+    //        case .citiesCount:
+    //            cell.textLabel?.text = model[indexPath.row].description
+    //            let label = settingView.getPlacesCountLabel(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: citiesCount)
+    //            cell.addSubview(label)
+    //
+    //        case .photosDisplayedCount:
+    //            cell.textLabel?.text = model[indexPath.row].description
+    //            let textField = settingView.getPhotoCountTextField(tableWidth: tableWidth, viewWidth: viewWidth, heigth: heigth, value: photoCount)
+    //            cell.addSubview(textField)
+    //
+    //        case .deleteData:
+    //            cell.textLabel?.text = model[indexPath.row].description
+    //            cell.selectionStyle = .default
+    //
+    //        case .aboutApplication:
+    //            cell.textLabel?.text = model[indexPath.row].description
+    //            cell.accessoryType = .disclosureIndicator
+    //            cell.selectionStyle = .default
+    //        }
+    //        return cell
+    //    }
 }
 
 // MARK: - Extensions (UITableViewDelegate)
@@ -185,7 +227,7 @@ extension SettingViewController: UITableViewDelegate {
         case .aboutApplication:
             navigationController?.pushViewController(InformationViewController(), animated: true)
         }
-
+        
     }
     
     private func showAlertController(haveData: Bool, title: String, message: String) {
@@ -222,10 +264,11 @@ extension SettingViewController: UITextFieldDelegate {
             textField.text = photoCount
             return
         }
-
+        
         if Constants.Settings.defaultCountOfPhoto ... Constants.Settings.maxiNumberOfPhotos ~= value {
             userDefaultServices.saveData(object: text, key: Constants.UserDefaultsKey.keyForPhotoCount)
             textField.text = text
+            photoCount = text
         } else {
             let alertConrtoller = UIAlertController(title: "Предупреждение", message: "Количество фото должно быть в  диапазоне от 3 до 20", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "ОК", style: .default) { [weak self] _ in
@@ -235,5 +278,12 @@ extension SettingViewController: UITextFieldDelegate {
             alertConrtoller.addAction(okAction)
             present(alertConrtoller, animated: true)
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isEmpty {
+            return true
+        }
+        return (textField.text?.count ?? 0 ) + string.count <= 2
     }
 }

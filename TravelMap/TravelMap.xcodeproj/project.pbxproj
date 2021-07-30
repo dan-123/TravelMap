@@ -78,6 +78,8 @@
 		C5EF4DD026B309310074EA05 /* TravelMapSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */; };
 		C5EF4DD926B309FD0074EA05 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = C5EF4DD826B309FD0074EA05 /* SnapshotTesting */; };
 		C5EF4DDF26B43B7A0074EA05 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DDE26B43B7A0074EA05 /* SpinnerView.swift */; };
+		C5EF4DE126B450EB0074EA05 /* UITableViewCell+identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DE026B450EB0074EA05 /* UITableViewCell+identifier.swift */; };
+		C5EF4DE326B451080074EA05 /* TableViewInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF4DE226B451080074EA05 /* TableViewInputCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +167,8 @@
 		C5EF4DCF26B309310074EA05 /* TravelMapSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMapSnapshotTests.swift; sourceTree = "<group>"; };
 		C5EF4DD126B309310074EA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5EF4DDE26B43B7A0074EA05 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
+		C5EF4DE026B450EB0074EA05 /* UITableViewCell+identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+identifier.swift"; sourceTree = "<group>"; };
+		C5EF4DE226B451080074EA05 /* TableViewInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInputCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD74D26A48F5500C15802 /* UICollectionViewCell+Identifier.swift */,
+				C5EF4DE026B450EB0074EA05 /* UITableViewCell+identifier.swift */,
 				C58CD78D26AE997300C15802 /* UIViewController+showAlert.swift */,
 			);
 			path = Extensions;
@@ -394,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD74826A45F6600C15802 /* SettingView.swift */,
+				C5EF4DE226B451080074EA05 /* TableViewInputCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -698,6 +704,8 @@
 				C58CD73926A1BAC400C15802 /* Country+CoreDataClass.swift in Sources */,
 				C55CE73F268E09B100B1942C /* CoordinateModel.swift in Sources */,
 				C58CD73A26A1BAC400C15802 /* Country+CoreDataProperties.swift in Sources */,
+				C5EF4DE126B450EB0074EA05 /* UITableViewCell+identifier.swift in Sources */,
+				C5EF4DE326B451080074EA05 /* TableViewInputCell.swift in Sources */,
 				C58CD74626A308FE00C15802 /* City+CoreDataProperties.swift in Sources */,
 				C58CD78C26ADD51200C15802 /* CoordinateLoaderService.swift in Sources */,
 				C58CD78A26AABAD500C15802 /* InformationModel.swift in Sources */,

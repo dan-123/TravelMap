@@ -14,7 +14,7 @@ enum SettingModel: CaseIterable {
     case deleteData
     case aboutApplication
     
-    var description: String? {
+    var description: String {
         switch self {
         case .countryCount:
             return "Количество стран"
