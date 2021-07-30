@@ -15,6 +15,7 @@ class SnapshotTest: XCTestCase {
     
     func testInformationViewController() throws {
         let informationViewController = InformationViewController()
+//        isRecording = true/false
         assertSnapshot(matching: informationViewController, as: .image(on: .iPhone8))
     }
 }
