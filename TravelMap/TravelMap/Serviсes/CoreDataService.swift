@@ -34,7 +34,7 @@ protocol CoreDataSeriviceDelegate: AnyObject {
 
 // MARK: - Core data serivce
 
-class CoreDataService: NSObject {
+final class CoreDataService: NSObject {
     
     // MARK: Properties
     weak var delegate: CoreDataSeriviceDelegate?

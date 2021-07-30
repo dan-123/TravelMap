@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CountryCollectionViewCell: UICollectionViewCell {
+final class CountryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

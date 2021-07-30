@@ -13,7 +13,7 @@ enum MapMode {
     case localMode
 }
 
-class MapViewController: UIViewController {
+final class MapViewController: UIViewController {
     
     // MARK: - Properties
     

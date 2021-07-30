@@ -19,7 +19,7 @@ protocol CoordinateCityLoaderServiceProtocol {
 
 // MARK: - Coordinate loader service
 
-class CoordinateLoaderService {
+final class CoordinateLoaderService {
     
     // MARK: Properties
     let coreDataService: CoreDataServiceCountryProtocol & CoreDataServiceCityProtocol

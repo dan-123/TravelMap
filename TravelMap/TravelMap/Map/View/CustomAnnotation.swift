@@ -12,7 +12,7 @@ enum AnnotationType {
     case local
 }
 
-class CustomAnnotation: NSObject, MKAnnotation {
+final class CustomAnnotation: NSObject, MKAnnotation {
     
     // MARK: - Properties
     

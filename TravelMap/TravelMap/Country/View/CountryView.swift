@@ -8,7 +8,7 @@
 //import Foundation
 import UIKit
 
-class CountryView: UIView {
+final class CountryView: UIView {
     
     // MARK: - Properties
     

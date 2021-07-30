@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlacesViewController: UIViewController {
+final class PlacesViewController: UIViewController {
     
     // MARK: - Properties
     

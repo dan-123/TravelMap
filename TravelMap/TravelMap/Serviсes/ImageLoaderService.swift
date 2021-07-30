@@ -16,7 +16,7 @@ protocol ImageLoaderServiceProtocol {
 
 // MARK: - Image loader service
 
-class ImageLoaderService {
+final class ImageLoaderService {
     
     // MARK: Properties
     private var imageStringURL = [String]()

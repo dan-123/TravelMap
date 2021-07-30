@@ -16,7 +16,7 @@ protocol UserDefaultsServiceProtocol {
 
 // MARK: - User defaults service
 
-class UserDefaultsService {
+final class UserDefaultsService {
     
     // MARK: Properties
     private let userDefaults: UserDefaults

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CountryViewController: UIViewController {
+final class CountryViewController: UIViewController {
     
     // MARK: - Properties
     

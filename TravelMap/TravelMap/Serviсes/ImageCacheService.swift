@@ -17,7 +17,7 @@ protocol ImageCacheProtocol {
 
 // MARK: - Image cache service
 
-class ImageCacheService {
+final class ImageCacheService {
     
     // MARK: Properties
     static let shared = ImageCacheService()

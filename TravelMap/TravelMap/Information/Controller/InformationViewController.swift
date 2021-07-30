@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Properties
 
-class InformationViewController: UIViewController {
+final class InformationViewController: UIViewController {
     
     lazy var informationView: InformationView = {
         let informationView = InformationView()

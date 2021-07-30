@@ -13,7 +13,7 @@ protocol MapNavigationViewDelegate: AnyObject {
     func tappedAddButton()
 }
 
-class MapNavigationView: UIView {
+final class MapNavigationView: UIView {
     
     // MARK: - Properties
     

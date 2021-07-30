@@ -9,7 +9,7 @@ import MapKit
 
 // MARK: - Вариант аннотации с рамкой. При нажатии уменьшается до точки.
 
-class CustomAnnotationVew: MKMarkerAnnotationView {
+final class CustomAnnotationVew: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             guard let customAnnotation = newValue as? CustomAnnotation else { return }

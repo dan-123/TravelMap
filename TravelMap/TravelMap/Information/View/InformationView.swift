@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InformationView: UIView {
+final class InformationView: UIView {
     
     // MARK: - Properties
     

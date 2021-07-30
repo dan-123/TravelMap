@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SettingView: UIView {
+final class SettingView: UIView {
     
     // MARK: - Properties
     
