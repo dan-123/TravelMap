@@ -34,7 +34,7 @@
 
 ### Инфомрация
 На данном эране описаны основные функции приложения.
-https://postimg.cc/qzNF3wJB
+[![image.png](https://i.postimg.cc/bNgf4V4n/image.png)](https://postimg.cc/qzNF3wJB)
 
 ## Выполнение поставленных требований
 ### Использовать Core Data для хранения моделей данных
