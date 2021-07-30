@@ -13,9 +13,8 @@ final class CustomAnnotationVew: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             guard let customAnnotation = newValue as? CustomAnnotation else { return }
-            
+
             canShowCallout = true
-//            isHidden = true
             calloutOffset = CGPoint(x: -5, y: 5)
             
             switch customAnnotation.annotationType {

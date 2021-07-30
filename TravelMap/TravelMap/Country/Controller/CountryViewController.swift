@@ -183,7 +183,6 @@ extension CountryViewController: UICollectionViewDataSource {
         if indexPath.row < imageCountry.count {
             cell.setImage(imageCountry[indexPath.row])
         } else {
-//            cell.setImage(UIImage(systemName: "photo"))
             cell.setImage(UIImage())
         }
         

@@ -162,7 +162,6 @@ extension SettingViewController: UITableViewDataSource {
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .default
         }
-        
         return cell
     }
 }

@@ -20,8 +20,6 @@ final class TabBarController: UITabBarController {
     // MARK: - Methods
     
     private func setupControllers() {
-        
-//        let networkService = NetworkService()
         let coreDataService = CoreDataService()
         let coordinateLoaderService = CoordinateLoaderService()
         

@@ -26,7 +26,6 @@ enum SettingModel: CaseIterable {
             return "Удалить данные"
         case .aboutApplication:
             return "О приложении"
-            
         }
     }
 }

@@ -74,13 +74,11 @@ final class CoreDataService: NSObject {
         frc.delegate = self
         return frc
     }
-    
 }
 
 // MARK: - Extensions for Country
 
 //MARK: extension (CoreDataServiceCountryProtocol)
-
 extension CoreDataService: CoreDataServiceCountryProtocol {
     
     func addCountry(country: [CountryDTO]) -> Bool {
@@ -138,7 +136,6 @@ extension CoreDataService: CoreDataServiceCountryProtocol {
 }
 
 // MARK: extension (Delete all element from Country)
-
 private extension CoreDataService {
     private func deleteAllForCountry() {
         let context = coreDataStack.backgroundContext
@@ -154,7 +151,6 @@ private extension CoreDataService {
 }
 
 // MARK: extension (Fetch request for Country)
-
 private extension CoreDataService {
     private func fetchRequestForCountry(for dto: CountryDTO) -> NSFetchRequest<Country> {
         let request = NSFetchRequest<Country>(entityName: "Country")
@@ -164,7 +160,6 @@ private extension CoreDataService {
 }
 
 // MARK: extension (Init Country DTO)
-
 fileprivate extension CountryDTO {
     init(with MO: Country) {
         self.countryCode = MO.countryCode
@@ -178,7 +173,6 @@ fileprivate extension CountryDTO {
 // MARK: - Extensions for City
 
 // MARK: Extensions (CoreDataServiceCityProtocol)
-
 extension CoreDataService: CoreDataServiceCityProtocol {
     
     func addCity(city: [CityDTO]) -> Bool {
@@ -236,7 +230,6 @@ extension CoreDataService: CoreDataServiceCityProtocol {
 }
     
 // MARK: extension (Delete all element from City)
-
 private extension CoreDataService {
     private func deleteAllForCity() {
         let context = coreDataStack.backgroundContext
@@ -252,7 +245,6 @@ private extension CoreDataService {
 }
 
 // MARK: extension (Fetch request for City)
-
 private extension CoreDataService {
     private func fetchRequestForCity(for dto: CityDTO) -> NSFetchRequest<City> {
         let request = NSFetchRequest<City>(entityName: "City")
@@ -262,7 +254,6 @@ private extension CoreDataService {
 }
 
 // MARK: extension (Init City DTO)
-
 fileprivate extension CityDTO {
     init(with MO: City) {
         self.cityId = MO.cityId

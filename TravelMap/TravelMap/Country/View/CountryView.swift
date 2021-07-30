@@ -102,7 +102,6 @@ final class CountryView: UIView {
     func update(dataProvider: UITableViewDataSource & UITableViewDelegate & UICollectionViewDataSource) {
         citiesTableView.dataSource = dataProvider
         citiesTableView.delegate = dataProvider
-        photoCollectionView.dataSource = dataProvider
-        
+        photoCollectionView.dataSource = dataProvider   
     }
 }

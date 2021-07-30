@@ -16,5 +16,4 @@ struct Photo: Codable {
 
 struct Src: Codable {
     let medium: String
-//    let large2x: String
 }

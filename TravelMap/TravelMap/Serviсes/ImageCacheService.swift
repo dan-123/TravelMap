@@ -37,6 +37,4 @@ extension ImageCacheService: ImageCacheProtocol {
     func getImage(key: String) -> UIImage? {
         return imageCache.object(forKey: key as NSString)
     }
-    
-    
 }

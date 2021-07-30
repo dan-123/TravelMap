@@ -39,7 +39,6 @@ final class CustomAnnotation: NSObject, MKAnnotation {
             return UIImage(named: "globalAnnotation") ?? UIImage()
         case .local:
             return UIImage(named: "localAnnotation") ?? UIImage()
-//            return #imageLiteral(resourceName: "map")
         }
     }
     
