@@ -42,7 +42,7 @@ enum Constants {
     }
     
     enum Settings {
-        static let defaultCountOfPhoto = 5
+        static let defaultCountOfPhoto = 3
         static let maxiNumberOfPhotos = 20
     }
     

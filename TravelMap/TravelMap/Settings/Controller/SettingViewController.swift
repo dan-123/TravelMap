@@ -222,11 +222,12 @@ extension SettingViewController: UITextFieldDelegate {
             textField.text = photoCount
             return
         }
-        if value <= Constants.Settings.maxiNumberOfPhotos {
+
+        if Constants.Settings.defaultCountOfPhoto ... Constants.Settings.maxiNumberOfPhotos ~= value {
             userDefaultServices.saveData(object: text, key: Constants.UserDefaultsKey.keyForPhotoCount)
             textField.text = text
         } else {
-            let alertConrtoller = UIAlertController(title: "Предупреждение", message: "Количество фото должно быть в  диапазоне от 1 до 20", preferredStyle: .alert)
+            let alertConrtoller = UIAlertController(title: "Предупреждение", message: "Количество фото должно быть в  диапазоне от 3 до 20", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "ОК", style: .default) { [weak self] _ in
                 guard let self = self else { return }
                 textField.text = self.photoCount

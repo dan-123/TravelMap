@@ -13,7 +13,6 @@ final class CountryView: UIView {
     
     lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
-//        flowLayout.itemSize = .init(width: 300, height: 300)
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 20
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
