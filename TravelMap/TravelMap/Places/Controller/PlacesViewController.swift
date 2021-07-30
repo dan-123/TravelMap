@@ -11,13 +11,6 @@ class PlacesViewController: UIViewController {
     
     // MARK: - Properties
     
-    //переделать
-    lazy var coreDataService: CoreDataService = {
-        let coreDataService = CoreDataService()
-        coreDataService.delegate = self
-        return coreDataService
-    }()
-    
     lazy var placesTableView: PlacesView = {
         let tableView = PlacesView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,12 +20,16 @@ class PlacesViewController: UIViewController {
     // MARK: - Dependencies
     
     private let coordinateLoaderService: CoordinateCountryLoaderServiceProtocol
+    private let coreDataService: CoreDataService
     
     // MARK: - Init
     
-    init(coordinateLoaderService: CoordinateCountryLoaderServiceProtocol) {
+    init(coordinateLoaderService: CoordinateCountryLoaderServiceProtocol,
+         coreDataService: CoreDataService) {
         self.coordinateLoaderService = coordinateLoaderService
+        self.coreDataService = coreDataService
         super.init(nibName: nil, bundle: nil)
+        self.coreDataService.delegate = self
     }
     
     required init?(coder: NSCoder) {

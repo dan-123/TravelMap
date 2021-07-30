@@ -48,10 +48,8 @@ final class NetworkService {
     
     private func getPhotoCount() -> String {
         if let count: String = userDefaults.getData(key: Constants.UserDefaultsKey.keyForPhotoCount) {
-            print("из юзер")
             return count
         } else {
-            print("из констант")
             return String(Constants.Image.perPage)
         }
     }

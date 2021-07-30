@@ -18,8 +18,9 @@ class CountryViewController: UIViewController {
         return countryView
     }()
     
-    let imageLoaderService: ImageLoaderServiceProtocol
-    let coordinateLoaderService: CoordinateCityLoaderServiceProtocol
+    private let country: String
+    private let countryCode: String
+    private var imageCountry = [UIImage]()
     
     //переделать
     lazy var coreDataService: CoreDataService = {
@@ -28,9 +29,10 @@ class CountryViewController: UIViewController {
         return coreDataService
     }()
     
-    private let country: String
-    private let countryCode: String
-    private var imageCountry = [UIImage]()
+    // MARK: - Dependencies
+    
+    let imageLoaderService: ImageLoaderServiceProtocol
+    let coordinateLoaderService: CoordinateCityLoaderServiceProtocol
     
     // MARK: - Init
 
