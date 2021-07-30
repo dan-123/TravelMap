@@ -23,7 +23,6 @@ final class CustomAnnotation: NSObject, MKAnnotation {
     let placeId: String?
     let annotationType: AnnotationType
     
-    // свойство для первого варианта из CustomAnnotationVew
     var annotationTintColor: UIColor   {
         switch annotationType {
         case .global:

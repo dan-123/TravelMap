@@ -29,21 +29,3 @@ final class CustomAnnotationVew: MKMarkerAnnotationView {
         }
     }
 }
-
-// MARK: - Вариант аннотации без рамки. Статичная.
-
-//class CustomAnnotationVew: MKAnnotationView {
-//  override var annotation: MKAnnotation? {
-//    willSet {
-//      guard let customAnnotation = newValue as? CustomAnnotation else {
-//        return
-//      }
-//
-//      canShowCallout = true
-//      calloutOffset = CGPoint(x: -5, y: 5)
-//      rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-//
-//      image = customAnnotation.image
-//    }
-//  }
-//}
