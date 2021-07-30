@@ -22,29 +22,33 @@ final class CountryViewController: UIViewController {
     private let countryCode: String
     private var imageCountry = [UIImage]()
     
-    //переделать
-    lazy var coreDataService: CoreDataService = {
-        let coreDataService = CoreDataService()
-        coreDataService.delegate = self
-        return coreDataService
-    }()
+//    //переделать
+//    lazy var coreDataService: CoreDataService = {
+//        let coreDataService = CoreDataService()
+//        coreDataService.delegate = self
+//        return coreDataService
+//    }()
     
     // MARK: - Dependencies
     
     let imageLoaderService: ImageLoaderServiceProtocol
     let coordinateLoaderService: CoordinateCityLoaderServiceProtocol
+    let coreDataService: CoreDataService
     
     // MARK: - Init
 
     init(imageLoaderService: ImageLoaderServiceProtocol = ImageLoaderService(),
          coordinateLoaderService: CoordinateCityLoaderServiceProtocol = CoordinateLoaderService(),
+         coreDataService: CoreDataService = CoreDataService(),
          countryCode: String,
          country: String) {
         self.imageLoaderService = imageLoaderService
         self.coordinateLoaderService = coordinateLoaderService
+        self.coreDataService = coreDataService
         self.countryCode = countryCode
         self.country = country
         super.init(nibName: nil, bundle: nil)
+        self.coreDataService.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -87,6 +91,13 @@ final class CountryViewController: UIViewController {
     }
     
     private func setupConstraint() {
+        NSLayoutConstraint.activate([
+            countryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            countryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            countryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            countryView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+        ])
+        
         NSLayoutConstraint.activate([
             countryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             countryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
@@ -141,8 +152,10 @@ final class CountryViewController: UIViewController {
     }
     
     private func loadCountryImage(country: String) {
+        countryView.spinnerView.startSpinner()
         imageLoaderService.loadImage(country: country) { [weak self] result in
             guard let self = self else { return }
+            self.countryView.spinnerView.stopSpinner()
             switch result {
             case .success(let data):
                 self.imageCountry = data
@@ -188,10 +201,13 @@ extension CountryViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.bounds.height, height: collectionView.bounds.height)
-//    }
+}
+// MARK: - Extensions (UICollectionViewDelegateFlowLayout)
+
+extension CountryViewController: UICollectionViewDelegateFlowLayout {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: collectionView.bounds.height, height: collectionView.bounds.height)
+        }
 }
 
 // MARK: - Extensions (UITableViewDataSource)

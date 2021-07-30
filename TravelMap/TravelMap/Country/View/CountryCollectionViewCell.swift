@@ -25,8 +25,6 @@ final class CountryCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        clipsToBounds = true
-//        autoresizesSubviews = true
         
         setupElement()
         setupConstraint()

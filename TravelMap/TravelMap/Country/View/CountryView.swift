@@ -5,7 +5,6 @@
 //  Created by Даниил Петров on 08.07.2021.
 //
 
-//import Foundation
 import UIKit
 
 final class CountryView: UIView {
@@ -14,7 +13,7 @@ final class CountryView: UIView {
     
     lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = .init(width: 300, height: 300)
+//        flowLayout.itemSize = .init(width: 300, height: 300)
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 20
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -47,6 +46,12 @@ final class CountryView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    lazy var spinnerView: SpinnerView = {
+        let spinnerView = SpinnerView()
+        spinnerView.translatesAutoresizingMaskIntoConstraints = false
+        return spinnerView
+    }()
 
     
     // MARK: - Init
@@ -68,6 +73,7 @@ final class CountryView: UIView {
         addSubview(photoCollectionView)
         addSubview(citiesLabel)
         addSubview(citiesTableView)
+        addSubview(spinnerView)
     }
     
     private func setupConstraint() {
@@ -87,6 +93,11 @@ final class CountryView: UIView {
             citiesTableView.topAnchor.constraint(equalTo: citiesLabel.bottomAnchor, constant: 24),
             citiesTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
+        
+        NSLayoutConstraint.activate([
+            spinnerView.centerXAnchor.constraint(equalTo: photoCollectionView.centerXAnchor),
+            spinnerView.centerYAnchor.constraint(equalTo: photoCollectionView.centerYAnchor)
+        ])
     }
     
     // MARK: - Methods
@@ -99,9 +110,10 @@ final class CountryView: UIView {
         citiesTableView.reloadData()
     }
     
-    func update(dataProvider: UITableViewDataSource & UITableViewDelegate & UICollectionViewDataSource) {
+    func update(dataProvider: UITableViewDataSource & UITableViewDelegate & UICollectionViewDataSource & UICollectionViewDelegateFlowLayout) {
         citiesTableView.dataSource = dataProvider
         citiesTableView.delegate = dataProvider
-        photoCollectionView.dataSource = dataProvider   
+        photoCollectionView.dataSource = dataProvider
+        photoCollectionView.delegate = dataProvider
     }
 }
