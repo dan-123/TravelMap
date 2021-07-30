@@ -42,10 +42,10 @@ final class CountryCollectionViewCell: UICollectionViewCell {
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            countryImage.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            countryImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            countryImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            countryImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+            countryImage.topAnchor.constraint(equalTo: topAnchor),
+            countryImage.leadingAnchor.constraint(equalTo: leadingAnchor),
+            countryImage.trailingAnchor.constraint(equalTo: trailingAnchor),
+            countryImage.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     

@@ -42,10 +42,10 @@ final class PlacesView: UIView {
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            placesTableView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            placesTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            placesTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            placesTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+            placesTableView.topAnchor.constraint(equalTo: topAnchor),
+            placesTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            placesTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            placesTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     

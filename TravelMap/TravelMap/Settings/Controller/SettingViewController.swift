@@ -77,10 +77,10 @@ final class SettingViewController: UIViewController {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            settingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            settingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            settingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            settingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     

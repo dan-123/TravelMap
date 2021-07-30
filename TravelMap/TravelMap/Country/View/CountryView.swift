@@ -77,20 +77,20 @@ final class CountryView: UIView {
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            photoCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            photoCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             photoCollectionView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -50),
             
-            citiesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            citiesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            citiesLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            citiesLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             citiesLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             citiesLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            citiesTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            citiesTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            citiesTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            citiesTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             citiesTableView.topAnchor.constraint(equalTo: citiesLabel.bottomAnchor, constant: 24),
-            citiesTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+            citiesTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([

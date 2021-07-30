@@ -70,10 +70,10 @@ final class PlacesViewController: UIViewController {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            placesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            placesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            placesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            placesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            placesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            placesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            placesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            placesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     

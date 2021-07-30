@@ -61,10 +61,10 @@ final class InformationView: UIView {
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             scrollView.widthAnchor.constraint(equalTo: widthAnchor)
         ])
         
@@ -72,10 +72,10 @@ final class InformationView: UIView {
         heightConstraint.priority = .defaultLow
         
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 0),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             heightConstraint
         ])
@@ -83,15 +83,15 @@ final class InformationView: UIView {
         NSLayoutConstraint.activate([
             appImageView.widthAnchor.constraint(equalTo: appImageView.heightAnchor),
             appImageView.heightAnchor.constraint(equalToConstant: 100),
-            appImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            appImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             appImageView.centerXAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
             informationLabel.topAnchor.constraint(equalTo: appImageView.layoutMarginsGuide.bottomAnchor, constant: 8),
-            informationLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: 0),
-            informationLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: 0),
-            informationLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: 0)
+            informationLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            informationLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            informationLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
     
